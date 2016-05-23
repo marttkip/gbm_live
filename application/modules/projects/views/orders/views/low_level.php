@@ -37,15 +37,15 @@
 		'
 		<div class="row">
 			<div class="col-md-12">
-				<table class="example table-autosort:0 table-stripeclass:alternate table table-hover table-bordered " id="TABLE_2">
+				<table class="table-stripeclass:alternate table table-hover table-bordered">
 				  <thead>
 					<tr>
 					  <th >#</th>
-					  <th class="table-sortable:default table-sortable" title="Click to sort">Date Created</th>
-					  <th class="table-sortable:default table-sortable" title="Click to sort">Order Number</th>
+					  <th>Date Created</th>
+					  <th>Order Number</th>
 					  <th>Order Instructions</th>
 					   <th>Created By</th>
-					  <th class="table-sortable:default table-sortable" title="Click to sort">Status</th>
+					  <th>Status</th>
 					  <th colspan="5">Actions</th>
 					</tr>
 				  </thead>
@@ -212,9 +212,7 @@ $created_by = '-';
 									<td>'.$created_by.'</td>
 									<td>'.$status_id_name.'</td>
 									<td><a href="'.site_url().'tree-planting/order-items/'.$project_id.'/'.$nursery_id.'/'.$ctn_id.'/'.$order_id.'" class="btn btn-success  btn-sm fa fa-arrow-right"> Order Items</a></td>
-
-
-									
+									<td><a href="'.site_url().'tree-planting/print-order-items/'.$project_id.'/'.$nursery_id.'/'.$ctn_id.'/'.$order_id.'" class="btn btn-warning  btn-sm fa fa-print" target="_blank"> Print</a></td>
 								</tr> 
 							';
 							$v_data['order_id'] = $order_id;

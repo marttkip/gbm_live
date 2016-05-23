@@ -134,14 +134,22 @@ class Planting_sites_model extends CI_Model
 	* 	@param string $where
 	*
 	*/
-	public function get_all_site_activities($table, $where, $per_page, $page, $order = 'site_name', $order_method = 'ASC')
+	public function get_all_site_activities($table, $where, $per_page = NULL, $page = NULL, $order = 'cpm_name', $order_method = 'ASC')
 	{
 		//retrieve all users
 		$this->db->from($table);
 		$this->db->select('*');
 		$this->db->where($where);
 		$this->db->order_by($order, $order_method);
-		$query = $this->db->get('', $per_page, $page);
+		if($per_page != NULL)
+		{
+			$query = $this->db->get('', $per_page, $page);
+		}
+		
+		else
+		{
+			$query = $this->db->get();
+		}
 		
 		return $query;
 	}

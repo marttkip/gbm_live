@@ -158,8 +158,6 @@ class Seedling_production extends admin {
 
 	public function tally_sheet($seedling_production_id , $project_id)
 	{
-
-			
 		$where = 'seedling_production_id = '.$seedling_production_id;
 		$table = 'nursery_tally';
 	

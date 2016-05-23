@@ -6,7 +6,7 @@
     <header class="panel-heading">
          <h2 class="panel-title pull-left"><?php echo $title;?></h2>
          <div class="widget-icons pull-right">
-         		<a  class="btn btn-sm btn-warning pull-right" href="<?php echo site_url();?>tree-planting/ctn-detail/<?php echo $project_id;?>" style="margin-left:5px;"><i class="fa fa-arrow-left"></i> Back to CTN Detail </a>
+         		<a  class="btn btn-sm btn-info pull-right" href="<?php echo site_url();?>tree-planting/ctn-detail/<?php echo $project_id;?>" style="margin-left:5px;"><i class="fa fa-arrow-left"></i> Back to CTN Detail </a>
             	<a  class="btn btn-sm btn-success pull-right" id="open_new_community_group_member" onclick="get_new_community_group_member();"  >Add order</a>
             	<a  class="btn btn-sm btn-warning pull-right" id="close_new_community_group_member" style="display:none;" onclick="close_new_community_group_member();">Close new order</a>
           </div>

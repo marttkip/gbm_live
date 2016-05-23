@@ -139,7 +139,7 @@
 						<td>'.$modified_by.'</td>
 						<td>'.$status.'</td>
 						<td>'.$button.'</td>
-						<td><a href="'.site_url().'gbm-administration/print-nursery/'.$seedling_production_id.'/'.$nursery_tally_id.'" class="btn btn-sm btn-warning" onclick="return confirm(\'Do you really want to print'.$monthName.'?\');" title="Print '.$monthName.'" target ="_blank"><i class="fa fa-print"></i></a></td>
+						<td><a href="'.site_url().'gbm-administration/print-nursery/'.$seedling_production_id.'/'.$nursery_tally_id.'" class="btn btn-sm btn-warning" title="Print '.$monthName.'" target ="_blank"><i class="fa fa-print"></i></a></td>
 
 						<td><a href="'.site_url().'gbm-administration/delete-county/'.$nursery_tally_id.'" class="btn btn-sm btn-danger" onclick="return confirm(\'Do you really want to delete '.$monthName.'?\');" title="Delete '.$monthName.'"><i class="fa fa-trash"></i></a></td>
 						

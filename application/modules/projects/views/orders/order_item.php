@@ -289,38 +289,38 @@ else if($order_approval_status == 2 || $order_approval_status == 3)
 					if($order_approval_status == 0)
 					{
 						?>
-							<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onclick="return confirm('Do you want to send order for next approval?');">Send Order for approval</a>
+							<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onClick="return confirm('Do you want to send order for next approval?');">Send Order for approval</a>
 						<?php
 					}
 
 					else if($order_approval_status == 1 AND $check_level_approval == TRUE )
 					{
 						?>
-							<a class="btn btn-warning btn-sm" href="<?php echo base_url();?>inventory/send-for-correction/<?php echo $order_id;?>" onclick="return confirm('Do you want to send order for review / correction?');">Send order for correction</a>
-		            		<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onclick="return confirm('Do you want to send order for next approval?');">Send Order for next approval</a>
+							<a class="btn btn-warning btn-sm" href="<?php echo base_url();?>inventory/send-for-correction/<?php echo $order_id;?>" onClick="return confirm('Do you want to send order for review / correction?');">Send order for correction</a>
+		            		<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onClick="return confirm('Do you want to send order for next approval?');">Send Order for next approval</a>
 						<?php
 					}
 					else if($order_approval_status == 2 AND $check_level_approval == TRUE )
 					{
 						?>
-							<a class="btn btn-warning btn-sm" href="<?php echo base_url();?>inventory/send-for-correction/<?php echo $order_id;?>" onclick="return confirm('Do you want to send order for review / correction?');">Send order for correction</a>
-		            		<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onclick="return confirm('Do you want to send order for next approval?');">Send Order for approval</a>
+							<a class="btn btn-warning btn-sm" href="<?php echo base_url();?>inventory/send-for-correction/<?php echo $order_id;?>" onClick="return confirm('Do you want to send order for review / correction?');">Send order for correction</a>
+		            		<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onClick="return confirm('Do you want to send order for next approval?');">Send Order for approval</a>
 						<?php
 					}
 					
 					else if(($order_approval_status == 3 AND $check_level_approval == TRUE ))
 					{
 						?>
-							<a class="btn btn-warning btn-sm" href="<?php echo base_url();?>inventory/send-for-correction/<?php echo $order_id;?>" onclick="return confirm('Do you want to send order for review / correction?');">Send order for correction</a>
-		            		<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onclick="return confirm('Do you want to send order for next approval?');">Send Order for approval</a>
+							<a class="btn btn-warning btn-sm" href="<?php echo base_url();?>inventory/send-for-correction/<?php echo $order_id;?>" onClick="return confirm('Do you want to send order for review / correction?');">Send order for correction</a>
+		            		<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onClick="return confirm('Do you want to send order for next approval?');">Send Order for approval</a>
 						<?php
 					}
 					else if($order_approval_status == 4 AND $check_level_approval == TRUE )
 					{
 						?>
-							<a class="btn btn-warning btn-sm fa fa-print" href="<?php echo base_url();?>inventory/print-supplier-quotation/<?php echo $order_id;?>" onclick="return confirm('Do you want to print supplier qoutation?');"> Print Supplier Qoutation</a>
-							<a class="btn btn-primary btn-sm fa fa-print" href="<?php echo base_url();?>inventory/generate-lpo/<?php echo $order_id;?>" onclick="return confirm('Do you want to view the LPO?');"> View LPO </a>
-		            		<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onclick="return confirm('Do you want to send order for next approval?');">Send Order for approval</a>
+							<a class="btn btn-warning btn-sm fa fa-print" href="<?php echo base_url();?>inventory/print-supplier-quotation/<?php echo $order_id;?>" onClick="return confirm('Do you want to print supplier qoutation?');"> Print Supplier Qoutation</a>
+							<a class="btn btn-primary btn-sm fa fa-print" href="<?php echo base_url();?>inventory/generate-lpo/<?php echo $order_id;?>" onClick="return confirm('Do you want to view the LPO?');"> View LPO </a>
+		            		<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onClick="return confirm('Do you want to send order for next approval?');">Send Order for approval</a>
 						<?php
 					}
 					else if($order_approval_status == 5 AND $check_level_approval == TRUE )
@@ -328,7 +328,7 @@ else if($order_approval_status == 2 || $order_approval_status == 3)
 						?>
 							<a class="btn btn-warning btn-sm fa fa-print" href="<?php echo base_url();?>inventory/generate-lpo/<?php echo $order_id;?>" target="_blank"> View Qoutation </a>
 							<a class="btn btn-primary btn-sm fa fa-print" href="<?php echo base_url();?>inventory/generate-lpo/<?php echo $order_id;?>" target="_blank"> View LPO </a>
-		            		<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onclick="return confirm('Do you want to approve the LPO?');">Approve LPO</a>
+		            		<a class="btn btn-success btn-sm" href="<?php echo base_url();?>inventory/send-for-approval/<?php echo $order_id;?>/<?php echo $next_order_status;?>" onClick="return confirm('Do you want to approve the LPO?');">Approve LPO</a>
 						<?php
 					}
 					else if($order_approval_status == 6 AND $check_level_approval == TRUE )

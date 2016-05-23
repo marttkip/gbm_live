@@ -84,7 +84,7 @@
 	<header class="panel-heading">
 		<h2 class="panel-title"><?php echo $title;?> </h2>
 		<?php echo $link;?>
-		<a href="<?php echo site_url();?>meeting/print-attendees/<?php echo $project_id;?>/<?php echo $cp_id?>" class="btn btn-sm btn-warning pull-right" style="margin-right:5px;margin-top:-25px;" target="_blank" >Print Trainees</a>
+		<a href="<?php echo site_url();?>print-activity-participants/<?php echo $project_id;?>/<?php echo $cp_id?>" class="btn btn-sm btn-warning pull-right" style="margin-right:5px;margin-top:-25px;" target="_blank" >Print Trainees</a>
 		<a  class="btn btn-sm btn-success pull-right" id="open_new_community_group_member" onclick="get_new_community_group_member();" style="margin-right:5px;margin-top:-25px;">Add Casual Laborer </a>
         
 		<a  class="btn btn-sm btn-warning pull-right" id="close_new_community_group_member" onclick="close_new_community_group_member();" style="display:none;margin-right:5px;margin-top:-25px;">Close casual</a>

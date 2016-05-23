@@ -9,17 +9,17 @@ $result = '<div class="padd">';
 		'
 		<div class="row">
 			<div class="col-md-12">
-				<table class="example table-autosort:0 table-stripeclass:alternate table table-hover table-bordered " id="TABLE_2">
+				<table class="table table-hover table-bordered ">
 				  <thead>
 					<tr>
 					  <th >#</th>
-					  <th class="table-sortable:default table-sortable" title="Click to sort">Date Given</th>
-					  <th class="table-sortable:default table-sortable" title="Click to sort">Staff Received</th>
-					  <th class="table-sortable:default table-sortable" title="Click to sort">Total Trees</th>
-					  <th class="table-sortable:default table-sortable" title="Click to sort">Fruit Trees</th>
-					  <th class="table-sortable:default table-sortable" title="Click to sort">Indigenous Trees</th>
-					   <th class="table-sortable:default table-sortable" title="Click to sort">Exotic Trees</th>
-					  <th class="table-sortable:default table-sortable" title="Click to sort">Date Created</th>
+					  <th>Date Given</th>
+					  <th>Staff Received</th>
+					  <th>Total Trees</th>
+					  <th>Fruit Trees</th>
+					  <th>Indigenous Trees</th>
+					   <th>Exotic Trees</th>
+					  <th>Date Created</th>
 					  <th colspan="3">Actions</th>
 					</tr>
 				  </thead>
@@ -85,7 +85,7 @@ $result = '<div class="padd">';
 								<td>'.$indegenous_trees.'</td>
 								<td>'.$exotic_trees.'</td>
 								<td>'.date('jS M Y',strtotime($created)).'</td>								
-								<td><a href="#" class="btn btn-warning  btn-sm fa fa-print"></a></td>
+								<td><a href="'.site_url().'tree-planting/print-receivable/'.$receivable_id.'" class="btn btn-warning  btn-sm fa fa-print" target="_blank"></a></td>
 								<td><a href="#" class="btn btn-danger  btn-sm fa fa-trash"></a></td>
 								
 							</tr> 
@@ -114,7 +114,7 @@ $result = '<div class="padd">';
 	        <div class="widget-icons pull-right">
             		<a  class="btn btn-sm btn-primary" id="open_new_community_group_member" onclick="get_new_community_group_member();"  >Add receivable</a>
             		<a  class="btn btn-sm btn-danger" id="close_new_community_group_member" style="display:none;" onclick="close_new_community_group_member();">Close new receivable</a>
-	        		<a href="<?php echo site_url();?>tree-planting/ctn-detail/<?php echo $project_id?>" class="btn btn-warning btn-sm " > <i class="fa fa-print"></i> GENERATE FORM 9</a>
+	        		<a href="<?php echo site_url();?>tree-planting/generate-form9/<?php echo $project_id?>/<?php echo $nursery_id?>/<?php echo $ctn_id?>" class="btn btn-warning btn-sm " target="_blank"> <i class="fa fa-print"></i> Generate Form 9</a>
 	            	<a href="<?php echo base_url();?>tree-planting/ctn-detail/<?php echo $project_id;?>" class="btn btn-success btn-sm "><i class="fa fa-arrow-left"></i> Back to CTN Details</a>
 
 	            	

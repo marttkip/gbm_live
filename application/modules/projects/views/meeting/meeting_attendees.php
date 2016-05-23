@@ -87,25 +87,6 @@ $result .=
 ?>
 <!DOCTYPE html>
 <html lang="en">
-	<style type="text/css">
-		.receipt_spacing{letter-spacing:0px; font-size: 12px;}
-		.center-align{margin:0 auto; text-align:center;}
-		
-		.receipt_bottom_border{border-bottom: #888888 medium solid;}
-		.row .col-md-12 table {
-			border:solid #000 !important;
-			border-width:1px 0 0 1px !important;
-			font-size:10px;
-		}
-		.row .col-md-12 th, .row .col-md-12 td {
-			border:solid #000 !important;
-			border-width:0 1px 1px 0 !important;
-		}
-		
-		.row .col-md-12 .title-item{float:left;width: 130px; font-weight:bold; text-align:right; padding-right: 20px;}
-		.title-img{float:left; padding-left:30px;}
-		img.logo{max-height:70px; margin:0 auto;}
-	</style>
     <head>
         <title>Attendees</title>
         <!-- For mobile content -->
@@ -115,81 +96,83 @@ $result .=
         <!-- Bootstrap -->
         <link rel="stylesheet" href="<?php echo base_url()."assets/themes/porto-admin/1.4.1/";?>assets/vendor/bootstrap/css/bootstrap.css" />
         <link rel="stylesheet" href="<?php echo base_url()."assets/themes/porto-admin/1.4.1/";?>assets/stylesheets/theme-custom.css">
+		<style type="text/css">
+            .receipt_spacing{letter-spacing:0px; font-size: 12px;}
+            .center-align{margin:0 auto; text-align:center;}
+            
+            .receipt_bottom_border{border-bottom: #888888 medium solid; margin-bottom:20px;}
+            .row .col-md-12 table {
+                border:solid #000 !important;
+                border-width:1px 0 0 1px !important;
+                font-size:10px;
+            }
+            .row .col-md-12 th, .row .col-md-12 td {
+                border:solid #000 !important;
+                border-width:0 1px 1px 0 !important;
+            }
+            
+            .row .col-md-12 .title-item{float:left;width: 130px; font-weight:bold; text-align:right; padding-right: 20px;}
+            .title-img{float:left; padding-left:30px;}
+            img.logo{max-height:70px; margin:0 auto;}
+            .align-right{text-align: right !important;}
+            .align-left{text-align: left !important;}
+            .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{border-top:none;}
+			td.bottom-border{border-bottom:1px solid #d8d8d8; width:70%;}
+        </style>
     </head>
-    <body class="receipt_spacing">
-    <div class="row" >
-        	<img src="<?php echo base_url().'assets/logo/'.$branch_image_name;?>" alt="<?php echo $branch_name;?>" class="img-responsive logo"/>
-        	<div class="col-md-12 center-align receipt_bottom_border">
-            	<strong>
-                	<?php echo $branch_name;?><br/>
-                    <?php echo $branch_address;?> <?php echo $branch_post_code;?> <?php echo $branch_city;?><br/>
-                    E-mail: <?php echo $branch_email;?>. Tel : <?php echo $branch_phone;?><br/>
-                    <?php echo $branch_location;?><br/>
-                </strong>
-            </div>
-    </div>
-    <div class="col-md-12 center-align">
-    <strong>GREENBELT MOVEMENT FIELD MEETING PARTICIPANTS FORM</strong>
-    </div> 
-    
-        <div class="col-md-6">
-        	<div class="row" >
-            	<div class="col-md-12">
-                	<strong>
-                        Grant Name: <?php echo $project_donor;?>
-                    </strong>
-                </div>
-            </div>
-            <div class="row" >
-            	<div class="col-md-12">
-                	<strong>
-                       Activity Title: <?php echo $activity_title;?>
-                    </strong>
-                </div>
-            </div>
-            <div class="row" >
-            	<div class="col-md-12">
-                	<strong>
-                        Grant County: <?php echo $county_name;?>
-                    </strong>
-                </div>
-            </div>
+    <body class="receipt_spacing" onLoad="window.print();return false;">
+    	<div class="col-md-12 center-align receipt_bottom_border">
+    		<table class="table table-condensed">
+                <tr>
+                    <th>FIELD MEETING PARTICIPANTS FORM</th>
+                    <th class="align-right">
+						<?php echo $branch_name;?><br/>
+                        <?php echo $branch_address;?> <?php echo $branch_post_code;?> <?php echo $branch_city;?><br/>
+                        E-mail: <?php echo $branch_email;?><br/>
+                        Tel : <?php echo $branch_phone;?><br/>
+                        <?php echo $branch_location;?>
+                    </th>
+                    <th>
+                        <img src="<?php echo base_url().'assets/logo/'.$branch_image_name;?>" alt="<?php echo $branch_name;?>" class="img-responsive logo"/>
+                    </th>
+                </tr>
+            </table>
         </div>
-        <div class="col-md-6">
-          	<div class="row" >
-            	<div class="col-md-6">
-                	<strong>
-                        Meeting Start Date: <?php echo date('jS M Y',strtotime(date($meeting_start_date)));?>
-                    </strong>
-                    <br/>
-                    <strong>
-                        Meeting End Date: <?php echo date('jS M Y',strtotime(date($meeting_end_date)));?>
-                    </strong>
-                </div>
-            </div>
+        
+    	<div class="col-md-12 receipt_bottom_border">
+    		<table class="table table-condensed">
+                <tr>
+                    <td class="align-left">
+                        <strong>Grant Name: </strong> <?php echo $project_donor;?><br>
+                        <strong>Activity Title: </strong> <?php echo $activity_title;?><br>
+                        <strong>Grant County: </strong> <?php echo $county_name;?><br>
+                    </td>
+                    <td class="align-right">
+                        <strong>Meeting Start Date: </strong> <?php echo date('jS M Y',strtotime(date($meeting_start_date)));?><br>
+                        <strong>Meeting End Date: </strong> <?php echo date('jS M Y',strtotime(date($meeting_end_date)));?><br>
+					</td>
+                </tr>
+        	</table>
         </div>
-        <div class="row" >
-            <div class="col-md-12">
-                <?php echo $result;?>
-            </div>
+       	<div class="col-md-12 receipt_bottom_border">
+			<?php echo $result;?>
         </div>
-		<div class="row" >
-        	<div class="col-md-12 pull-left">
-            	<strong>
-                    Staff Recipient's name:
-                </strong>
-            </div>
+        
+        <div class="col-md-12">
+        	<table class="table table-condensed">
+            	<tr>
+                	<th class="align-right">Staff Recipient's name</th>
+                    <td class="bottom-border"></td>
+                </tr>
+            	<tr>
+                	<th class="align-right">Date</th>
+                    <td class="bottom-border"></td>
+                </tr>
+            	<tr>
+                	<th class="align-right">Signature</th>
+                    <td class="bottom-border"></td>
+                </tr>
+            </table>
         </div>
-        <div class="row" >
-        	<div class="col-md-6 pull-left">
-            	<strong>Date:
-                </strong>
-             </div>
-             <div class="col-md-6 pull-left">
-            	<strong>Signature:
-                </strong>
-             </div>
-       </div>
-
     </body>
 </html>

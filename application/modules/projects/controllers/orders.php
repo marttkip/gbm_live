@@ -217,6 +217,87 @@ class Orders extends admin
 
 		$this->load->view('admin/templates/general_page', $data);
     }
+    
+
+    public function print_order_item($project_id,$nursery_id,$ctn_id,$order_id)
+    {
+		$v_data['title'] = 'Add Order Item ';
+		$v_data['order_status_query'] = $this->orders_model->get_order_status();
+		$v_data['order_details'] = $this->orders_model->get_order($order_id);
+		$v_data['order_id'] = $order_id;
+
+		$v_data['order_item_query'] = $this->orders_model->get_order_items($order_id);
+
+		$seedling_type_order = 'seedling_type.seedling_type_name';
+		$seedling_type_table = 'seedling_type';
+		$seedling_type_where = 'seedling_type.seedling_type_id > 0';
+
+		$seedling_type_query = $this->seedling_production_model->get_active_list($seedling_type_table, $seedling_type_where, $seedling_type_order);
+		$rs10 = $seedling_type_query->result();
+
+
+		$seedling_type_list = '';
+		foreach ($rs10 as $seedling_type_rs) :
+			$seedling_type_id = $seedling_type_rs->seedling_type_id;
+			$seedling_type_name = $seedling_type_rs->seedling_type_name;
+
+		    $seedling_type_list .="<option value='".$seedling_type_id."'>".$seedling_type_name."</option>";
+
+		endforeach;
+
+		$v_data['seedling_type_list'] = $seedling_type_list;
+		$v_data['seedling_type_rs'] = $rs10;
+
+
+		$administrators = $this->personnel_model->retrieve_personnel();
+		if ($administrators->num_rows() > 0)
+		{
+			$admins = $administrators->result();
+			$personnel_list = '';
+			foreach($admins as $adm)
+			{
+				$personnel_id = $adm->personnel_id;
+				$personnel_fname = $adm->personnel_fname;
+				$personnel_onames = $adm->personnel_onames;
+				
+				$personnel_list .="<option value='".$personnel_id."'>".$personnel_fname." ".$personnel_onames."</option>";
+			}
+		}
+		
+		else
+		{
+			$personnel_list = '';
+		}
+		$v_data['personnel_list'] = $personnel_list;
+
+		$species_order = 'species.species_name';
+		$species_table = 'species';
+		$species_where = 'species.species_id > 0';
+
+		$species_query = $this->seedling_production_model->get_active_list($species_table, $species_where, $species_order);
+		$rs10 = $species_query->result();
+
+
+		$species_list = '';
+		foreach ($rs10 as $species_rs) :
+			$species_id = $species_rs->species_id;
+			$species_name = $species_rs->species_name;
+
+		    $species_list .="<option value='".$species_id."'>".$species_name."</option>";
+
+		endforeach;
+
+		$v_data['species_list'] = $species_list;
+		$v_data['species_rs'] = $rs10;
+
+		$v_data['project_id'] = $project_id;
+		$v_data['nursery_id'] = $nursery_id;
+		$v_data['ctn_id'] = $ctn_id;
+		$v_data['order_id'] = $order_id;
+		$v_data['branch_data'] = $this->meeting_model->get_branch_details();
+
+		$this->load->view('orders/print_order_item', $v_data);
+    }
 
 
     public function print_lpo_new($supplier_order_id)
@@ -500,7 +581,6 @@ class Orders extends admin
 		redirect('all-orders');
 	}
 
-
 	public function receivables($project_id,$nursery_id,$ctn_id)
 	{
 		
@@ -603,6 +683,36 @@ class Orders extends admin
 		$data['title'] = 'Receivables';
 		
 		$this->load->view('admin/templates/general_page', $data);
+	}
+
+	public function generate_form9($project_id,$nursery_id,$ctn_id)
+	{
+		$where = 'order_receivables.project_id = '.$project_id.' AND nursery_id ='.$nursery_id.' AND ctn_id ='.$ctn_id;
+		$table = 'order_receivables';
+		$query = $this->orders_model->get_all_receivables($table, $where);
+		$v_data['community_group_query'] = $this->orders_model->get_community_group($nursery_id);
+		
+		$v_data['query'] = $query;
+		$v_data['project_id'] = $project_id;
+		$v_data['nursery_id'] = $nursery_id;
+		$v_data['ctn_id'] = $ctn_id;
+		$v_data['branch_data'] = $this->meeting_model->get_branch_details();
+		$v_data['admins'] = $this->personnel_model->retrieve_personnel();
+		
+		$this->load->view('projects/orders/print_all_receivables', $v_data);
+	}
+
+	public function print_receivable($receivable_id)
+	{
+		$where = 'order_receivables.receivable_id = '.$receivable_id.' AND order_receivables.nursery_id = community_group.community_group_id AND order_receivables.personnel_id = personnel.personnel_id AND projects.project_id = order_receivables.project_id';
+		$table = 'order_receivables, community_group, personnel, projects';
+		$query = $this->orders_model->get_receivable_details($table, $where);
+		
+		$v_data['query'] = $query;
+		$v_data['branch_data'] = $this->meeting_model->get_branch_details();
+		$v_data['admins'] = $this->personnel_model->retrieve_personnel();
+		
+		$this->load->view('projects/orders/print_receivable', $v_data);
 	}
 }
 ?>

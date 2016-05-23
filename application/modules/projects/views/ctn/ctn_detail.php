@@ -181,31 +181,7 @@ if($ctn_query->num_rows() == 1)
 																		<td>
 																			<a href="'.site_url().'tree-planting/receivables/'.$project_id.'/'.$nursery_id.'/'.$ctn_id.'" class="btn btn-sm btn-success" id="open_tenant_info'.$nursery_id.'" ><i class="fa fa-arrow-down"></i> Receivables</a>
 																		</td>
-																		<td>
-																			<a href="#user'.$nursery_id.'" class="btn btn-sm btn-warning" data-toggle="modal" title="Expand '.$nursery_name.'"><i class="fa fa-eye"></i></a>
-																			<!-- Button to trigger modal -->
-																					
-																					<!-- Modal -->
-																					<div id="user'.$nursery_id.'" class="modal fade modal-full" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-																						<div class="modal-dialog">
-																							<div class="modal-content">
-																								<div class="modal-header">
-																									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-																									<h4 class="modal-title">'.$nursery_name.'</h4>
-																								</div>
-																								
-																								<div class="modal-body">
-
-																								</div>
-																								<div class="modal-footer">
-																									<button type="button" class="btn btn-default" data-dismiss="modal" aria-hidden="true">Close</button>
-																									
-																								</div>
-																							</div>
-																						</div>
-																					</div>
-																		</td>
-																		<td><a href="'.site_url().'tree-planting/print-ctn-recievable/'.$nursery_id.'" class="btn btn-sm btn-danger" onclick="return confirm(\'Do you really want to print '.$nursery_name.'?\');" title="Print '.$nursery_name.'" target = "_blank"><i class="fa fa-print"></i></a></td>
+																		
 																		<td><a href="'.site_url().'tree-planting/delete-area-location/'.$nursery_id.'" class="btn btn-sm btn-danger" onclick="return confirm(\'Do you really want to delete '.$nursery_name.'?\');" title="Delete '.$nursery_name.'"><i class="fa fa-trash"></i></a></td>
 																	</tr>
 																';

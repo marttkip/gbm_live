@@ -11,6 +11,7 @@ class Planting_sites extends admin
 		parent:: __construct();
 		$this->load->model('planting_sites_model');
 		$this->load->model('projects_model');
+		$this->load->model('meeting_model');
 		$this->load->model('admin/users_model');
 		$this->load->model('admin/file_model');		
 		$this->load->library('image_lib');
@@ -368,6 +369,22 @@ class Planting_sites extends admin
 		$data['content'] = $this->load->view('project_planting_sites/cp_payment_member', $v_data, true);
 		
 		$this->load->view('admin/templates/general_page', $data);
+	}
+
+	public function print_activity_participants($project_id,$cp_id)
+	{
+		$where = 'cp_id = '.$cp_id;
+		$table = 'casual_payment_members';
+		$query = $this->planting_sites_model->get_all_site_activities($table, $where);
+		
+		//change of order method 
+		
+		$v_data['project_id'] = $project_id;
+		$v_data['branch_data'] = $this->meeting_model->get_branch_details();
+		$v_data['cp_id'] = $cp_id;
+		$v_data['query'] = $query;
+		
+		$this->load->view('project_planting_sites/print_cp_payment_member', $v_data);
 	}
 
 	public function add_activity_attendee($project_id,$cp_id)

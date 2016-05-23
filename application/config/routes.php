@@ -330,13 +330,10 @@ $route['planting-site/delete-activity/(:num)/(:num)'] = 'projects/planting_sites
 $route['planting-site/activate-activity/(:num)/(:num)'] = 'projects/planting_sites/activate_activity/$1/$2';
 $route['planting-site/deactivate-activity/(:num)/(:num)'] = 'projects/planting_sites/deactivate_activity/$1/$2';
 
-
 $route['activity-participants/(:num)/(:num)'] = 'projects/planting_sites/activity_participants/$1/$2';
+$route['print-activity-participants/(:num)/(:num)'] = 'projects/planting_sites/print_activity_participants/$1/$2';
 $route['add-activity-members/(:num)/(:num)'] = 'projects/planting_sites/add_activity_attendee/$1/$2';
 $route['activity/print-attendees/(:num)/(:num)'] = 'projects/planting_sites/print_activity_attendees/$1/$2';
-
-
-
 
 $route['tree-planting/orders/(:num)/(:num)/(:num)'] = 'projects/orders/index/$1/$2/$3';
 $route['tree-planting/add-order/(:num)/(:num)/(:num)'] = 'projects/orders/add_order/$1/$2/$3';
@@ -345,9 +342,8 @@ $route['tree-planting/delete-order/(:num)/(:num)'] = 'projects/orders/delete_ord
 $route['tree-planting/activate-order/(:num)/(:num)'] = 'projects/orders/activate_order/$1/$2';
 $route['tree-planting/deactivate-order/(:num)/(:num)'] = 'projects/orders/deactivate_order/$1/$2';
 
-
-
 $route['tree-planting/order-items/(:num)/(:num)/(:num)/(:num)'] = 'projects/orders/add_order_item/$1/$2/$3/$4';
+$route['tree-planting/print-order-items/(:num)/(:num)/(:num)/(:num)'] = 'projects/orders/print_order_item/$1/$2/$3/$4';
 $route['inventory/update-order-item/(:num)/(:any)/(:num)'] = 'inventory/orders/update_order_item/$1/$2/$3';
 $route['inventory/update-supplier-prices/(:num)/(:any)/(:num)'] = 'inventory/orders/update_supplier_prices/$1/$2/$3';
 $route['inventory/send-for-correction/(:num)'] = 'inventory/orders/send_order_for_correction/$1';
@@ -355,9 +351,9 @@ $route['inventory/send-for-approval/(:num)'] = 'inventory/orders/send_order_for_
 $route['inventory/send-for-approval/(:num)/(:num)'] = 'inventory/orders/send_order_for_approval/$1/$2';
 $route['inventory/generate-lpo/(:num)'] = 'inventory/orders/print_lpo_new/$1';
 
-
-
 $route['tree-planting/receivables/(:num)/(:num)/(:num)'] = 'projects/orders/receivables/$1/$2/$3';
+$route['tree-planting/generate-form9/(:num)/(:num)/(:num)'] = 'projects/orders/generate_form9/$1/$2/$3';
+$route['tree-planting/print-receivable/(:num)'] = 'projects/orders/print_receivable/$1';
 $route['tree-planting/add-receivable/(:num)/(:num)/(:num)'] = 'projects/orders/add_receivables/$1/$2/$3';
 $route['tree-planting/edit-receivable/(:num)/(:num)'] = 'projects/orders/edit_receivables/$1/$2';
 $route['tree-planting/delete-receivable/(:num)/(:num)'] = 'projects/receivables/delete_receivables/$1/$2';

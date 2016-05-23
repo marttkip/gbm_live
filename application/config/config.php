@@ -16,7 +16,7 @@
 | environments.
 |
 */
-$config['base_url'] = 'http://localhost/gbm/';
+$config['base_url'] = 'http://localhost/gbm_live/';
 #$config['base_url'] = 'http://192.168.1.122/';
 #$config['base_url'] = 'http://159.203.78.242/';
 

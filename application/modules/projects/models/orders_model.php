@@ -26,14 +26,23 @@ class Orders_model extends CI_Model
 	* 	@param string $where
 	*
 	*/
-	public function get_all_receivables($table, $where, $per_page, $page)
+	public function get_all_receivables($table, $where, $per_page = NULL, $page = NULL)
 	{
 		//retrieve all orders
 		$this->db->from($table);
 		$this->db->select('order_receivables.*');
 		$this->db->where($where);
 		$this->db->order_by('order_receivables.date_given','DESC');
-		$query = $this->db->get('', $per_page, $page);
+		
+		if($per_page != NULL)
+		{
+			$query = $this->db->get('', $per_page, $page);
+		}
+		
+		else
+		{
+			$query = $this->db->get();
+		}
 		
 		return $query;
 	}
@@ -103,8 +112,8 @@ class Orders_model extends CI_Model
 	public function get_order($order_id)
 	{
 		$this->db->select('*');
-		$this->db->where('orders.order_status = order_status.order_status_id AND users.user_id = orders.user_id AND orders.order_id = '.$order_id);
-		$query = $this->db->get('orders, order_status, users');
+		$this->db->where('orders.order_id = '.$order_id);
+		$query = $this->db->get('orders');
 		
 		return $query;
 	}
@@ -635,6 +644,46 @@ class Orders_model extends CI_Model
 		{
 			return FALSE;
 		}
+	}
+	
+	/*
+	*	Retrieve all orders of a user
+	*
+	*/
+	public function get_community_group($nursery_id)
+	{
+		$this->db->where('community_group_id = '.$nursery_id);
+		$query = $this->db->get('community_group');
+		
+		return $query;
+	}
 
+	/*
+	*	Retrieve all orders
+	*	@param string $table
+	* 	@param string $where
+	*
+	*/
+	public function get_receivable_details($table, $where)
+	{
+		//retrieve all orders
+		$this->db->from($table);
+		$this->db->where($where);
+		
+		$query = $this->db->get();
+		
+		return $query;
+	}
+	
+	/*
+	*	Retrieve all orders of a user
+	*
+	*/
+	public function get_community_group_members($community_group_id)
+	{
+		$this->db->where('community_group_id = '.$community_group_id);
+		$query = $this->db->get('community_group_member');
+		
+		return $query;
 	}
 }
