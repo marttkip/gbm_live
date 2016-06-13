@@ -364,3 +364,18 @@ $route['tree-planting/deactivate-receivable/(:num)/(:num)'] = 'projects/receivab
 $route['food-security'] = 'projects/food_security/print_food_security';
 $route['water-conservation'] = 'projects/food_security/print_water_conservation';
 $route['trainer-of-tranees'] = 'projects/food_security/print_tot';
+
+//upload routes
+$route['import/projects'] = 'projects/import_projects';
+$route['import/projects-template']= 'projects/projects/import_projects_template';
+$route['import/import-projects']= 'projects/projects/do_projects_import';
+
+$route['import/import-watersheds/(:num)']= 'projects/project_areas/do_watershed_import/$1';
+$route['import/watershed-template']= 'projects/project_areas/import_watershed_template';
+
+$route['import/trainees-template'] = 'projects/meeting/import_trainees_template';
+$route['import/import-trainees/(:num)/(:num)'] = 'projects/meeting/do_trainee_import/$1/$2';
+
+$route['import/meetings-template'] = 'projects/meeting/import_meeting_template';
+$route['import/import-meetings/(:num)'] = 'projects/meeting/do_meeting_import/$1';
+

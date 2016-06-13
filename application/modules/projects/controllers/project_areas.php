@@ -5,6 +5,7 @@ require_once "./application/modules/admin/controllers/admin.php";
 class Project_areas extends admin 
 {
 	var $documents_path;
+	var $csv_path;
 	
 	function __construct()
 	{
@@ -18,6 +19,8 @@ class Project_areas extends admin
 		//path to image directory
 		$this->documents_path = realpath(APPPATH . '../assets/documents/projects');
 		
+		//path to imports
+		$this->csv_path = realpath(APPPATH . '../assets/csv');
 		
 	}
     
@@ -495,6 +498,56 @@ class Project_areas extends admin
 			redirect('tree-planting/edit-project-area/'.$project_area_id);
 		}
 
+	}
+	//import projects
+	function import_watershed_template()
+	{
+		//export products template in excel 
+		$this->project_areas_model->import_watershed_template();
+	}
+	//do the personnel import
+	function do_watershed_import($project_id)
+	{
+		if(isset($_FILES['import_csv']))
+		{
+			if(is_uploaded_file($_FILES['import_csv']['tmp_name']))
+			{
+				//import products from excel 
+				$response = $this->project_areas_model->import_csv_projects($this->csv_path,$project_id);
+				
+				if($response == FALSE)
+				{
+					$v_data['import_response_error'] = 'Something went wrong. Please try again.';
+				}
+				
+				else
+				{
+					if($response['check'])
+					{
+						$v_data['import_response'] = $response['response'];
+					}
+					
+					else
+					{
+						$v_data['import_response_error'] = $response['response'];
+					}
+				}
+			}
+			
+			else
+			{
+				$v_data['import_response_error'] = 'Please select a file to import.';
+			}
+		}
+		
+		else
+		{
+			$v_data['import_response_error'] = 'Please select a file to import.';
+		}
+		
+		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
+		
+		redirect ('tree-planting/area-locations/'.$project_id);
 	}
 }
 ?>

@@ -3,6 +3,7 @@
 require_once "./application/modules/admin/controllers/admin.php";
 class Meeting extends admin
 { 
+	var $csv_path;
 	
 	function __construct()
 	{
@@ -10,6 +11,9 @@ class Meeting extends admin
 		$this->load->model('meeting_model');
 		$this->load->model('projects_model');
 		$this->load->model('admin/users_model');
+		
+		//path to imports
+		$this->csv_path = realpath(APPPATH . '../assets/csv');
 	}
     
 	/*
@@ -363,5 +367,108 @@ class Meeting extends admin
 		}
 		redirect('training-attendees/'.$project_area_id.'/'.$meeting_id);
 	}
+	function import_meeting_template()
+	{
+		//export meeting template in excel 
+		$this->meeting_model->import_meeting_template();
+	}
+	//do the meeting import
+	function do_meeting_import($project_id)
+	{
+		if(isset($_FILES['import_csv']))
+		{
+			if(is_uploaded_file($_FILES['import_csv']['tmp_name']))
+			{
+				//import products from excel 
+				$response = $this->meeting_model->import_csv_meetings($this->csv_path,$project_id);
+				
+				if($response == FALSE)
+				{
+					$v_data['import_response_error'] = 'Something went wrong. Please try again.';
+				}
+				
+				else
+				{
+					if($response['check'])
+					{
+						$v_data['import_response'] = $response['response'];
+					}
+					
+					else
+					{
+						$v_data['import_response_error'] = $response['response'];
+					}
+				}
+			}
+			
+			else
+			{
+				$v_data['import_response_error'] = 'Please select a file to import.';
+			}
+		}
+		
+		else
+		{
+			$v_data['import_response_error'] = 'Please select a file to import.';
+		}
+		
+		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
+		
+		redirect ('tree-planting/trainings/'.$project_id);
+		//$data['content'] = $this->load->view('projects/all_projects', $v_data, true);
+		//$this->load->view('admin/templates/general_page', $data);
+	}
+	
+	//trainee imports
+	function import_trainees_template()
+	{
+		//export meeting trainees template in excel 
+		$this->meeting_model->import_trainees_template();
+	}
+	//do the meeting import
+	function do_trainee_import($project_id, $meeting_id)
+	{
+		if(isset($_FILES['import_csv']))
+		{
+			if(is_uploaded_file($_FILES['import_csv']['tmp_name']))
+			{
+				//import products from excel 
+				$response = $this->meeting_model->import_csv_attendees($this->csv_path,$project_id,$meeting_id);
+				
+				if($response == FALSE)
+				{
+					$v_data['import_response_error'] = 'Something went wrong. Please try again.';
+				}
+				
+				else
+				{
+					if($response['check'])
+					{
+						$v_data['import_response'] = $response['response'];
+					}
+					
+					else
+					{
+						$v_data['import_response_error'] = $response['response'];
+					}
+				}
+			}
+			
+			else
+			{
+				$v_data['import_response_error'] = 'Please select a file to import.';
+			}
+		}
+		
+		else
+		{
+			$v_data['import_response_error'] = 'Please select a file to import.';
+		}
+		
+		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
+		
+		redirect ('training-attendees/'.$project_id.'/'.$meeting_id);
+	}
+	
 }
 ?>

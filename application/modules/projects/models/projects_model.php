@@ -618,4 +618,172 @@ class Projects_model extends CI_Model
 
 		return $query;
 	}
+	//import template
+	function import_projects_template()
+	{
+		$this->load->library('Excel');
+		
+		$title = 'Projects Import Template';
+		$count=1;
+		$row_count=0;
+		
+		$report[$row_count][0] = 'Project Name';
+		$report[$row_count][1] = 'Location';
+		$report[$row_count][2] = 'Donor';
+		$report[$row_count][3] = 'Grant Value';
+		$report[$row_count][4] = 'Grant County ID';
+		$report[$row_count][5] = 'Project Start Date (yyyy-mm-dd)';
+		$report[$row_count][6] = 'Project End Date (yyyy-mm-dd)';
+		$report[$row_count][7] = 'Goal';
+		
+		$row_count++;
+		
+		//create the excel document
+		$this->excel->addArray ( $report );
+		$this->excel->generateXML ($title);
+	}
+	
+	//import projects
+	public function import_csv_projects($upload_path)
+	{
+		//load the file model
+		$this->load->model('admin/file_model');
+		/*
+			-----------------------------------------------------------------------------------------
+			Upload csv
+			-----------------------------------------------------------------------------------------
+		*/
+		$response = $this->file_model->upload_csv($upload_path, 'import_csv');
+		
+		if($response['check'])
+		{
+			$file_name = $response['file_name'];
+			
+			$array = $this->file_model->get_array_from_csv($upload_path.'/'.$file_name);
+			//var_dump($array); die();
+			$response2 = $this->sort_projects_data($array);
+		
+			if($this->file_model->delete_file($upload_path."\\".$file_name, $upload_path))
+			{
+			}
+			
+			return $response2;
+		}
+		
+		else
+		{
+			$this->session->set_userdata('error_message', $response['error']);
+			return FALSE;
+		}
+	}
+	//sort the projects imported into the db
+	public function sort_projects_data($array)
+	{
+		//count total rows
+		$total_rows = count($array);
+		$total_columns = count($array[0]);//var_dump($array);die();
+		
+		//if products exist in array
+		if(($total_rows > 0) && ($total_columns == 8))
+		{
+			$items['created_by'] = $this->session->userdata('personnel_id');
+			$response = '
+				<table class="table table-hover table-bordered ">
+					  <thead>
+						<tr>
+						  <th>#</th>
+						  <th>Project Name</th>
+						  <th>Project Location</th>
+						  <th>Project Donor</th>
+						  <th>Project Start Date</th>
+						  <th>Comment</th>
+						</tr>
+					  </thead>
+					  <tbody>
+			';
+			
+			//retrieve the data from array
+			for($r = 1; $r < $total_rows; $r++)
+			{
+				$project_number = $this->create_project_number();
+				$project_name = $items['project_title'] = $array[$r][0];
+				$items['project_location'] = $array[$r][1];
+				$items['project_donor'] = $array[$r][2];
+				$items['project_grant_value'] = $array[$r][3];
+				$items['project_grant_county']=$array[$r][4];
+				$items['project_start_date']=$array[$r][5];
+				$items['project_end_date']=$array[$r][6];
+				$items['project_instructions']=$array[$r][7];
+				$items['project_status_id'] = 1;
+				$items['created'] = date('Y-m-d H-i-s');
+				$items['project_number'] = $project_number;
+				$comment ='';
+				//var_dump($items);die();
+		
+				//check if the project name already exists
+				if($this->check_project_exists($project_name))
+				{
+					
+					$comment .= '<br/>Duplicate project entered, project not added successfully';
+					$class = 'danger';
+				}
+				//insert data to db
+				else
+				{
+						if($this->db->insert('projects', $items))
+						{
+							$comment .= '<br/>Project successfully added to the database';
+							$class = 'success';
+						}
+						
+						else
+						{
+							$comment .= '<br/>Internal error. Could not add project to the database. Please contact the site administrator';
+							$class = 'warning';
+						}
+
+				}
+				$response .= '
+								<tr class="'.$class.'">
+									<td>'.$r.'</td>
+									<td'.$items['project_title'].'</td>
+									<td'.$items['project_location'].'</td>
+									<td'.$items['project_donor'].'</td>
+									<td'.$items['project_start_date'].'</td>
+									<td'.$comment.'</td>
+								</tr> 
+						';
+			}
+			
+			$response .= '</table>';
+			
+			$return['response'] = $response;
+			$return['check'] = TRUE;
+		}
+		//if no products exist
+		else
+		{
+			$return['response'] = 'Member data not found ';
+			$return['check'] = FALSE;
+		}
+		
+		return $return;
+	}
+	public function check_project_exists($project_name)
+	{
+		
+		$this->db->where(array ('project_title'=> $project_name));
+		
+		$query = $this->db->get('projects');
+		
+		if($query->num_rows() > 0)
+		{
+			return TRUE;
+		}
+		
+		else
+		{
+			return FALSE;
+		}
+	}
 }

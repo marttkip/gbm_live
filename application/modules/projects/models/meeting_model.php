@@ -630,4 +630,324 @@ class Meeting_model extends CI_Model
 			return FALSE;
 		}
 	}
+	//import template
+	function import_meeting_template()
+	{
+		$this->load->library('Excel');
+		
+		$title = 'Meeting Import Template';
+		$count=1;
+		$row_count=0;
+		
+		$report[$row_count][0] = 'Meeting Type(i.e 1-CEE, 2-Stakeholders, 3-Others)';
+		$report[$row_count][1] = 'Meeting Venue';
+		$report[$row_count][2] = 'Meeting Start Date (yyyy-mm-dd)';
+		$report[$row_count][3] = 'Meeting End Date (yyyy-mm-dd)';
+		$report[$row_count][4] = 'Meeting Description';
+		$report[$row_count][5] = 'Activity Title';
+		
+		$row_count++;
+		
+		//create the excel document
+		$this->excel->addArray ( $report );
+		$this->excel->generateXML ($title);
+	}
+	//import meetings
+	public function import_csv_meetings($upload_path,$project_id)
+	{
+		//load the file model
+		$this->load->model('admin/file_model');
+		/*
+			-----------------------------------------------------------------------------------------
+			Upload csv
+			-----------------------------------------------------------------------------------------
+		*/
+		$response = $this->file_model->upload_csv($upload_path, 'import_csv');
+		
+		if($response['check'])
+		{
+			$file_name = $response['file_name'];
+			
+			$array = $this->file_model->get_array_from_csv($upload_path.'/'.$file_name);
+			//var_dump($array); die();
+			$response2 = $this->sort_meeting_data($array,$project_id);
+		
+			if($this->file_model->delete_file($upload_path."\\".$file_name, $upload_path))
+			{
+			}
+			
+			return $response2;
+		}
+		
+		else
+		{
+			$this->session->set_userdata('error_message', $response['error']);
+			return FALSE;
+		}
+	}
+	//sort the projects imported into the db
+	public function sort_meeting_data($array,$project_id)
+	{
+		//count total rows
+		$total_rows = count($array);
+		$total_columns = count($array[0]);//var_dump($array);die();
+		
+		//if products exist in array
+		if(($total_rows > 0) && ($total_columns == 6))
+		{
+			$response = '
+				<table class="table table-hover table-bordered ">
+					  <thead>
+						<tr>
+						  <th>#</th>
+						  <th>Watershed Name</th>
+						  <th>Comment</th>
+						</tr>
+					  </thead>
+					  <tbody>
+			';
+			
+			//retrieve the data from array
+			for($r = 1; $r < $total_rows; $r++)
+			{
+				$meeting_number = $this->create_meeting_number();
+				$items['meeting_number'] = $meeting_number;
+				$items['created_by'] = $this->session->userdata('personnel_id');
+				$items['created'] = date('Y-m-d');
+				$items['project_id'] = $project_id;
+				$items['last_modified'] = date('Y-m-d H-i-s');
+				$items['modified_by'] = $this->session->userdata('personnel_id');
+				$meeting_type_id = $items['meeting_type_id'] = $array[$r][0];
+				$items['meeting_venue'] = $array[$r][1];
+				$items['meeting_status'] = 1;
+				$items['meeting_start_date'] = $array[$r][2];
+				$items['meeting_end_date'] = $array[$r][3];
+				$items['meeting_description'] = $array[$r][4];
+				$ativity_title = $items['activity_title'] = $array[$r][5];
+				$comment ='';
+				//var_dump($items);die();
+		
+				//check if the activity title should be entered
+				if($meeting_type_id == 3)
+				{
+					
+					if(!empty($activity_title) || $items['activity_title'] != '' )
+					{
+						
+						if($this->check_meeting_exists($activity_title,$project_id))
+						{
+							
+							$comment .= '<br/>Duplicate training entered, meeting not added successfully';
+							$class = 'danger';
+						}
+						//insert data to db
+						else
+						{
+							if($this->db->insert('meeting', $items))
+							{
+								$comment .= '<br/>Training successfully added to the database';
+								$class = 'success';
+							}
+							
+							else
+							{
+								$comment .= '<br/>Internal error. Could not add meeting to the database. Please contact the site administrator';
+								$class = 'warning';
+							}
+						}
+					}
+					
+				}
+				else
+				{
+					if(empty($activity_title))
+					{
+						$this->db->insert('meeting', $items);
+						$comment .= '<br/>Meeting successfully added to the database';
+						$class = 'success';
+					}					
+				}
+				$response .= '
+								<tr class="'.$class.'">
+									<td>'.$r.'</td>
+									<td'.$items['meeting_venue'].'</td>
+									<td'.$comment.'</td>
+								</tr> 
+						';
+			}
+			
+			$response .= '</table>';
+			
+			$return['response'] = $response;
+			$return['check'] = TRUE;
+		}
+		//if no products exist
+		else
+		{
+			$return['response'] = 'Member data not found ';
+			$return['check'] = FALSE;
+		}
+		
+		return $return;
+	}
+	public function check_meeting_exists($activity_title,$project_id)
+	{
+		
+		$this->db->where(array ('activity_title'=> $activity_title,
+							'project_id' => $project_id));
+		
+		$query = $this->db->get('meeting');
+		
+		if($query->num_rows() > 0)
+		{
+			return TRUE;
+		}
+		
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	//trainee import template
+	function import_trainees_template()
+	{
+		$this->load->library('Excel');
+		
+		$title = 'TraineesImport Template';
+		$count=1;
+		$row_count=0;
+		
+		$report[$row_count][0] = 'Attendee Name';
+		$report[$row_count][1] = 'Organization Name';
+		$report[$row_count][2] = 'National ID';
+		$report[$row_count][3] = 'Attendee Email';
+		$report[$row_count][4] = 'Phone Number';
+		$report[$row_count][5] = 'Group Name';
+		
+		$row_count++;
+		
+		//create the excel document
+		$this->excel->addArray ( $report );
+		$this->excel->generateXML ($title);
+	}
+	//import meetings
+	public function import_csv_attendees($upload_path,$project_id,$meeting_id)
+	{
+		//load the file model
+		$this->load->model('admin/file_model');
+		
+		//upload csv
+		$response = $this->file_model->upload_csv($upload_path, 'import_csv');
+		
+		if($response['check'])
+		{
+			$file_name = $response['file_name'];
+			
+			$array = $this->file_model->get_array_from_csv($upload_path.'/'.$file_name);
+			//var_dump($array); die();
+			$response2 = $this->sort_trainees_data($array,$project_id, $meeting_id);
+		
+			if($this->file_model->delete_file($upload_path."\\".$file_name, $upload_path))
+			{
+			}
+			
+			return $response2;
+		}
+		
+		else
+		{
+			$this->session->set_userdata('error_message', $response['error']);
+			return FALSE;
+		}
+	}
+	//sort the meeting trainees imported into the db
+	public function sort_trainees_data($array,$project_id, $meeting_id)
+	{
+		//count total rows
+		$total_rows = count($array);
+		$total_columns = count($array[0]);//var_dump($array);die();
+		
+		//if products exist in array
+		if(($total_rows > 0) && ($total_columns == 6))
+		{
+			$response = '
+				<table class="table table-hover table-bordered ">
+					  <thead>
+						<tr>
+						  <th>#</th>
+						  <th>Attendee Name</th>
+						  <th>Comment</th>
+						</tr>
+					  </thead>
+					  <tbody>
+			';
+			
+			//retrieve the data from array
+			for($r = 1; $r < $total_rows; $r++)
+			{
+				$items['created_by'] = $this->session->userdata('personnel_id');
+				$items['created'] = date('Y-m-d');
+				$items['attendee_name'] = $array[$r][0];
+				$items['modified'] = date('Y-m-d');
+				$items['meeting_type_id'] = $this->input->post('meeting_type_id');
+				$items['attendee_national_id'] = $array[$r][2];
+				$items['attendee_organization'] = $array[$r][1];
+				$items['attendee_email'] = $array[$r][3];
+				$items['attendee_number'] = $array[$r][4];
+				$items['attendee_group_name'] = $array[$r][5];
+				
+				$items2['project_id'] = $project_id;
+				
+				$comment ='';
+				
+		
+				if($this->db->insert('attendees',$items))
+				{
+					$insert_id = $this->db->insert_id();
+
+					$array_two = array(
+								'attendee_id' => $insert_id,
+								'meeting_id' => $meeting_id
+							   );
+
+					if($this->db->insert('meeting_attendees',$array_two))
+					{
+						return TRUE;
+					}
+					else
+					{
+						return FALSE;
+					}
+				}
+				else
+				{
+					return FALSE;
+				}
+					
+			}
+				
+				$response .= '
+								<tr class="'.$class.'">
+									<td>'.$r.'</td>
+									<td'.$items['meeting_venue'].'</td>
+									<td'.$comment.'</td>
+								</tr> 
+						';
+			
+			$response .= '</table>';
+			
+			$return['response'] = $response;
+			$return['check'] = TRUE;
+		}
+
+		//if no products exist
+		else
+		{
+			$return['response'] = 'Member data not found ';
+			$return['check'] = FALSE;
+		}
+		
+		return $return;
+	}
 }

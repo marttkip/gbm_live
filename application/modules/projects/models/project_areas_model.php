@@ -406,5 +406,154 @@ class Project_areas_model extends CI_Model
 
 		return $query;
 	}
+	//import template
+	function import_watershed_template()
+	{
+		$this->load->library('Excel');
+		
+		$title = 'Project Areas Import Template';
+		$count=1;
+		$row_count=0;
+		
+		$report[$row_count][0] = 'Project Name';
+		
+		$row_count++;
+		
+		//create the excel document
+		$this->excel->addArray ( $report );
+		$this->excel->generateXML ($title);
+	}
+	//import projects
+	public function import_csv_projects($upload_path,$project_id)
+	{
+		//load the file model
+		$this->load->model('admin/file_model');
+		/*
+			-----------------------------------------------------------------------------------------
+			Upload csv
+			-----------------------------------------------------------------------------------------
+		*/
+		$response = $this->file_model->upload_csv($upload_path, 'import_csv');
+		
+		if($response['check'])
+		{
+			$file_name = $response['file_name'];
+			
+			$array = $this->file_model->get_array_from_csv($upload_path.'/'.$file_name);
+			//var_dump($array); die();
+			$response2 = $this->sort_projects_data($array,$project_id);
+		
+			if($this->file_model->delete_file($upload_path."\\".$file_name, $upload_path))
+			{
+			}
+			
+			return $response2;
+		}
+		
+		else
+		{
+			$this->session->set_userdata('error_message', $response['error']);
+			return FALSE;
+		}
+	}
+	//sort the projects imported into the db
+	public function sort_projects_data($array,$project_id)
+	{
+		//count total rows
+		$total_rows = count($array);
+		$total_columns = count($array[0]);//var_dump($array);die();
+		
+		//if products exist in array
+		if(($total_rows > 0) && ($total_columns == 1))
+		{
+			$items['created_by'] = $this->session->userdata('personnel_id');
+			$items['created'] = date('Y-m-d');
+			$items['project_id'] = $project_id;
+			$items['last_modified'] = date('Y-m-d H-i-s');
+			$items['modified_by'] = $this->session->userdata('personnel_id');
+			$response = '
+				<table class="table table-hover table-bordered ">
+					  <thead>
+						<tr>
+						  <th>#</th>
+						  <th>Watershed Name</th>
+						  <th>Comment</th>
+						</tr>
+					  </thead>
+					  <tbody>
+			';
+			
+			//retrieve the data from array
+			for($r = 1; $r < $total_rows; $r++)
+			{
+				$watershed_name = $items['project_area_name'] = $array[$r][0];
+				
+				$comment ='';
+				//var_dump($items);die();
+		
+				//check if the project name already exists
+				if($this->check_project_area_exists($watershed_name,$project_id))
+				{
+					
+					$comment .= '<br/>Duplicate watershed entered, project not added successfully';
+					$class = 'danger';
+				}
+				//insert data to db
+				else
+				{
+						if($this->db->insert('project_areas', $items))
+						{
+							$comment .= '<br/>Watershed successfully added to the database';
+							$class = 'success';
+						}
+						
+						else
+						{
+							$comment .= '<br/>Internal error. Could not add watershed to the database. Please contact the site administrator';
+							$class = 'warning';
+						}
+
+				}
+				$response .= '
+								<tr class="'.$class.'">
+									<td>'.$r.'</td>
+									<td'.$items['project_title'].'</td>
+									<td'.$comment.'</td>
+								</tr> 
+						';
+			}
+			
+			$response .= '</table>';
+			
+			$return['response'] = $response;
+			$return['check'] = TRUE;
+		}
+		//if no products exist
+		else
+		{
+			$return['response'] = 'Member data not found ';
+			$return['check'] = FALSE;
+		}
+		
+		return $return;
+	}
+	public function check_project_area_exists($watershed_name,$project_id)
+	{
+		
+		$this->db->where(array ('project_area_name'=> $watershed_name,
+							'project_id' => $project_id));
+		
+		$query = $this->db->get('project_areas');
+		
+		if($query->num_rows() > 0)
+		{
+			return TRUE;
+		}
+		
+		else
+		{
+			return FALSE;
+		}
+	}
 }
 ?>

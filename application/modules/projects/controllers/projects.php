@@ -4,6 +4,7 @@ require_once "./application/modules/admin/controllers/admin.php";
 class Projects extends admin
 { 
 	var $documents_path;
+	var $csv_path;
 	
 	function __construct()
 	{
@@ -17,6 +18,9 @@ class Projects extends admin
 		
 		//path to image directory
 		$this->documents_path = realpath(APPPATH . '../assets/documents/projects');
+		
+		//path to imports
+		$this->csv_path = realpath(APPPATH . '../assets/csv');
 	}
     
 	/*
@@ -559,6 +563,66 @@ class Projects extends admin
 			redirect('tree-planting/project-edit/'.$project_id.'/'.$project_number);
 		}
 
+	}
+	//import projects
+	function import_projects()
+	{
+		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
+		
+		$data['content'] = $this->load->view('import/import_projects', $v_data, true);
+		$this->load->view('admin/templates/general_page', $data);
+	}
+	
+	function import_projects_template()
+	{
+		//export projects template in excel 
+		$this->projects_model->import_projects_template();
+	}
+	//do the project import
+	function do_projects_import()
+	{
+		if(isset($_FILES['import_csv']))
+		{
+			if(is_uploaded_file($_FILES['import_csv']['tmp_name']))
+			{
+				//import products from excel 
+				$response = $this->projects_model->import_csv_projects($this->csv_path);
+				
+				if($response == FALSE)
+				{
+					$v_data['import_response_error'] = 'Something went wrong. Please try again.';
+				}
+				
+				else
+				{
+					if($response['check'])
+					{
+						$v_data['import_response'] = $response['response'];
+					}
+					
+					else
+					{
+						$v_data['import_response_error'] = $response['response'];
+					}
+				}
+			}
+			
+			else
+			{
+				$v_data['import_response_error'] = 'Please select a file to import.';
+			}
+		}
+		
+		else
+		{
+			$v_data['import_response_error'] = 'Please select a file to import.';
+		}
+		
+		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
+		
+		redirect ('tree-planting/projects');
+		//$data['content'] = $this->load->view('projects/all_projects', $v_data, true);
+		//$this->load->view('admin/templates/general_page', $data);
 	}
 }
 ?>
