@@ -359,3 +359,8 @@ $route['tree-planting/edit-receivable/(:num)/(:num)'] = 'projects/orders/edit_re
 $route['tree-planting/delete-receivable/(:num)/(:num)'] = 'projects/receivables/delete_receivables/$1/$2';
 $route['tree-planting/activate-receivable/(:num)/(:num)'] = 'projects/receivables/activate_receivables/$1/$2';
 $route['tree-planting/deactivate-receivable/(:num)/(:num)'] = 'projects/receivables/deactivate_receivables/$1/$2';
+
+
+$route['food-security'] = 'projects/food_security/print_food_security';
+$route['water-conservation'] = 'projects/food_security/print_water_conservation';
+$route['trainer-of-tranees'] = 'projects/food_security/print_tot';
