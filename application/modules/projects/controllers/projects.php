@@ -406,6 +406,9 @@ class Projects extends admin
 			endforeach;
 
 			$v_data['county_list'] = $county_list;
+			
+			$v_data['watershed_query'] = $this->project_areas_model->get_watershed_details($project_id);
+			//var_dump($v_data['watershed_query']);die();
 			$data['content'] = $this->load->view('projects/projects/edit_project', $v_data, true);
 		}
 		

@@ -241,14 +241,36 @@
             				?>
                 				<div class="row">
 						        	<div class="col-sm-6">
-						                <!-- Company Name -->
-						                <div class="form-group">
-						                    <label class="col-lg-4 control-label">Name</label>
-						                    <div class="col-lg-6">
-						                        <input type="text" class="form-control" name="project_area_name" placeholder="Name" value="<?php echo set_value('project_area_name');?>" required>
+										<div class = "form-group">
+											<label class="col-lg-4 control-label">Project Area Name</label>
+											<div class="col-lg-6">
+						                        <select name="location_id" id="location_id" class="form-control">
+													<?php
+													if($project_areas->num_rows() > 0)
+													{
+														$status = $project_areas->result();
+														
+														foreach($status as $res)
+														{
+															$project_area_id = $res->project_area_id;
+															$project_area_name = $res->project_area_name;
+															
+															if($res->project_area_id == $project_area_id)
+															{
+																echo '<option value="'.$project_area_id.'" selected>'.$project_area_name.'</option>';
+															}
+															
+															else
+															{
+																echo '<option value="'.$project_area_id.'" selected>'.$project_area_name.'</option>';
+															}
+														}
+													}
+													?>	
+												</select>
 						                    </div>
-						                </div>
-						                 <div class="form-group">
+										</div>
+						                <div class="form-group">
 						                    <label class="col-lg-4 control-label">Activate?</label>
 						                    <div class="col-lg-6">
 						                        <div class="radio">

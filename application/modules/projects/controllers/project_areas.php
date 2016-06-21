@@ -314,10 +314,10 @@ class Project_areas extends admin
 		{
 			$order_method = 'DESC';
 		}
-		
+		$project_areas = $this->project_areas_model->get_unselected_project_areas($project_id);
 		$data['title'] = 'Project Watersheds';
 		$v_data['title'] = $data['title'];
-		
+		$v_data['project_areas'] = $project_areas;
 		$v_data['order'] = $order;
 		$v_data['project_id'] = $project_id;
 		$v_data['order_method'] = $order_method;

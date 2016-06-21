@@ -272,7 +272,7 @@ if(!empty($validation_error))
 							     		<div class="row">
 								            <div class="form-actions center-align">
 								                <button class="submit btn btn-primary btn-sm" type="submit">
-								                    Edit New Project
+								                    Edit Project
 								                </button>
 								            </div>
 								         </div>
@@ -282,6 +282,100 @@ if(!empty($validation_error))
 						           
 									</div>
 									<div class="tab-pane" id="watersheds">
+										<?php										
+										$result2 = '';
+										//if watersheds exist display them
+										if ($watershed_query->num_rows() > 0)
+										{
+											$count = 0;
+											
+											$result2 .= 
+											'
+											<table class="table table-bordered table-striped table-condensed">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Watershed Name</a></th>
+														<th>Last modified</a></th>
+														<th>Modified by</a></th>
+													</tr>
+												</thead>
+												
+												<tbody>
+											';
+											
+											//get all administrators
+											$administrators = $this->personnel_model->retrieve_personnel();
+											if ($administrators->num_rows() > 0)
+											{
+												$admins = $administrators->result();
+											}
+											
+											else
+											{
+												$admins = NULL;
+											}
+											
+											foreach ($watershed_query->result() as $row)
+											{
+												$project_area_id = $row->project_area_id;
+												$project_area_name = $row->project_area_name;
+												$project_area_status = $row->project_area_status;
+												$project_area_latitude = $row->project_area_latitude;
+												$project_area_longitude = $row->project_area_longitude;
+												$created_by = $row->created_by;
+												$modified_by = $row->modified_by;
+												$last_modified = date('jS M Y H:i a',strtotime($row->last_modified));
+												$created = date('jS M Y H:i a',strtotime($row->created));
+												
+												//creators & editors
+												if($admins != NULL)
+												{
+													foreach($admins as $adm)
+													{
+														$user_id = $adm->personnel_id;
+														
+														if($user_id == $created_by)
+														{
+															$created_by = $adm->personnel_fname;
+														}
+														
+														if($user_id == $modified_by)
+														{
+															$modified_by = $adm->personnel_fname;
+														}
+													}
+												}
+												
+												else
+												{
+												}
+												$count++;
+												$result2 .= 
+												'
+													<tr>
+														<td>'.$count.'</td>
+														<td>'.$project_area_name.'</td>
+														<td>'.$last_modified.'</td>
+														<td>'.$modified_by.'</td>
+													</tr> 
+												';
+											}
+											$result2 .= 
+											'
+														  </tbody>
+														</table>
+											';
+										}
+										else
+										{
+											$result2 .= "There are no watersheds";
+										}
+										?>
+										<div class = "row">
+											<?php echo $result2;
+											?>
+										</div>
 									</div>
 									<div class="tab-pane" id="uploads">
 										<div class="row">

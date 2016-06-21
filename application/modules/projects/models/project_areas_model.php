@@ -555,5 +555,21 @@ class Project_areas_model extends CI_Model
 			return FALSE;
 		}
 	}
+	public function get_watershed_details($project_id)
+	{
+		$this->db->where('project_areas.project_area_id = project_watershed.project_area_id AND project_watershed.project_id  = '.$project_id);
+		$this->db->select('*');
+		$query = $this->db->get('project_areas,project_watershed');
+		
+		return $query;
+	}
+	public function get_unselected_project_areas($project_id)
+	{
+		$this->db->where('project_areas.project_area_id NOT IN (select project_area_id from project_watershed where project_id ='.$project_id.')');
+		$this->db->select('project_areas.*');
+		$query = $this->db->get('project_areas,project_watershed');
+		
+		return $query;
+	}
 }
 ?>

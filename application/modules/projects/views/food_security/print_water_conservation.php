@@ -68,24 +68,32 @@ $result =
 						$gps = $key->gps;
 						$eastings = $key->eastings;
 						$northings = $key->northings;
-						$wh_type = $key->wh_type;
-						$wh_capacity = $key->wh_capacity;
+						
+						$r_type = $key->r_type;
+						$r_distance = $key->r_dist;
+						$r_quantity = $key->r_quantity;
 
 						$ag_type = $key->ag_type;
 						$ag_spacing = $key->ag_spacing;
 						$ag_quantity = $key->ag_quantity;
 
 						$sc_type = $key->sc_type;
-						$sc_bench = $key->sc_bench;
+						$sc_spacing = $key->sc_spacing;
 						$sc_quantity = $key->sc_quantity;
-
-						$kg_name = $key->kg_name;
-						$kg_variety = $key->kg_variety;
+						$sc_rows = $key->sc_row;
+						
+						$c_quantity = $key->c_quantity;
+						
+						$g_quantity = $key->g_quantity;
+						$g_rows = $key->g_rows;
+						$g_spacing = $key->g_spacing;
+						
 						$cm_type = $key->cm_type;
 
-						$ta_quantity = $key->ta_quantity;
-						$ta_length = $key->ta_length;
-						$status = $key->status;
+						$cc_type = $key->cm_type;
+						$cc_quantity = $key->cc_quantity;
+						$cc_rows = $key->cc_rows;
+						$cc_spacing = $key->cc_spacing;
 
 						$count++;
 						$result .=

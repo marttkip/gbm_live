@@ -362,8 +362,14 @@ $route['tree-planting/activate-receivable/(:num)/(:num)'] = 'projects/receivable
 $route['tree-planting/deactivate-receivable/(:num)/(:num)'] = 'projects/receivables/deactivate_receivables/$1/$2';
 
 
-$route['food-security'] = 'projects/food_security/print_food_security';
-$route['water-conservation'] = 'projects/food_security/print_water_conservation';
+$route['food-security'] = 'projects/food_security/all_food_security';
+$route['print-food-security'] = 'projects/food_security/print_food_security';
+$route['add-food-security'] = 'projects/food_security/load_add_food_security';
+$route['food-security/add-food-security'] = 'projects/food_security/add_food_security';
+$route['print-water-conservation'] = 'projects/food_security/print_water_conservation';
+$route['water-conservation'] = 'projects/food_security/all_water_conservation';
+$route['food-security/add-water-conservation'] = 'projects/food_security/add_water_conservation';
+$route['add-water-conservation'] = 'projects/food_security/load_water_conservation';
 $route['trainer-of-tranees'] = 'projects/food_security/print_tot';
 
 //upload routes
