@@ -165,7 +165,7 @@
           <div class="clearfix"></div>
     </header>
     <div class="panel-body">
-		<div class="modal fade" id="upload_meeting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal fade" id="upload_meeting" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
