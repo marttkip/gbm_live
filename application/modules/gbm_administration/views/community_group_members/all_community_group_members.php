@@ -87,179 +87,252 @@
 		
 		
 ?>
-						<section class="panel">
-							<header class="panel-heading">
-								<h2 class="panel-title"><?php echo $title;?> <?php echo $link;?></h2>
-								<a  class="btn btn-sm btn-success pull-right" id="open_new_community_group_member" onclick="get_new_community_group_member();" style="margin-top:-25px">Add community group member</a>
-								<a  class="btn btn-sm btn-warning pull-right" id="close_new_community_group_member" style="display:none; margin-top:-25px;" onclick="close_new_community_group_member();">Close new community group member</a>
-							</header>
+<section class="panel panel-featured panel-featured-success">
+    <header class="panel-heading">
+         <h2 class="panel-title pull-left"><?php echo $title;?></h2>
+         <div class="widget-icons pull-right">
+         	<a data-toggle="modal" data-target="#upload_community_group_members" class="btn btn-warning btn-sm " > Import Community Group Members </a>
+
+         	<a  class="btn btn-sm btn-success" id="open_new_community_group_member" onclick="get_new_community_group_member();" style="">Add community group member</a>
+			<a  class="btn btn-sm btn-warning" id="close_new_community_group_member" style="display:none;" onclick="close_new_community_group_member();">Close new community group member</a>
+
+			<a href="<?php echo site_url();?>tree-planting/community-groups/<?php echo $project_area_id;?>" class="btn btn-default btn-sm fa fa-arrow-left" > Back to community groups</a>
+          </div>
+         
+          <div class="clearfix"></div>
+    </header>
+		<div class="panel-body">
+			<div class="modal fade" id="upload_community_group_members" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Upload Community Group Members</h4>
+					</div>
+					<div class="modal-body">       
+					        <!-- Widget content -->
 							<div class="panel-body">
-                                <div style="display:none;" class="col-md-12" style="margin-bottom:20px;" id="new_community_group_member" >
-                                	<section class="panel">
-										<header class="panel-heading">
-											<div class="panel-actions">
-											</div>
-											<h2 class="panel-title">Add a new community group member</h2>
-										</header>
-										<div class="panel-body">
-											<div class="row" style="margin-bottom:20px;">
-                                    			<div class="col-lg-12 col-sm-12 col-md-12">
-                                    				<div class="row">
-                                    				<?php 
-                                    						echo form_open("tree-planting/add-group-member/".$community_group_id."/".$project_area_id."", array("class" => "form-horizontal", "role" => "form"));
-                                    					
-                                    				?>
-	                                    				<div class="col-md-12">
-	                                    					<div class="row">
-		                                    					<div class="col-md-6">
-			                                    					<div class="form-group">
-															            <label class="col-lg-5 control-label">Member Name: </label>
-															            
-															            <div class="col-lg-7">
-															            	<input type="text" class="form-control" name="community_group_member_name" placeholder="Name" value="" required>
-															            </div>
-															        </div>
-															        <div class="form-group">
-															            <label class="col-lg-5 control-label">National id: </label>
-															            
-															            <div class="col-lg-7">
-															            	<input type="text" class="form-control" name="community_group_member_national_id" placeholder="National ID" value="" required>
-															            </div>
-															        </div>
-															    </div>
-															    <div class="col-md-6">
-															    	<div class="form-group">
-															            <label class="col-lg-5 control-label">Phone number: </label>
-															            
-															            <div class="col-lg-7">
-															            	<input type="text" class="form-control" name="community_group_member_phone_number" placeholder="Phone" value="" required>
-															            </div>
-															        </div>
-															        <div class="form-group">
-															            <label class="col-lg-5 control-label">Member Type: </label>
-															            
-															            <div class="col-lg-7">
-															            	<select id='member_type_id' name='member_type_id' class='form-control custom-select ' required>
-												                              <option value=''>None - Please Select a member type</option>
-												                              <?php echo $member_type_list;?>
-												                            </select>
-															            </div>
-															        </div>
-															    </div>
-															</div>
-														    <div class="row" style="margin-top:10px;">
-																<div class="col-md-12">
-															        <div class="form-actions center-align">
-															            <button class="submit btn btn-primary" type="submit">
-															                Add community group member
-															            </button>
-															        </div>
-															    </div>
-															</div>
-	                                    				</div>
-	                                    				<?php echo form_close();?>
-	                                    				<!-- end of form -->
-	                                    			</div>
-
-                                    				
-                                    			</div>
-                                    			
-                                    		</div>
-										</div>
-									</section>
-                                </div>
-                                <div style="display:none;" class="col-md-12" style="margin-bottom:20px;" id="new_community_group_member_allocation" >
-                                	<section class="panel">
-										<header class="panel-heading">
-											<div class="panel-actions">
-											</div>
-											<h2 class="panel-title">Allocate community_group_member to <?php echo $title;?></h2>
-										</header>
-										<div class="panel-body">
-											<div class="row" style="margin-bottom:20px;">
-												<?php echo form_open("add-community-group-member-unit/".$rental_unit_id."", array("class" => "form-horizontal", "role" => "form"));?>
-                                    			<div class="col-lg-12 col-sm-12 col-md-12">
-                                    				<div class="row">
-	                                    				<div class="col-md-12">
-	                                    					<div class="row">
-		                                    					<div class="col-md-10">
-			                                    					<div class="form-group center-align">
-															            <label class="col-lg-5 control-label">community_group_member Name: </label>
-															            
-															            <div class="col-lg-5">
-															            	<select id='community_group_member_id' name='community_group_member_id' class='form-control custom-select '>
-														                    <!-- <select class="form-control custom-select " id='procedure_id' name='procedure_id'> -->
-														                      <option value=''>None - Please Select a community_group_member</option>
-														                      <?php echo $community_group_members_list;?>
-														                    </select>
-															            </div>
-															        </div>
-															    </div>
-															</div>
-														    <div class="row" style="margin-top:10px;">
-																<div class="col-md-12">
-															        <div class="form-actions center-align">
-															            <button class="submit btn btn-primary btn-sm" type="submit">
-															                Allocate community_group_member to <?php echo $title;?>
-															            </button>
-															        </div>
-															    </div>
-															</div>
-	                                    				</div>
-	                                    			</div>
-                                    				
-                                    			</div>
-                                    			<?php echo form_close();?>
-	                                    				<!-- end of form -->
-                                    			
-                                    		</div>
-										</div>
-									</section>
-                                </div>
-                                <div class="col-md-12">
-									<div class="table-responsive">
-	                                	
-										<?php 
-										
-										$success = $this->session->userdata('success_message');
-			
-										if(!empty($success))
-										{
-											echo '<div class="alert alert-success"> <strong>Success!</strong> '.$success.' </div>';
-											$this->session->unset_userdata('success_message');
-										}
-										
-										$error = $this->session->userdata('error_message');
-										
-										if(!empty($error))
-										{
-											echo '<div class="alert alert-danger"> <strong>Oh snap!</strong> '.$error.' </div>';
-											$this->session->unset_userdata('error_message');
-										}
-
-										$search =  $this->session->userdata('all_community_group_members_search');
-										if(!empty($search))
-										{
-											echo '<a href="'.site_url().'close_search_community_group_members" class="btn btn-sm btn-warning">Close Search</a>';
-										}
-				
-										echo $result;
-										
-										?>
-								
-	                                </div>
-	                                 <div class="widget-foot">
-                                
-										<?php if(isset($links)){echo $links;}?>
+					        <div class="padd">
+					            
+					        <div class="row">
+						        <div class="col-md-12">						            
+						        <?php echo form_open_multipart('import/import-community-group-members/'.$community_group_id.'/'.$project_area_id, array("class" => "form-horizontal", "role" => "form"));?>
 						            
-						                <div class="clearfix"></div> 
-						            
+						            <div class="row">
+						                <div class="col-md-12">
+						                    <ul>
+						                        <li>Download the import template <a href="<?php echo site_url().'import/community-members-template';?>" target= "_blank">here.</a></li>
+						                        
+						                        <li>Save your file as a <strong>CSV (Comma Delimited)</strong> file before importing</li>
+						                        <li>After adding your projects to the import template please import them using the button below</li>
+						                    </ul>
+						                </div>
 						            </div>
-        
-	                             </div>
-
+						            
+						            <div class="row">
+										<div class="col-md-12" style="margin-top:10px">
+											<div class="fileUpload btn btn-primary">
+						                        <span>Import Community Groups</span>
+						                        <input type="file" class="upload" onChange="this.form.submit();" name="import_csv" />
+						                    </div>
+										</div>
+						            </div>
+						                   
+						                    
+						        </div>
+					        </div>
+					            <?php echo form_close();?>
 							</div>
-						</section>
+							</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      		</div>
+				</div>
+			</div>
+		</div>
+            <div style="display:none;" class="col-md-12" style="margin-bottom:20px;" id="new_community_group_member" >
+            	<section class="panel">
+					<header class="panel-heading">
+						<div class="panel-actions">
+						</div>
+						<h2 class="panel-title">Add a new community group member</h2>
+					</header>
+					<div class="panel-body">
+						<div class="row" style="margin-bottom:20px;">
+                			<div class="col-lg-12 col-sm-12 col-md-12">
+                				<div class="row">
+                				<?php 
+                						echo form_open("tree-planting/add-group-member/".$community_group_id."/".$project_area_id."", array("class" => "form-horizontal", "role" => "form"));
+                					
+                				?>
+                    				<div class="col-md-12">
+                    					<div class="row">
+                        					<div class="col-md-6">
+                            					<div class="form-group">
+										            <label class="col-lg-5 control-label">Member Name: </label>
+										            
+										            <div class="col-lg-7">
+										            	<input type="text" class="form-control" name="community_group_member_name" placeholder="Name" value="" required>
+										            </div>
+										        </div>
+										        <div class="form-group">
+										            <label class="col-lg-5 control-label">National id: </label>
+										            
+										            <div class="col-lg-7">
+										            	<input type="text" class="form-control" name="community_group_member_national_id" placeholder="National ID" value="" required>
+										            </div>
+										        </div>
+										    </div>
+										    <div class="col-md-6">
+										    	<div class="form-group">
+										            <label class="col-lg-5 control-label">Phone number: </label>
+										            
+										            <div class="col-lg-7">
+										            	<input type="text" class="form-control" name="community_group_member_phone_number" placeholder="Phone" value="" required>
+										            </div>
+										        </div>
+										        <div class="form-group">
+										            <label class="col-lg-5 control-label">Member Type: </label>
+										            
+										            <div class="col-lg-7">
+										            	<select id='member_type_id' name='member_type_id' class='form-control custom-select ' required>
+							                              <option value=''>None - Please Select a member type</option>
+							                              <?php echo $member_type_list;?>
+							                            </select>
+										            </div>
+										        </div>
+										    </div>
+										</div>
+									    <div class="row" style="margin-top:10px;">
+											<div class="col-md-12">
+										        <div class="form-actions center-align">
+										            <button class="submit btn btn-primary" type="submit">
+										                Add community group member
+										            </button>
+										        </div>
+										    </div>
+										</div>
+                    				</div>
+                    				<?php echo form_close();?>
+                    				<!-- end of form -->
+                    			</div>
+
+                				
+                			</div>
+                			
+                		</div>
+					</div>
+				</section>
+            </div>
+            <div style="display:none;" class="col-md-12" style="margin-bottom:20px;" id="new_community_group_member_allocation" >
+            	<section class="panel">
+					<header class="panel-heading">
+						<div class="panel-actions">
+						</div>
+						<h2 class="panel-title">Allocate community_group_member to <?php echo $title;?></h2>
+					</header>
+					<div class="panel-body">
+						<div class="row" style="margin-bottom:20px;">
+							<?php echo form_open("add-community-group-member-unit/".$rental_unit_id."", array("class" => "form-horizontal", "role" => "form"));?>
+                			<div class="col-lg-12 col-sm-12 col-md-12">
+                				<div class="row">
+                    				<div class="col-md-12">
+                    					<div class="row">
+                        					<div class="col-md-10">
+                            					<div class="form-group center-align">
+										            <label class="col-lg-5 control-label">community_group_member Name: </label>
+										            
+										            <div class="col-lg-5">
+										            	<select id='community_group_member_id' name='community_group_member_id' class='form-control custom-select '>
+									                    <!-- <select class="form-control custom-select " id='procedure_id' name='procedure_id'> -->
+									                      <option value=''>None - Please Select a community_group_member</option>
+									                      <?php echo $community_group_members_list;?>
+									                    </select>
+										            </div>
+										        </div>
+										    </div>
+										</div>
+									    <div class="row" style="margin-top:10px;">
+											<div class="col-md-12">
+										        <div class="form-actions center-align">
+										            <button class="submit btn btn-primary btn-sm" type="submit">
+										                Allocate community_group_member to <?php echo $title;?>
+										            </button>
+										        </div>
+										    </div>
+										</div>
+                    				</div>
+                    			</div>
+                				
+                			</div>
+                			<?php echo form_close();?>
+                    				<!-- end of form -->
+                			
+                		</div>
+					</div>
+				</section>
+            </div>
+            <div class="col-md-12">
+				<div class="table-responsive">
+                	<?php
+		            if(isset($import_response))
+		            {
+		                if(!empty($import_response))
+		                {
+		                    echo $import_response;
+		                }
+		            }
+		            
+		            if(isset($import_response_error))
+		            {
+		                if(!empty($import_response_error))
+		                {
+		                    echo '<div class="center-align alert alert-danger">'.$import_response_error.'</div>';
+		                }
+		            }
+		        ?>
+					<?php 
+					
+					$success = $this->session->userdata('success_message');
+
+					if(!empty($success))
+					{
+						echo '<div class="alert alert-success"> <strong>Success!</strong> '.$success.' </div>';
+						$this->session->unset_userdata('success_message');
+					}
+					
+					$error = $this->session->userdata('error_message');
+					
+					if(!empty($error))
+					{
+						echo '<div class="alert alert-danger"> <strong>Oh snap!</strong> '.$error.' </div>';
+						$this->session->unset_userdata('error_message');
+					}
+
+					$search =  $this->session->userdata('all_community_group_members_search');
+					if(!empty($search))
+					{
+						echo '<a href="'.site_url().'close_search_community_group_members" class="btn btn-sm btn-warning">Close Search</a>';
+					}
+
+					echo $result;
+					
+					?>
+			
+                </div>
+                 <div class="widget-foot">
+            
+					<?php if(isset($links)){echo $links;}?>
+	            
+	                <div class="clearfix"></div> 
+	            
+	            </div>
+
+             </div>
+
+		</div>
+	</section>
 <script type="text/javascript">
 	$(function() {
 	    $("#member_type_id").customselect();

@@ -237,6 +237,7 @@ $route['tree-planting/add-project'] = 'projects/add_project';
 $route['tree-planting/project-edit/(:num)/(:any)'] = 'projects/edit_project/$1/$2';
 $route['tree-planting/project-detail/(:num)/(:any)'] = 'projects/project_detail/$1/$2';
 $route['upload-project-documents/(:num)'] = 'projects/projects/upload_project_documents/$1';
+$route['upload-project-documents-page/(:num)'] = 'projects/projects/upload_project_documents_page/$1';
 $route['tree-planting/update-order-item/(:num)/(:any)/(:num)'] = 'tree-planting/projects/update_order_item/$1/$2/$3';
 $route['tree-planting/update-supplier-prices/(:num)/(:any)/(:num)'] = 'tree-planting/projects/update_supplier_prices/$1/$2/$3';
 $route['tree-planting/send-for-correction/(:num)'] = 'tree-planting/projects/send_order_for_correction/$1';
@@ -378,4 +379,15 @@ $route['import/import-trainees/(:num)/(:num)'] = 'projects/meeting/do_trainee_im
 
 $route['import/meetings-template'] = 'projects/meeting/import_meeting_template';
 $route['import/import-meetings/(:num)'] = 'projects/meeting/do_meeting_import/$1';
+
+
+$route['import/community-template'] = 'gbm_administration/community_groups/import_community_template';
+$route['import/import-community-groups/(:num)'] = 'gbm_administration/community_groups/do_community_import/$1';
+
+$route['import/community-members-template'] = 'gbm_administration/community_groups/import_community_members_template';
+$route['import/import-community-group-members/(:num)/(:num)'] = 'gbm_administration/community_groups/do_community_members_import/$1/$2';
+
+
+$route['import/seedling-production-template'] = 'projects/seedling_production/import_seedling_production_template';
+$route['import/import-seedling-production/(:num)/(:num)'] = 'projects/seedling_production/do_seedling_production_import/$1/$2';
 

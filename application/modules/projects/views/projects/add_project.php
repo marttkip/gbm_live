@@ -1,3 +1,10 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<!-- (Optional) Latest compiled and minified JavaScript translation files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/i18n/defaults-*.min.js"></script>
 <section class="panel panel-featured panel-featured-info">
     <header class="panel-heading">
          <h2 class="panel-title pull-left"><?php echo $title;?></h2>
@@ -89,7 +96,18 @@
                                 <textarea class="form-control" name="project_instructions"><?php echo set_value('project_instructions');?></textarea>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-lg-4 control-label">Watersheds</label>
+                            <div class="col-lg-8">
+                                <select class="form-control selectpicker" name="watersheds[]" multiple>
+                                  <?php echo $water_sheds;?>
+                                </select>
+
+                            </div>
+                        </div>
                 </div>
+                    
+                
             </div>
             <br />
      		<div class="row">
@@ -103,3 +121,9 @@
             <?php echo form_close();?>
     </div>
 </section>
+<script type="text/javascript">
+    $('.selectpicker').selectpicker({
+      style: 'btn-info',
+      size: 4
+    });
+</script>

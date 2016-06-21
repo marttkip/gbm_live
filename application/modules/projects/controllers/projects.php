@@ -91,6 +91,13 @@ class Projects extends admin
 	*/
 	public function add_project() 
 	{
+		
+		// foreach ($_POST['watersheds'] as $key) {
+		// 	# code...
+			
+		// 	echo $key."<hr>";
+		// }
+		// var_dump($_POST['watersheds']); die();
 		//form validation rules
 		$this->form_validation->set_rules('project_instructions', 'project Instructions', 'required|xss_clean');
 		$this->form_validation->set_rules('project_start_date', 'Project Start Date', 'required|xss_clean');
@@ -102,6 +109,8 @@ class Projects extends admin
 
 		$this->form_validation->set_rules('project_grant_value', 'Project Grant Value', 'required|xss_clean');
 		$this->form_validation->set_rules('project_grant_county', 'Project grant county', 'required|xss_clean');
+		$this->form_validation->set_rules('watersheds', 'Watersheds', 'required|xss_clean');
+		$this->form_validation->set_rules('planting_sites', 'Planting Sites', 'required|xss_clean');
 		
 		//if form has been submitted
 		if ($this->form_validation->run())
@@ -138,6 +147,43 @@ class Projects extends admin
 		endforeach;
 
 		$v_data['county_list'] = $county_list;
+
+
+		$project_area_order = 'project_areas.project_area_name';
+		$project_area_table = 'project_areas';
+		$project_area_where = 'project_area_status = 1';
+
+		$project_area_query = $this->projects_model->get_active_list($project_area_table, $project_area_where, $project_area_order);
+		$rs8 = $project_area_query->result();
+		$water_sheds = '';
+		foreach ($rs8 as $project_area_rs) :
+			$project_area_id = $project_area_rs->project_area_id;
+			$project_area_name = $project_area_rs->project_area_name;
+
+		    $water_sheds .="<option value='".$project_area_id."'>".$project_area_name."</option>";
+
+		endforeach;
+
+		$v_data['water_sheds'] = $water_sheds;
+
+
+		$site_order = 'planting_site.site_name';
+		$site_table = 'planting_site';
+		$site_where = 'status = 1';
+
+		$site_query = $this->projects_model->get_active_list($site_table, $site_where, $site_order);
+		$rs8 = $site_query->result();
+		$planting_sites = '';
+		foreach ($rs8 as $site_rs) :
+			$site_id = $site_rs->site_id;
+			$site_name = $site_rs->site_name;
+
+		    $planting_sites .="<option value='".$site_id."'>".$site_name."</option>";
+
+		endforeach;
+
+		$v_data['planting_sites'] = $planting_sites;
+
 
 		$data['content'] = $this->load->view('projects/projects/add_project', $v_data, true);
 		
@@ -562,6 +608,60 @@ class Projects extends admin
 			}
 			redirect('tree-planting/project-edit/'.$project_id.'/'.$project_number);
 		}
+
+	}
+
+	public function upload_project_documents_page($project_id)
+	{
+
+		//form validation rules
+		$this->form_validation->set_rules('attachement_name', 'Attachement Name', 'required|xss_clean');
+		
+		//if form has been submitted
+		if ($this->form_validation->run())
+		{
+			//upload product's gallery images
+			
+			if(is_uploaded_file($_FILES['post_image']['tmp_name']))
+			{
+				$documents_path = $this->documents_path;
+				/*
+					-----------------------------------------------------------------------------------------
+					Upload image
+					-----------------------------------------------------------------------------------------
+				*/
+				$response = $this->file_model->upload_documents($documents_path, 'post_image');
+				if($response['check'])
+				{
+					$file_name = $response['file_name'];
+				}
+			
+				else
+				{
+					$this->session->set_userdata('error_message', $response['error']);
+					
+					
+				}
+			}
+			
+			else{
+				$file_name = '';
+			}
+			
+			if($this->projects_model->add_project_upload($file_name, $project_id))
+			{
+				$this->session->set_userdata('success_message', 'Document was uploaded successfully added successfully');
+				
+			}
+			
+			else
+			{
+				$this->session->set_userdata('error_message', 'Could not add post. Please try again');
+			}
+			
+		}
+		$redirect = $this->input->post('redirect_url');
+		redirect($redirect);
 
 	}
 	//import projects

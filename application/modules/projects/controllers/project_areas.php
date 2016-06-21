@@ -265,8 +265,8 @@ class Project_areas extends admin
 	*/
 	public function area_locations($project_id,$order = 'project_area_name', $order_method = 'ASC') 
 	{
-		$where = 'project_areas.project_id  = '.$project_id;
-		$table = 'project_areas';
+		 $where = 'project_areas.project_area_id = project_watershed.project_area_id AND project_watershed.project_id  = '.$project_id;
+		$table = 'project_areas,project_watershed';
 		//pagination
 		$segment = 6;
 		$this->load->library('pagination');

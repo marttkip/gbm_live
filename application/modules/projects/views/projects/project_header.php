@@ -79,6 +79,7 @@ $v_data['contacts'] = $contacts;
 						</div>
 						<div class="summary-footer">
 							<!-- <a class="text-muted text-uppercase">(view all)</a> -->
+							<a data-toggle="modal" data-target="#upload_documents"  class="btn btn-default btn-xs"> <i class="fa fa-upload"></i> Upload Document</a>
 							<a href="<?php echo base_url();?>tree-planting/project-edit/<?php echo $project_id?>/<?php echo $project_number?>" class="btn btn-success btn-xs"> <i class="fa fa-pencil"></i> Edit Information</a>
 							<a href="<?php echo base_url();?>tree-planting/projects" class="btn btn-info btn-xs"> <i class="fa fa-arrow-left"></i> Back to projects</a>
 						</div>
@@ -129,4 +130,64 @@ $v_data['contacts'] = $contacts;
 			</div>
 		</section>
 	</div>
+
+	
 </div>
+
+<div class="modal fade" id="upload_documents" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Upload Document</h4>
+					</div>
+					<div class="modal-body">       
+					        <!-- Widget content -->
+							<div class="panel-body">
+					        <div class="padd">
+					            
+					        <div class="row">
+						        <div class="col-md-12">						            
+						        <?php echo form_open_multipart(base_url().'upload-project-documents-page/'.$project_id, array("class" => "form-horizontal", "role" => "form"));?>
+		                            <div class="row">
+						                <div class="col-sm-6">
+						                    <div class="form-group">
+						                        <label class="col-lg-4 control-label">Document Name</label>
+						                        <div class="col-lg-8">
+						                        	<input type="hidden" name="redirect_url" value="<?php echo $this->uri->uri_string();?>">
+						                            <input type="text" class="form-control" name="attachement_name" placeholder="Attachment Name" value="" required>
+						                        </div>
+						                    </div>
+						                </div>
+						                <div class="col-md-6"> 
+							                <div class="form-group">
+								                <label class="col-lg-4 control-label">Post Image</label>
+								                <div class="col-lg-8">
+								                    <input type="file" name="post_image"></span>
+								                </div>
+								            </div>
+						                </div>
+						            </div>
+						            <br/>
+						            <div class="row">
+						             <div class="form-actions center-align">
+									                <button class="submit btn btn-primary btn-sm" type="submit">
+									                    Upload Document
+									                </button>
+									            </div>
+						            	
+						            </div>
+						          <?php echo form_close();?>
+							</div>
+							</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      		</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

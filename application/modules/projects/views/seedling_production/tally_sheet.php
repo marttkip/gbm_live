@@ -170,14 +170,69 @@
 	<a  class="btn btn-sm btn-warning" id="close_tenant_info'.$nursery_tally_id.'"  onclick="close_tenant_info('.$nursery_tally_id.')" style="display:none;"><i class="fa fa-folder-open"></i> Close Production Info</a>
 </td> -->
 <?php echo $this->load->view('projects/projects/project_header','',true);?>
-<section class="panel">
-	<header class="panel-heading">
-		<h2 class="panel-title"><?php echo $title;?></h2>
-		<a href="<?php echo site_url();?>tree-planting/seedling-production/<?php echo $project_id;?>" class="btn btn-info btn-sm pull-right fa fa-arrow-left" style="margin-top:-25px;"> Back to Seedling Production</a>
-		<a  class="btn btn-sm btn-success pull-right fa fa-plus" id="open_new_community_group_member" onclick="get_new_community_group_member();" style="margin-top:-25px;margin-right:5px;"> Add seedling tally</a>
-		<a  class="btn btn-sm btn-warning pull-right" id="close_new_community_group_member" style="display:none; margin-top:-25px;margin-right:5px;" onclick="close_new_community_group_member();">Close seedling tally</a>
-	</header>
+<section class="panel panel-featured panel-featured-success">
+    <header class="panel-heading">
+         <h2 class="panel-title pull-left"><?php echo $title;?></h2>
+         <div class="widget-icons pull-right">
+         	<a data-toggle="modal" data-target="#upload_tally_shet" class="btn btn-warning btn-sm fa fa-upload" > Import Tally Sheet </a>
+         	<a href="<?php echo site_url();?>tree-planting/seedling-production/<?php echo $project_id;?>" class="btn btn-info btn-sm pull-right fa fa-arrow-left" > Back to Seedling Production</a>
+			<a  class="btn btn-sm btn-success fa fa-plus" id="open_new_community_group_member" onclick="get_new_community_group_member();" > Add seedling tally</a>
+			<a  class="btn btn-sm btn-warning" id="close_new_community_group_member" style="display:none;" onclick="close_new_community_group_member();">Close seedling tally</a>
+			
+          </div>
+         
+          <div class="clearfix"></div>
+    </header>
 	<div class="panel-body">
+		<div class="modal fade" id="upload_tally_shet" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Upload Tally Sheet</h4>
+					</div>
+					<div class="modal-body">       
+					        <!-- Widget content -->
+							<div class="panel-body">
+					        <div class="padd">
+					            
+					        <div class="row">
+						        <div class="col-md-12">						            
+						        <?php echo form_open_multipart('import/import-seedling-production/'.$seedling_production_id.'/'.$project_id, array("class" => "form-horizontal", "role" => "form"));?>
+						            
+						            <div class="row">
+						                <div class="col-md-12">
+						                    <ul>
+						                        <li>Download the import template <a href="<?php echo site_url().'import/seedling-production-template';?>" target= "_blank">here.</a></li>
+						                        
+						                        <li>Save your file as a <strong>CSV (Comma Delimited)</strong> file before importing</li>
+						                        <li>After adding your tally sheet to the import template please import them using the button below</li>
+						                    </ul>
+						                </div>
+						            </div>
+						            
+						            <div class="row">
+										<div class="col-md-12" style="margin-top:10px">
+											<div class="fileUpload btn btn-primary">
+						                        <span>Import Tally Sheet</span>
+						                        <input type="file" class="upload" onChange="this.form.submit();" name="import_csv" />
+						                    </div>
+										</div>
+						            </div>
+						                   
+						                    
+						        </div>
+					        </div>
+					            <?php echo form_close();?>
+							</div>
+							</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      		</div>
+				</div>
+			</div>
+		</div>
 		 <div style="display:none;" class="col-md-12" style="margin-bottom:20px;" id="new_community_group_member" >
         	<section class="panel">
 				<header class="panel-heading">

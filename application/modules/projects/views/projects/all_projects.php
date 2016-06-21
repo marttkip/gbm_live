@@ -127,7 +127,10 @@
 													<div class="col-md-6">
 														<p>Project Donor <span class="pull-right label label-default" style="margin-top:4px;">'.$project_donor.'</span></p>
 													</div>
-													<div class="col-md-6">
+													
+												</div>
+												<div class="col-md-12">
+													<div class="col-md-12">
 														<p> Grant County <span class="pull-right label label-default" style="margin-top:4px;">'.$county_name.'</span></p>
 													</div>
 												</div>
@@ -171,7 +174,7 @@
 											<a href="'.site_url().'tree-planting/project-edit/'.$project_id.'/'.$project_number.'" title="Edit '.$project_title.'"><i class="fa fa-pencil mr-xs"></i> Edit</a>
 											<a href="'.site_url().'tree-planting/project-detail/'.$project_id.'/'.$project_number.'" title="View '.$project_title.'"><i class="fa fa-folder-open mr-xs"></i> View</a>
 											'.$button.'
-											<a href="'.site_url().'tree-planting/delete-project-area/'.$project_id.'"  onclick="return confirm(\'Do you really want to delete '.$project_title.'?\');" title="Delete '.$project_title.'"><i class="fa fa-trash mr-xs"></i> Delete</a>
+											<a href="'.site_url().'tree-planting/delete-project-area/'.$project_id.'"  onclick="return confirm(\'Do you really want to delete '.$project_title.'?\');" title="Delete '.$project_title.'"><i class="fa fa-trash mr-xs"></i> </a>
 
 										</div>
 									</section>
@@ -195,11 +198,10 @@
 <section class="panel">
 	<header class="panel-heading">
 		<h2 class="panel-title"><?php echo $title;?></h2>
-		<button type="button" class="btn btn-primary btn-sm pull-right"  style="margin-top:-25px;" data-toggle="modal" data-target="#upload_project">
-                	Upload Projects
-        </button>
+       
 
 		<a href="<?php echo site_url();?>tree-planting/add-project" class="btn btn-success btn-sm pull-right" style="margin-top:-25px;">Add Project</a>
+		 <a data-toggle="modal" data-target="#upload_project" class="btn btn-warning btn-sm pull-right" style="margin-top:-25px; margin-right:5px;">Import Projects</a>
 	</header>
 	<?php echo $this->load->view('projects/dashboard_header','',true)?>
 </section>
@@ -211,86 +213,77 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Upload Projects</h4>
 			</div>
-			<div class="modal-body">
-            <section class="panel">
+			<div class="modal-body">  
 
- 
-        <!-- Widget head -->
-        <header class="panel-heading">
-          <h4 class="page-title"><?php echo $title;?></h4>
-        </header>             
-
-        <!-- Widget content -->
-		<div class="panel-body">
-        <div class="padd">
-            
-        <div class="row">
-        <div class="col-md-12">
-		<?php
-		$error = $this->session->userdata('error_message');
-		$success = $this->session->userdata('success_message');
-		
-		if(!empty($error))
-		{
-			echo '<div class="alert alert-danger">'.$error.'</div>';
-			$this->session->unset_userdata('error_message');
-		}
-		
-		if(!empty($success))
-		{
-			echo '<div class="alert alert-success">'.$success.'</div>';
-			$this->session->unset_userdata('success_message');
-		}
-		?>
-            <?php
-                if(isset($import_response))
-                {
-                    if(!empty($import_response))
-                    {
-                        echo $import_response;
-                    }
-                }
-                
-                if(isset($import_response_error))
-                {
-                    if(!empty($import_response_error))
-                    {
-                        echo '<div class="center-align alert alert-danger">'.$import_response_error.'</div>';
-                    }
-                }
-            ?>
-                
-            
-            <?php echo form_open_multipart('import/import-projects', array("class" => "form-horizontal", "role" => "form"));?>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <ul>
-                        <li>Download the import template <a href="<?php echo site_url().'import/projects-template';?>" target= "_blank">here.</a></li>
-                        
-                        <li>Save your file as a <strong>CSV (Comma Delimited)</strong> file before importing</li>
-                        <li>After adding your projects to the import template please import them using the button below</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="row">
-				<div class="col-md-12" style="margin-top:10px">
-					<div class="fileUpload btn btn-primary">
-                        <span>Import Projects</span>
-                        <input type="file" class="upload" onChange="this.form.submit();" name="import_csv" />
-                    </div>
+		        <!-- Widget content -->
+				<div class="panel-body">
+		        <div class="padd">
+		            
+		        <div class="row">
+		        <div class="col-md-12">
+				<?php
+				$error = $this->session->userdata('error_message');
+				$success = $this->session->userdata('success_message');
+				
+				if(!empty($error))
+				{
+					echo '<div class="alert alert-danger">'.$error.'</div>';
+					$this->session->unset_userdata('error_message');
+				}
+				
+				if(!empty($success))
+				{
+					echo '<div class="alert alert-success">'.$success.'</div>';
+					$this->session->unset_userdata('success_message');
+				}
+				?>
+		            <?php
+		                if(isset($import_response))
+		                {
+		                    if(!empty($import_response))
+		                    {
+		                        echo $import_response;
+		                    }
+		                }
+		                
+		                if(isset($import_response_error))
+		                {
+		                    if(!empty($import_response_error))
+		                    {
+		                        echo '<div class="center-align alert alert-danger">'.$import_response_error.'</div>';
+		                    }
+		                }
+		            ?>
+		                
+		            
+		            <?php echo form_open_multipart('import/import-projects', array("class" => "form-horizontal", "role" => "form"));?>
+		            
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <ul>
+		                        <li>Download the import template <a href="<?php echo site_url().'import/projects-template';?>" target= "_blank">here.</a></li>
+		                        
+		                        <li>Save your file as a <strong>CSV (Comma Delimited)</strong> file before importing</li>
+		                        <li>After adding your projects to the import template please import them using the button below</li>
+		                    </ul>
+		                </div>
+		            </div>
+		            
+		            <div class="row">
+						<div class="col-md-12" style="margin-top:10px">
+							<div class="fileUpload btn btn-primary">
+		                        <span>Import Projects</span>
+		                        <input type="file" class="upload" onChange="this.form.submit();" name="import_csv" />
+		                    </div>
+						</div>
+		            </div>
+		                   
+		                    
+		        </div>
+		        </div>
+		            <?php echo form_close();?>
 				</div>
-            </div>
-                   
-                    
-        </div>
-        </div>
-            <?php echo form_close();?>
-		</div>
-		</div>
-
-</section>
+				</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

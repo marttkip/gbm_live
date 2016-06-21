@@ -3,13 +3,16 @@
 require_once "./application/modules/admin/controllers/admin.php";
 
 class Seedling_production extends admin {
-	
+	var $csv_path;
 	function __construct()
 	{
 		parent:: __construct();
 		$this->load->model('seedling_production_model');
 		$this->load->model('projects_model');
 		$this->load->model('admin/users_model');
+
+		//path to imports
+		$this->csv_path = realpath(APPPATH . '../assets/csv');
 	}
     
 	
@@ -304,6 +307,57 @@ class Seedling_production extends admin {
 				redirect('tree-planting/seedling-tally/'.$seedling_production_id.'/'.$project_area_id);
 			}
 		}
+	}
+
+	public function import_seedling_production_template()
+	{
+		//export projects template in excel 
+		$this->seedling_production_model->import_seedling_production_template();
+	}
+
+	//do the project import
+	function do_seedling_production_import($seedling_production_id,$project_id)
+	{
+		if(isset($_FILES['import_csv']))
+		{
+			if(is_uploaded_file($_FILES['import_csv']['tmp_name']))
+			{
+				//import products from excel 
+				$response = $this->seedling_production_model->import_csv_seedling_production($this->csv_path,$seedling_production_id);
+				
+				if($response == FALSE)
+				{
+					$v_data['import_response_error'] = 'Something went wrong. Please try again.';
+				}
+				
+				else
+				{
+					if($response['check'])
+					{
+						$v_data['import_response'] = $response['response'];
+					}
+					
+					else
+					{
+						$v_data['import_response_error'] = $response['response'];
+					}
+				}
+			}
+			
+			else
+			{
+				$v_data['import_response_error'] = 'Please select a file to import.';
+			}
+		}
+		
+		else
+		{
+			$v_data['import_response_error'] = 'Please select a file to import.';
+		}
+		
+		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
+		
+		redirect ('tree-planting/seedling-tally/'.$seedling_production_id.'/'.$project_id);
 	}
 
 }

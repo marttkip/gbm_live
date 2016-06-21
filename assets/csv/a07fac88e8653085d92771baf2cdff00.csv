@@ -1,0 +1,5 @@
+Month,Year,"Seedling Status (i.e. In potting bags 1, Not ready for planting 2, Ready for planting 3)","Seedling Type (i.e. Exotic 1, Indigenous 2, Fruit 3)",Quantity
+5,2016,1,1,200
+5,2016,1,2,300
+5,2016,3,3,500
+5,2016,2,3,400
