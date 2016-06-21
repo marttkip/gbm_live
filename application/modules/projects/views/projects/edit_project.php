@@ -189,6 +189,12 @@ if(!empty($validation_error))
 									<li class="active">
 										<a class="text-center" data-toggle="tab" href="#general"><i class="fa fa-user"></i> General details</a>
 									</li>
+									<li>
+										<a class="text-center" data-toggle="tab" href="#watersheds"><i class="fa fa-user"></i> Project Watersheds</a>
+									</li>
+									<li>
+										<a class="text-center" data-toggle="tab" href="#uploads"><i class="fa fa-user"></i> Project Uploads</a>
+									</li>
 							
 								</ul>
 								<div class="tab-content">
@@ -271,44 +277,52 @@ if(!empty($validation_error))
 								            </div>
 								         </div>
 							            <br />
-						            </div>
-						            <br />
+						           
 								    <?php echo form_close();?>
-						              <hr>
-						            <?php echo form_open_multipart(base_url().'upload-project-documents/'.$project_id.'/'.$project_number, array("class" => "form-horizontal", "role" => "form"));?>
-		                            <div class="row">
-						                <div class="col-sm-6">
-						                    <div class="form-group">
-						                        <label class="col-lg-4 control-label">Document Name</label>
-						                        <div class="col-lg-8">
-						                            <input type="text" class="form-control" name="attachement_name" placeholder="Attachment Name" value="" required>
-						                        </div>
-						                    </div>
-						                </div>
-						                <div class="col-md-6"> 
-							                <div class="form-group">
-								                <label class="col-lg-4 control-label">Post Image</label>
-								                <div class="col-lg-8">
-								                    <input type="file" name="post_image"></span>
-								                </div>
-								            </div>
-						                </div>
-						            </div>
-						            <br/>
-						            <div class="row">
-						             <div class="form-actions center-align">
-									                <button class="submit btn btn-primary btn-sm" type="submit">
-									                    Upload Document
-									                </button>
-									            </div>
-						            	
-						            </div>
-						             <?php echo form_close();?>
-						             <hr>
-						             <div class="row">
-						             	<?php echo $result;?>
-						             </div>
-								
+						           
+									</div>
+									<div class="tab-pane" id="watersheds">
+									</div>
+									<div class="tab-pane" id="uploads">
+										<div class="row">
+							                 <div class="col-md-12">
+												 <?php echo form_open_multipart(base_url().'upload-project-documents/'.$project_id.'/'.$project_number, array("class" => "form-horizontal", "role" => "form"));?>
+
+											            <div class="row">
+											                <div class="col-sm-6">
+											                    <div class="form-group">
+											                        <label class="col-lg-4 control-label">Document Name</label>
+											                        <div class="col-lg-8">
+											                            <input type="text" class="form-control" name="attachement_name" placeholder="Attachment Name" value="" required>
+											                        </div>
+											                    </div>
+											                </div>
+											                <div class="col-md-6"> 
+												                <div class="form-group">
+													                <label class="col-lg-4 control-label">Post Image</label>
+													                <div class="col-lg-8">
+													                    <input type="file" name="post_image"></span>
+													                </div>
+													            </div>
+											                </div>
+											            </div>
+											            <br/>
+											            <div class="row">
+											             <div class="form-actions center-align">
+											                <button class="submit btn btn-primary btn-sm" type="submit">
+											                    Upload Document
+											                </button>
+											            </div>
+											            	
+											            </div>
+											       	<?php echo form_close();?>
+												     <hr>
+												     <div class="row">
+												     	<?php echo $result;?>
+												     </div>
+												</div>
+											</div>
+									</div>
 								</div>
 							</div>
                         </div>
@@ -316,3 +330,6 @@ if(!empty($validation_error))
                 </div>
             </section>
         </div>
+
+
+        

@@ -220,6 +220,22 @@ class Projects_model extends CI_Model
 		{
 			$project_id = $this->db->insert_id();
 
+			// insert project planting sites
+
+			foreach ($_POST['watersheds'] as $key) {
+				# code...
+				$watershed_data = array(
+					'project_id'=>$project_id,
+					'project_area_id'=>$key,
+					'created'=>date("Y-m-d H:i:s"),
+				);
+
+				$this->db->insert('project_watershed', $watershed_data);
+				
+			}
+
+
+
 			// insert into the project_level_status
 
 			$insert_data = array(

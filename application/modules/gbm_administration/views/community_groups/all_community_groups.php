@@ -132,17 +132,72 @@
 			<h3 class="center-align">STEP TWO : COMMUNITY GROUPS / NURSERIES</h3>
 		</div>
 		<div class="col-md-4">
-			<a href="<?php echo site_url();?>tree-planting/seedling-production/<?php echo $project_id?>" class="btn btn-info btn-sm pull-right" > GOT TO STEP FOUR : SEEDLINGS PRODUCTION <i class="fa fa-arrow-right"></i></a>
+			<a href="<?php echo site_url();?>tree-planting/seedling-production/<?php echo $project_id?>" class="btn btn-info btn-sm pull-right" > GO TO STEP FOUR : SEEDLINGS PRODUCTION <i class="fa fa-arrow-right"></i></a>
 		</div>
 	</div>
 </div>
-<section class="panel">
-	<header class="panel-heading">						
-		<h2 class="panel-title"><?php echo $title;?></h2>
-		<a href="<?php echo site_url();?>tree-planting/add-community-group/<?php echo $project_id;?>" class="btn btn-success pull-right btn-sm" style="margin-top:-25px; margin-right:5px;"> Add Community Group</a>
+<section class="panel panel-featured panel-featured-success">
+    <header class="panel-heading">
+         <h2 class="panel-title pull-left"><?php echo $title;?></h2>
+         <div class="widget-icons pull-right">
+         	<a data-toggle="modal" data-target="#upload_community_groups" class="btn btn-warning btn-sm " > Import Community Groups </a>
+         	<a href="<?php echo site_url();?>tree-planting/add-community-group/<?php echo $project_id;?>" class="btn btn-success btn-sm" > Add Community Group</a>
+			
+          </div>
+         
+          <div class="clearfix"></div>
+    </header>
 
-	</header>
 	<div class="panel-body">
+		<div class="modal fade" id="upload_community_groups" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Upload Community Groups</h4>
+					</div>
+					<div class="modal-body">       
+					        <!-- Widget content -->
+							<div class="panel-body">
+					        <div class="padd">
+					            
+					        <div class="row">
+						        <div class="col-md-12">						            
+						        <?php echo form_open_multipart('import/import-community-groups/'.$project_id, array("class" => "form-horizontal", "role" => "form"));?>
+						            
+						            <div class="row">
+						                <div class="col-md-12">
+						                    <ul>
+						                        <li>Download the import template <a href="<?php echo site_url().'import/community-template';?>" target= "_blank">here.</a></li>
+						                        
+						                        <li>Save your file as a <strong>CSV (Comma Delimited)</strong> file before importing</li>
+						                        <li>After adding your projects to the import template please import them using the button below</li>
+						                    </ul>
+						                </div>
+						            </div>
+						            
+						            <div class="row">
+										<div class="col-md-12" style="margin-top:10px">
+											<div class="fileUpload btn btn-primary">
+						                        <span>Import Community Groups</span>
+						                        <input type="file" class="upload" onChange="this.form.submit();" name="import_csv" />
+						                    </div>
+										</div>
+						            </div>
+						                   
+						                    
+						        </div>
+					        </div>
+					            <?php echo form_close();?>
+							</div>
+							</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      		</div>
+				</div>
+			</div>
+		</div>
         <?php
 		$error = $this->session->userdata('error_message');
 		$success = $this->session->userdata('success_message');
@@ -163,6 +218,24 @@
 			$this->session->unset_userdata('error_message');
 		}
 		?>
+        <?php
+            if(isset($import_response))
+            {
+                if(!empty($import_response))
+                {
+                    echo $import_response;
+                }
+            }
+            
+            if(isset($import_response_error))
+            {
+                if(!empty($import_response_error))
+                {
+                    echo '<div class="center-align alert alert-danger">'.$import_response_error.'</div>';
+                }
+            }
+        ?>
+					                
 		<div class="table-responsive">
         	
 			<?php echo $result;?>

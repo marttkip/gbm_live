@@ -121,24 +121,27 @@ else
 			$result .= "There are no community group members";
 		}
 
-			$link = '<a href="'.site_url().'tree-planting/trainings/'.$project_id.'" class="btn btn-sm btn-info pull-right fa fa-arrow-left" style="margin-left:5px; margin-top:-5px" > Back to trainings</a>';
-
+			
 ?>
-<section class="panel">
+<section class="panel panel-featured panel-featured-success">
 	<header class="panel-heading">
-		<h2 class="panel-title"><?php echo $title;?> <?php echo $link;?></h2>
+		<h2 class="panel-title pull-left"><?php echo $title;?></h2>
 		
-		<button type="button" style="margin-top:-25px" class="btn btn-primary btn-sm pull-right"  data-toggle="modal" data-target="#upload_attendees">
-                	Upload Meeting Trainees
-		</button>
-		
-		<a  class="btn btn-sm btn-success pull-right fa fa-folder" id="open_new_community_group_member" onclick="get_new_community_group_member();" style="margin-top:-25px"> Add meeting attendee</a>
-        
-		<a  class="btn btn-sm btn-warning pull-right fa fa-folder-open" id="close_new_community_group_member" style="display:none; margin-top:-25px;" onclick="close_new_community_group_member();"> Close new meeting attendee</a>
-		<?php
-      	$link2 = '<a href="'.site_url().'meeting/print-attendees/'.$project_id.'/'.$meeting_id.'" class="btn btn-sm btn-warning pull-right fa fa-print" style="margin-top:-25px;margin-right:5px;" target="_blank" > Print Trainees</a>';
-		echo $link2;
-		?>
+		 <div class="widget-icons pull-right">
+		 	<a data-toggle="modal" data-target="#upload_attendees" class="btn btn-warning btn-sm" style=""> Import Meeting Trainees</a>
+		 
+		 	
+
+			<a  class="btn btn-sm btn-success fa fa-folder" id="open_new_community_group_member" onclick="get_new_community_group_member();" > Add meeting attendee</a>
+	        
+			<a  class="btn btn-sm btn-warning fa fa-folder-open" id="close_new_community_group_member" style="display:none;" onclick="close_new_community_group_member();"> Close new meeting attendee</a>
+			<a href="<?php echo site_url();?>meeting/print-attendees/<?php echo $project_id;?>/<?php echo $meeting_id;?>" class="btn btn-sm btn-primary fa fa-print" style="" target="_blank" > Print Trainees</a>
+			
+			<a href="<?php echo site_url();?>tree-planting/trainings/<?php echo $project_id;?>" class="btn btn-sm btn-info fa fa-arrow-left" > Back to trainings</a>
+			
+
+		</div>
+		 <div class="clearfix"></div>
 	</header>
 	<div class="panel-body">
 			<div class="modal fade" id="upload_attendees" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -149,85 +152,75 @@ else
 				<h4 class="modal-title" id="myModalLabel">Meeting Attendees</h4>
 			</div>
 			<div class="modal-body">
-            <section class="panel">
-
- 
-        <!-- Widget head -->
-        <header class="panel-heading">
-          <h4 class="page-title"><?php echo $title;?></h4>
-        </header>             
-
-        <!-- Widget content -->
-		<div class="panel-body">
-        <div class="padd">
-            
-        <div class="row">
-        <div class="col-md-12">
-		<?php
-		$error = $this->session->userdata('error_message');
-		$success = $this->session->userdata('success_message');
-		
-		if(!empty($error))
-		{
-			echo '<div class="alert alert-danger">'.$error.'</div>';
-			$this->session->unset_userdata('error_message');
-		}
-		
-		if(!empty($success))
-		{
-			echo '<div class="alert alert-success">'.$success.'</div>';
-			$this->session->unset_userdata('success_message');
-		}
-		?>
-            <?php
-                if(isset($import_response))
-                {
-                    if(!empty($import_response))
-                    {
-                        echo $import_response;
-                    }
-                }
-                
-                if(isset($import_response_error))
-                {
-                    if(!empty($import_response_error))
-                    {
-                        echo '<div class="center-align alert alert-danger">'.$import_response_error.'</div>';
-                    }
-                }
-            ?>
-                
-            
-            <?php echo form_open_multipart('import/import-trainees/'.$project_id.'/'.$meeting_id, array("class" => "form-horizontal", "role" => "form"));?>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <ul>
-                        <li>Download the import template <a href="<?php echo site_url().'import/trainees-template';?>" target= "_blank">here.</a></li>
-                        
-                        <li>Save your file as a <strong>CSV (Comma Delimited)</strong> file before importing</li>
-                        <li>After adding your projects to the import template please import them using the button below</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="row">
-				<div class="col-md-12" style="margin-top:10px">
-					<div class="fileUpload btn btn-primary">
-                        <span>Import Trainees</span>
-                        <input type="file" class="upload" onChange="this.form.submit();" name="import_csv" />
-                    </div>
+		        <!-- Widget content -->
+				<div class="panel-body">
+		        <div class="padd">
+		            
+		        <div class="row">
+		        <div class="col-md-12">
+				<?php
+				$error = $this->session->userdata('error_message');
+				$success = $this->session->userdata('success_message');
+				
+				if(!empty($error))
+				{
+					echo '<div class="alert alert-danger">'.$error.'</div>';
+					$this->session->unset_userdata('error_message');
+				}
+				
+				if(!empty($success))
+				{
+					echo '<div class="alert alert-success">'.$success.'</div>';
+					$this->session->unset_userdata('success_message');
+				}
+				?>
+		            <?php
+		                if(isset($import_response))
+		                {
+		                    if(!empty($import_response))
+		                    {
+		                        echo $import_response;
+		                    }
+		                }
+		                
+		                if(isset($import_response_error))
+		                {
+		                    if(!empty($import_response_error))
+		                    {
+		                        echo '<div class="center-align alert alert-danger">'.$import_response_error.'</div>';
+		                    }
+		                }
+		            ?>
+		                
+		            
+		            <?php echo form_open_multipart('import/import-trainees/'.$project_id.'/'.$meeting_id, array("class" => "form-horizontal", "role" => "form"));?>
+		            
+		            <div class="row">
+		                <div class="col-md-12">
+		                    <ul>
+		                        <li>Download the import template <a href="<?php echo site_url().'import/trainees-template';?>" target= "_blank">here.</a></li>
+		                        
+		                        <li>Save your file as a <strong>CSV (Comma Delimited)</strong> file before importing</li>
+		                        <li>After adding your projects to the import template please import them using the button below</li>
+		                    </ul>
+		                </div>
+		            </div>
+		            
+		            <div class="row">
+						<div class="col-md-12" style="margin-top:10px">
+							<div class="fileUpload btn btn-primary">
+		                        <span>Import Trainees</span>
+		                        <input type="file" class="upload" onChange="this.form.submit();" name="import_csv" />
+		                    </div>
+						</div>
+		            </div>
+		                   
+		                    
+		        </div>
+		        </div>
+		            <?php echo form_close();?>
 				</div>
-            </div>
-                   
-                    
-        </div>
-        </div>
-            <?php echo form_close();?>
-		</div>
-		</div>
-
-</section>
+				</div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

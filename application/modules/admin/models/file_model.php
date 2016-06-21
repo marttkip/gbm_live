@@ -516,7 +516,7 @@ class File_model extends CI_Model
 	public function upload_documents($upload_path, $field_name)
 	{
 		$config = array(
-				'allowed_types' => 'csv|CSVJPG|JPEG|jpg|jpeg|gif|png|pdf|PDF',
+				'allowed_types' => 'csv|CSVJPG|JPEG|jpg|jpeg|gif|png|pdf|PDF|doc|DOC|docx|DOCX|csv|CSV|xls|XLS',
 				'upload_path' => $upload_path,
 				'file_name' => md5(date('Y-m-d H:i:s'))
 			);

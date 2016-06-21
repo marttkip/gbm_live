@@ -137,7 +137,7 @@
 			<h3 class="center-align">STEP FOUR : SEEDLING PRODUCTION</h3>
 		</div>
 		<div class="col-md-4">
-			<a href="<?php echo site_url();?>tree-planting/ctn-detail/<?php echo $project_id?>" class="btn btn-info btn-sm pull-right" > GOT TO STEP FIVE : GBM CENTRAL TREE NURSERY <i class="fa fa-arrow-right"></i></a>
+			<a href="<?php echo site_url();?>tree-planting/ctn-detail/<?php echo $project_id?>" class="btn btn-info btn-sm pull-right" > GO TO STEP FIVE : GBM CENTRAL TREE NURSERY <i class="fa fa-arrow-right"></i></a>
 		</div>
 	</div>
 </div>

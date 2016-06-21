@@ -193,4 +193,137 @@ class Seedling_production_model extends CI_Model
 			return FALSE;
 		}
 	}
+
+
+	//import template
+	function import_seedling_production_template()
+	{
+		$this->load->library('Excel');
+		
+		$title = 'Seedling Production Template';
+		$count=1;
+		$row_count=0;
+		
+		$report[$row_count][0] = 'Month';
+		$report[$row_count][1] = 'Year';
+		$report[$row_count][2] = 'Seedling Status (i.e. In potting bags 1, Not ready for planting 2, Ready for planting 3)';
+		$report[$row_count][3] = 'Seedling Type (i.e. Exotic 1, Indigenous 2, Fruit 3)';
+		$report[$row_count][4] = 'Quantity'; 
+		
+		$row_count++;
+		
+		//create the excel document
+		$this->excel->addArray ( $report );
+		$this->excel->generateXML ($title);
+	}
+
+	//import projects
+	public function import_csv_seedling_production($upload_path,$seedling_production_id)
+	{
+		//load the file model
+		$this->load->model('admin/file_model');
+		/*
+			-----------------------------------------------------------------------------------------
+			Upload csv
+			-----------------------------------------------------------------------------------------
+		*/
+		$response = $this->file_model->upload_csv($upload_path, 'import_csv');
+		
+		if($response['check'])
+		{
+			$file_name = $response['file_name'];
+			
+			$array = $this->file_model->get_array_from_csv($upload_path.'/'.$file_name);
+			//var_dump($array); die();
+			$response2 = $this->sort_seedling_production($array,$seedling_production_id);
+		
+			if($this->file_model->delete_file($upload_path."\\".$file_name, $upload_path))
+			{
+			}
+			
+			return $response2;
+		}
+		
+		else
+		{
+			$this->session->set_userdata('error_message', $response['error']);
+			return FALSE;
+		}
+	}
+	//sort the projects imported into the db
+	public function sort_seedling_production($array,$seedling_production_id)
+	{
+		//count total rows
+		$total_rows = count($array);
+		$total_columns = count($array[0]);//var_dump($array);die();
+		
+		//if products exist in array
+		// var_dump($total_columns); die();
+		if(($total_rows > 0) && ($total_columns == 5))
+		{
+			$items['created_by'] = $this->session->userdata('personnel_id');
+			$response = '
+				<table class="table table-hover table-bordered ">
+					  <thead>
+						<tr>
+						  <th>#</th>
+						  <th>Month</th>
+						  <th>Year</th>
+						</tr>
+					  </thead>
+					  <tbody>';
+			
+			//retrieve the data from array
+			for($r = 1; $r < $total_rows; $r++)
+			{
+
+
+				$items['month'] = '0'.$array[$r][0]; 
+				$items['year'] = $array[$r][1];
+				$items['seedling_status_id'] = $array[$r][2]; 
+				$items['seedling_type_id'] = $array[$r][3];
+				$items['quantity'] = $array[$r][4];
+				$items['created'] = date('Y-m-d H:i:s');
+				$items['created_by'] = $this->session->userdata('personnel_id');
+				$items['seedling_production_id'] =  $seedling_production_id;
+
+				$comment ='';
+
+
+				if($this->db->insert('nursery_tally', $items))
+				{
+					$comment .= '<br/>Seedling Tally sheet  successfully added to the database';
+					$class = 'success';
+				}
+				else{
+					$comment .= '<br/>Internal error. Could not add seedling tally to the database. Please contact the site administrator';
+					$class = 'warning';
+				}
+				
+
+				
+				$response .= '
+								<tr class="'.$class.'">
+									<td>'.$r.'</td>
+									<td'.$items['month'].'</td>
+									<td'.$items['year'].'</td>
+									<td'.$comment.'</td>
+								</tr> 
+						';
+			}
+			
+			$response .= '</table>';
+			
+			$return['response'] = $response;
+			$return['check'] = TRUE;
+		}
+		//if no products exist
+		else
+		{
+			$return['response'] = 'Member data not found ';
+			$return['check'] = FALSE;
+		}
+		
+		return $return;
+	}
 }

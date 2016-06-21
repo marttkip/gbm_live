@@ -8,7 +8,7 @@
 			<h3 class="center-align">STEP FIVE : GBM CENTRAL TREE NURSERY</h3>
 		</div>
 		<div class="col-md-4">
-			<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id?>" class="btn btn-info btn-sm pull-right" > GOT TO STEP SIX : PLANTING PROCESS <i class="fa fa-arrow-right"></i></a>
+			<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id?>" class="btn btn-info btn-sm pull-right" > GO TO STEP SIX : PLANTING PROCESS <i class="fa fa-arrow-right"></i></a>
 		</div>
 	</div>
 </div>

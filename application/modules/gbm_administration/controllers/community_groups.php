@@ -4,12 +4,16 @@ require_once "./application/modules/admin/controllers/admin.php";
 
 class Community_groups extends admin 
 {
+	var $csv_path;
 	function __construct()
 	{
 		parent:: __construct();
 		$this->load->model('community_groups_model');
 		$this->load->model('projects/projects_model');
 		$this->load->model('admin/users_model');
+
+		//path to imports
+		$this->csv_path = realpath(APPPATH . '../assets/csv');
 	}
     
 	/*
@@ -256,6 +260,111 @@ class Community_groups extends admin
 		$this->community_groups_model->deactivate_community_group($company_id);
 		$this->session->set_userdata('success_message', 'Company disabled successfully');
 		redirect('tree-planting/community-groups/'.$project_id);
+	}
+
+	//  imports 
+
+	public function import_community_template()
+	{
+		//export projects template in excel 
+		$this->community_groups_model->import_community_template();
+	}
+
+	//do the project import
+	function do_community_import($project_id)
+	{
+		if(isset($_FILES['import_csv']))
+		{
+			if(is_uploaded_file($_FILES['import_csv']['tmp_name']))
+			{
+				//import products from excel 
+				$response = $this->community_groups_model->import_csv_community_group($this->csv_path,$project_id);
+				
+				if($response == FALSE)
+				{
+					$v_data['import_response_error'] = 'Something went wrong. Please try again.';
+				}
+				
+				else
+				{
+					if($response['check'])
+					{
+						$v_data['import_response'] = $response['response'];
+					}
+					
+					else
+					{
+						$v_data['import_response_error'] = $response['response'];
+					}
+				}
+			}
+			
+			else
+			{
+				$v_data['import_response_error'] = 'Please select a file to import.';
+			}
+		}
+		
+		else
+		{
+			$v_data['import_response_error'] = 'Please select a file to import.';
+		}
+		
+		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
+		
+		redirect ('tree-planting/community-groups/'.$project_id);
+	}
+
+
+	public function import_community_members_template()
+	{
+		//export projects template in excel 
+		$this->community_groups_model->import_community_members_template();
+	}
+
+	//do the project import
+	function do_community_members_import($community_group_id,$project_id)
+	{
+		if(isset($_FILES['import_csv']))
+		{
+			if(is_uploaded_file($_FILES['import_csv']['tmp_name']))
+			{
+				//import products from excel 
+				$response = $this->community_groups_model->import_csv_community_group_members($this->csv_path,$community_group_id);
+				
+				if($response == FALSE)
+				{
+					$v_data['import_response_error'] = 'Something went wrong. Please try again.';
+				}
+				
+				else
+				{
+					if($response['check'])
+					{
+						$v_data['import_response'] = $response['response'];
+					}
+					
+					else
+					{
+						$v_data['import_response_error'] = $response['response'];
+					}
+				}
+			}
+			
+			else
+			{
+				$v_data['import_response_error'] = 'Please select a file to import.';
+			}
+		}
+		
+		else
+		{
+			$v_data['import_response_error'] = 'Please select a file to import.';
+		}
+		
+		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
+		
+		redirect ('tree-planting/group-members/'.$community_group_id.'/'.$project_id);
 	}
 }
 ?>
