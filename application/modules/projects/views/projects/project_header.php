@@ -80,8 +80,8 @@ $v_data['contacts'] = $contacts;
 						<div class="summary-footer">
 							<!-- <a class="text-muted text-uppercase">(view all)</a> -->
 							<a data-toggle="modal" data-target="#upload_documents"  class="btn btn-default btn-xs"> <i class="fa fa-upload"></i> Upload Document</a>
-							<a href="<?php echo base_url();?>tree-planting/project-edit/<?php echo $project_id?>/<?php echo $project_number?>" class="btn btn-success btn-xs"> <i class="fa fa-pencil"></i> Edit Information</a>
-							<a href="<?php echo base_url();?>tree-planting/projects" class="btn btn-info btn-xs"> <i class="fa fa-arrow-left"></i> Back to projects</a>
+							<a href="<?php echo base_url();?>gbm-administration/project-edit/<?php echo $project_id?>/<?php echo $project_number?>" class="btn btn-success btn-xs"> <i class="fa fa-pencil"></i> Edit Information</a>
+							<a href="<?php echo base_url();?>tree-planting" class="btn btn-info btn-xs"> <i class="fa fa-arrow-left"></i> Back to projects</a>
 						</div>
 					</div>
 				</div>

@@ -31,6 +31,7 @@ if ($query->num_rows() > 0)
 				<th>Name</th>
 				<th>National Id</th>
 				<th>Phone Number</th>
+                <th>Amount Paid</th>
 			</tr>
 		</thead>
 		  <tbody>
@@ -49,6 +50,7 @@ if ($query->num_rows() > 0)
 				<td>'.$row->cpm_name.' </td>
 				<td>'.$row->cpm_national_id.' </td>
 				<td>'.$row->cpm_phone.' </td>
+                <td>'.$row->cpm_amount.' </td>
 			</tr> 
 		';
 	

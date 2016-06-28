@@ -231,22 +231,26 @@ $route['tree-planting/deactivate-group-member/(:num)/(:num)/(:num)'] = 'gbm_admi
 
 
 
-$route['tree-planting/projects'] = 'projects/index';
-$route['tree-planting/projects/(:num)'] = 'tree-planting/projects/index/$1';
-$route['tree-planting/add-project'] = 'projects/add_project';
-$route['tree-planting/project-edit/(:num)/(:any)'] = 'projects/edit_project/$1/$2';
+$route['gbm-administration/projects'] = 'projects/index/list';
+$route['gbm-administration/projects/(:num)'] = 'gbm-administration/projects/index/$1';
+$route['gbm-administration/add-project'] = 'projects/add_project';
+$route['gbm-administration/project-edit/(:num)/(:any)'] = 'projects/edit_project/$1/$2';
+
+$route['upload-project-documents/(:num)'] = 'projects/projects/upload_project_documents/$1';
+$route['upload-project-documents-page/(:num)'] = 'projects/projects/upload_project_documents_page/$1';
+
+
+
+
+// tree planting routes
+
+
+$route['tree-planting'] = 'projects/index';
+$route['tree-planting'] = 'projects/index';
+$route['tree-planting/(:num)'] = 'tree-planting/projects/index/$1';
 $route['tree-planting/project-detail/(:num)/(:any)'] = 'projects/project_detail/$1/$2';
 $route['upload-project-documents/(:num)'] = 'projects/projects/upload_project_documents/$1';
 $route['upload-project-documents-page/(:num)'] = 'projects/projects/upload_project_documents_page/$1';
-$route['tree-planting/update-order-item/(:num)/(:any)/(:num)'] = 'tree-planting/projects/update_order_item/$1/$2/$3';
-$route['tree-planting/update-supplier-prices/(:num)/(:any)/(:num)'] = 'tree-planting/projects/update_supplier_prices/$1/$2/$3';
-$route['tree-planting/send-for-correction/(:num)'] = 'tree-planting/projects/send_order_for_correction/$1';
-$route['tree-planting/send-for-approval/(:num)'] = 'tree-planting/projects/send_order_for_approval/$1';
-$route['tree-planting/send-for-approval/(:num)/(:num)'] = 'tree-planting/projects/send_order_for_approval/$1/$2';
-$route['tree-planting/submit-supplier/(:num)/(:any)'] = 'tree-planting/projects/submit_supplier/$1/$2';
-$route['tree-planting/generate-lpo/(:num)'] = 'tree-planting/projects/print_lpo_new/$1';
-$route['tree-planting/generate-rfq/(:num)/(:num)/(:any)'] = 'tree-planting/projects/print_rfq_new/$1/$2/$3';
-$route['tree-planting/edit_order/(:num)'] = 'tree-planting/projects/edit_order/$1';
 
 
 
@@ -323,6 +327,8 @@ $route['tree-planting/deactivate-planting-site/(:num)/(:num)'] = 'projects/plant
 
 
 
+
+
 $route['planting-site/activities/(:num)/(:num)'] = 'projects/planting_sites/activities/$1/$2';
 $route['planting-site/activities/(:num)/(:num)/(:num)'] = 'projects/planting_sites/activities/$1/$2/$3';
 $route['planting-site/add-activity/(:num)/(:num)'] = 'projects/planting_sites/add_activity/$1/$2';
@@ -330,6 +336,13 @@ $route['planting-site/edit-activity/(:num)/(:num)'] = 'projects/planting_sites/e
 $route['planting-site/delete-activity/(:num)/(:num)'] = 'projects/planting_sites/delete_activity/$1/$2';
 $route['planting-site/activate-activity/(:num)/(:num)'] = 'projects/planting_sites/activate_activity/$1/$2';
 $route['planting-site/deactivate-activity/(:num)/(:num)'] = 'projects/planting_sites/deactivate_activity/$1/$2';
+
+
+
+$route['planting-site/follow-up(:num)/(:num)'] = 'projects/planting_sites/activities/$1/$2';
+$route['planting-site/follow-up/(:num)/(:num)/(:num)'] = 'projects/planting_sites/follow_up/$1/$2/$3';
+$route['planting-site/add-followup-detail/(:num)/(:num)/(:num)'] = 'projects/planting_sites/add_followup/$1/$2/$3';
+
 
 $route['activity-participants/(:num)/(:num)'] = 'projects/planting_sites/activity_participants/$1/$2';
 $route['print-activity-participants/(:num)/(:num)'] = 'projects/planting_sites/print_activity_participants/$1/$2';
@@ -362,15 +375,26 @@ $route['tree-planting/activate-receivable/(:num)/(:num)'] = 'projects/receivable
 $route['tree-planting/deactivate-receivable/(:num)/(:num)'] = 'projects/receivables/deactivate_receivables/$1/$2';
 
 
-$route['food-security'] = 'projects/food_security/all_food_security';
-$route['print-food-security'] = 'projects/food_security/print_food_security';
-$route['add-food-security'] = 'projects/food_security/load_add_food_security';
-$route['food-security/add-food-security'] = 'projects/food_security/add_food_security';
-$route['print-water-conservation'] = 'projects/food_security/print_water_conservation';
-$route['water-conservation'] = 'projects/food_security/all_water_conservation';
-$route['food-security/add-water-conservation'] = 'projects/food_security/add_water_conservation';
-$route['add-water-conservation'] = 'projects/food_security/load_water_conservation';
-$route['trainer-of-tranees'] = 'projects/food_security/print_tot';
+$route['food-security/(:num)'] = 'projects/food_security/all_food_security/$1';
+$route['print-food-security/(:num)'] = 'projects/food_security/print_food_security/$1';
+$route['add-food-security/(:num)'] = 'projects/food_security/load_add_food_security/$1';
+$route['food-security/add-food-security/(:num)'] = 'projects/food_security/add_food_security/$1';
+$route['print-water-conservation/(:num)'] = 'projects/food_security/print_water_conservation/$1';
+$route['food-security/add-water-conservation/(:num)'] = 'projects/food_security/add_water_conservation/$1';
+$route['add-water-conservation/(:num)'] = 'projects/food_security/load_water_conservation/$1';
+
+
+$route['trainer-of-trainees/(:num)'] = 'projects/food_security/all_trainer_of_trainees/$1';
+$route['add-trainer-of-tranees/(:num)'] = 'projects/food_security/load_trainer_of_trainees/$1';
+$route['food-security/add-trainer-of-tranees/(:num)'] = 'projects/food_security/add_trainer_of_trainees/$1';
+$route['print-trainer-of-trainees/(:num)'] = 'projects/food_security/print_trainer_of_trainees/$1';
+
+$route['gender-livelihoods-&-advocacy'] = 'projects/food_security/gla_dashboard/1';
+$route['climate-change'] = 'projects/food_security/gla_dashboard/2';
+
+$route['soil-conservation/(:num)'] = 'projects/food_security/all_water_conservation/$1';
+$route['food-secutity/(:num)'] = 'projects/food_security/all_food_security/$1';
+// $route['trainer-of-trainees/(:num)'] = 'projects/food_security/all_trainer/$1';
 
 //upload routes
 $route['import/projects'] = 'projects/import_projects';
@@ -396,4 +420,7 @@ $route['import/import-community-group-members/(:num)/(:num)'] = 'gbm_administrat
 
 $route['import/seedling-production-template'] = 'projects/seedling_production/import_seedling_production_template';
 $route['import/import-seedling-production/(:num)/(:num)'] = 'projects/seedling_production/do_seedling_production_import/$1/$2';
+
+
+$route['tree-planting/project-handover/(:num)'] = 'projects/project_handover/$1';
 

@@ -94,6 +94,16 @@ $result =
 						$cc_quantity = $key->cc_quantity;
 						$cc_rows = $key->cc_rows;
 						$cc_spacing = $key->cc_spacing;
+						$wh_type = $key->wh_type;
+
+
+						$wh_capacity = $key->wh_capacity;
+						$kg_name = $key->kg_name;
+						$kg_variety = $key->kg_variety;
+						$cm_type = $key->cm_type;
+						$ta_quantity = $key->ta_quantity;
+						$ta_length = $key->ta_length;
+						$sc_bench = $key->sc_bench;
 
 						$count++;
 						$result .=

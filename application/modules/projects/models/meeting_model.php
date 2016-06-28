@@ -603,6 +603,7 @@ class Meeting_model extends CI_Model
 						'attendee_email'=>$this->input->post('attendee_email'),
 						'meeting_type_id'=>$this->input->post('meeting_type_id'),
 						'attendee_group_name'=>$this->input->post('attendee_group_name'),
+						'gender_id'=>$this->input->post('gender_id'),
 						'created'=>date('Y-m-d'),
 						'created_by'=>$this->session->userdata('personnel_id')
 					   );

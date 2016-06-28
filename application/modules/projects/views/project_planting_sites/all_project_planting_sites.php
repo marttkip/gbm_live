@@ -92,9 +92,15 @@
 				}
 				else
 				{
-					$changes = '
-
-							    ';
+					$changes = '';
+				}
+				if($step_id ==  2 || $step_id ==  3)
+				{
+					$activity_button = '<a href="'.site_url().'planting-site/follow-up/'.$project_id.'/'.$site_id.'/'.$step_id.'" class="btn btn-sm btn-success" title="Open '.$site_name.'"><i class="fa fa-folder"></i> Follow Up</a>';
+				}
+				else
+				{
+					$activity_button = '<a href="'.site_url().'planting-site/activities/'.$project_id.'/'.$site_id.'/'.$step_id.'" class="btn btn-sm btn-warning" title="Open '.$site_name.'"><i class="fa fa-folder"></i> Activities</a>';
 				}
 				$count++;
 				$result .= 
@@ -104,7 +110,7 @@
 						<td>'.$site_name.'</td>
 						<td>'.$created_by.'</td>
 						<td>'.$status_bar.'</td>
-						<td><a href="'.site_url().'planting-site/activities/'.$project_id.'/'.$site_id.'/'.$step_id.'" class="btn btn-sm btn-warning" title="Open '.$site_name.'"><i class="fa fa-folder"></i> Activities</a></td>
+						<td>'.$activity_button.'</td>
 						'.$changes.'
 						
 					</tr> 
@@ -122,6 +128,19 @@
 		{
 			$result .= "There are no planting sites";
 		}
+
+		// if($step_id == 0)
+		// {
+		// 	$title_header = '<h3 class="center-align">STEP SIX : PLANTING PROCESS</h3>';
+		// }
+		// else if($step_id == 1)
+		// {
+		// 	$title_header = '<h3 class="center-align">STEP SEVEN : PLANTING PROCESS</h3>';
+		// }
+		// else
+		// {
+		// 	$title_header = '<h3 class="center-align">STEP EIGHT : PLANTING PROCESS</h3>';
+		// }
 ?>
 <?php echo $this->load->view('projects/projects/project_header','',true);?>
 <div class="row">
@@ -137,13 +156,13 @@
 						<h3 class="center-align">STEP SIX : PLANTING PROCESS</h3>
 					</div>
 					<div class="col-md-4">
-						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id?>/1" class="btn btn-info btn-sm pull-right" > GOT TO STEP SEVEN : TREE PLANTING <i class="fa fa-arrow-right"></i></a>
+						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id?>/1" class="btn btn-info btn-sm pull-right" > GO TO STEP SEVEN : TREE PLANTING <i class="fa fa-arrow-right"></i></a>
 					</div>
 				</div>
 				<?php
 
 			}
-			else
+			else if($step_id == 1)
 			{
 				?>
 				<div class="col-md-12">
@@ -151,13 +170,46 @@
 						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id?>/0" class="btn btn-info btn-sm pull-left" ><i class="fa fa-arrow-left"></i> GO TO STEP SIX : SITE PREPARATION</a>
 					</div>
 					<div class="col-md-4">
-						<h3 class="center-align">STEP SIX : TREE PLANTING</h3>
+						<h3 class="center-align">STEP SEVEN : TREE PLANTING</h3>
 					</div>
 					<div class="col-md-4">
-						<a href="<?php echo site_url();?>tree-planting/tree-planting/<?php echo $project_id?>" class="btn btn-info btn-sm pull-right" > GOT TO STEP EIGHT : FIRST FOLLOW UP <i class="fa fa-arrow-right"></i></a>
+						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id?>/2" class="btn btn-info btn-sm pull-right" > GO TO STEP EIGHT : FIRST FOLLOW UP <i class="fa fa-arrow-right"></i></a>
 					</div>
 				</div>
 				<?php
+			}
+			else if($step_id == 2)
+			{
+				?>
+				<div class="col-md-12">
+					<div class="col-md-4">
+						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id?>/1" class="btn btn-info btn-sm pull-left" ><i class="fa fa-arrow-left"></i> GO TO STEP SEVEN : TREE PLANTING</a>
+					</div>
+					<div class="col-md-4">
+						<h3 class="center-align">STEP EIGHT : FIRST FOLLOW UP</h3>
+					</div>
+					<div class="col-md-4">
+						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id?>/3" class="btn btn-info btn-sm pull-right" > GO TO STEP NINE : SECOND FOLLOW UP <i class="fa fa-arrow-right"></i></a>
+					</div>
+				</div>
+				<?php
+			}
+			else
+			{	
+				?>
+				<div class="col-md-12">
+					<div class="col-md-4">
+						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id;?>/2" class="btn btn-info btn-sm pull-left" ><i class="fa fa-arrow-left"></i> GO TO STEP EIGHT : FIRST FOLLOWUP</a>
+					</div>
+					<div class="col-md-4">
+						<h3 class="center-align">STEP NINE : SECOND FOLLOW UP</h3>
+					</div>
+					<div class="col-md-4">
+						<a href="<?php echo site_url();?>tree-planting/project-handover/<?php echo $project_id?>" class="btn btn-info btn-sm pull-right" > GO TO STEP TEN : PROJECT HANDOVER <i class="fa fa-arrow-right"></i></a>
+					</div>
+				</div>
+				<?php
+
 			}
 		?>
 	

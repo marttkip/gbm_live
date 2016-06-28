@@ -255,11 +255,11 @@ else
 									            	<input type="text" class="form-control" name="attendee_name" id="attendee_name" placeholder="Name" value="">
 									            </div>
 									        </div>
-									        <div class="form-group" id="attendee_organization_div">
-									            <label class="col-lg-4 control-label">Organization Name: </label>
+									        <div class="form-group" id="attendee_group_name_div">
+									            <label class="col-lg-4 control-label">Group Name: </label>
 									            
 									            <div class="col-lg-8">
-									            	<input type="text" class="form-control" name="attendee_organization" id="attendee_organization" placeholder="Organization Name" value="">
+									            	<input type="text" class="form-control" name="attendee_group_name" id="attendee_group_name" placeholder="Group Name" value="">
 									            </div>
 									        </div>
 									        
@@ -288,13 +288,27 @@ else
 									            	<input type="text" class="form-control" name="attendee_number" id="attendee_number" placeholder="Phone" value="">
 									            </div>
 									        </div>
-									         <div class="form-group" id="attendee_group_name_div">
-									            <label class="col-lg-4 control-label">Group Name: </label>
+									        <div class="form-group" id="attendee_organization_div">
+									            <label class="col-lg-4 control-label">Organization Name: </label>
 									            
 									            <div class="col-lg-8">
-									            	<input type="text" class="form-control" name="attendee_group_name" id="attendee_group_name" placeholder="Group Name" value="">
+									            	<input type="text" class="form-control" name="attendee_organization" id="attendee_organization" placeholder="Organization Name" value="">
 									            </div>
 									        </div>
+									         
+									    </div>
+									    <div class="col-md-4">
+									    	<div class="form-group">
+									            <label class="col-lg-4 control-label">Gender: </label>
+									            
+									            <div class="col-lg-8">
+									            	<select class="form-control" name="gender_id">
+									            		<option value="1">Male</option>
+									            		<option value="2">Female</option>
+									            	</select>
+									            </div>
+									        </div>
+									         
 									    </div>
 									</div>
 								    <div class="row" style="margin-top:10px;">

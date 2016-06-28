@@ -39,7 +39,7 @@
     		<div class="col-md-4">
     			<section class="panel">
 					<header class="panel-heading bg-info">
-						<h5 class="text-weight-semibold mt-sm text-center"><strong>STEP THREE :</strong> COMMUNITY / NURSERY GROUPS</h5>
+						<h5 class="text-weight-semibold mt-sm text-center"><strong>STEP THREE :</strong> NURSERY GROUPS</h5>
 					</header>
 					<div class="panel-body text-center">
 						<p class="text-center">Total Community / Nursery groups (<?php echo $totol_communities;?>)</p>

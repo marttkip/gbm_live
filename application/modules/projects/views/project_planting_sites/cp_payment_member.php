@@ -108,7 +108,7 @@
 
                 				<div class="col-md-12">
                 					<div class="row">
-                    					<div class="col-md-4">
+                    					<div class="col-md-3">
                         					<div class="form-group">
 									            <label class="col-lg-4 control-label">Member Name: </label>
 									            
@@ -119,7 +119,7 @@
 									        
 									        
 									    </div>
-									    <div class="col-md-4">
+									    <div class="col-md-3">
 									    	<div class="form-group">
 									            <label class="col-lg-4 control-label">National id: </label>
 									            
@@ -129,12 +129,22 @@
 									        </div>
 									        
 									    </div>
-									    <div class="col-md-4">
+									    <div class="col-md-3">
 									    	<div class="form-group">
 									            <label class="col-lg-4 control-label">Phone number: </label>
 									            
 									            <div class="col-lg-8">
 									            	<input type="text" class="form-control" name="cpm_phone" id="cpm_phone" placeholder="Phone" value="">
+									            </div>
+									        </div>
+									         
+									    </div>
+									    <div class="col-md-3">
+									    	<div class="form-group">
+									            <label class="col-lg-4 control-label">Amount: </label>
+									            
+									            <div class="col-lg-8">
+									            	<input type="text" class="form-control" name="cpm_amount" id="cpm_amount" placeholder="Amount" value="">
 									            </div>
 									        </div>
 									         

@@ -28,17 +28,27 @@ class Projects extends admin
 	*	Default action is to show all the projects
 	*
 	*/
-	public function index() 
+	public function index($index =  NULL) 
 	{
 		// get my approval roles
 
 		$where = 'projects.project_status_id = project_status.project_status_id AND projects.project_grant_county = counties.county_id';
 		$table = 'projects, project_status,counties';
 		//pagination
+		
+		if($index == NULL)
+		{
+			$segment = 3;
+		}
+		else
+		{
+
+			$segment = 4;
+		}
 		$this->load->library('pagination');
 		$config['base_url'] = base_url().'tree-planting/projects';
 		$config['total_rows'] = $this->users_model->count_items($table, $where);
-		$config['uri_segment'] = 3;
+		$config['uri_segment'] = $segment;
 		$config['per_page'] = 20;
 		$config['num_links'] = 5;
 		
@@ -66,7 +76,7 @@ class Projects extends admin
 		$config['num_tag_close'] = '</li>';
 		$this->pagination->initialize($config);
 		
-		$page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$page = ($this->uri->segment($segment)) ? $this->uri->segment($segment) : 0;
         $data["links"] = $this->pagination->create_links();
 		$query = $this->projects_model->get_all_projects($table, $where, $config["per_page"], $page);
 		
@@ -77,7 +87,16 @@ class Projects extends admin
 		$v_data['project_status_query'] = $this->projects_model->get_project_status();
 		// $v_data['level_status'] = $this->projects_model->project_level_status();
 		$v_data['title'] = "Projects";
-		$data['content'] = $this->load->view('projects/projects/all_projects', $v_data, true);
+		if($index == NULL)
+		{
+			// var_dump($index);die();
+			$data['content'] = $this->load->view('projects/projects/all_projects', $v_data, true);
+		}
+		else
+		{
+			$data['content'] = $this->load->view('projects/projects/all_projects_list', $v_data, true);
+		}
+		
 		
 		$data['title'] = 'Projects';
 		
@@ -110,7 +129,7 @@ class Projects extends admin
 		$this->form_validation->set_rules('project_grant_value', 'Project Grant Value', 'required|xss_clean');
 		$this->form_validation->set_rules('project_grant_county', 'Project grant county', 'required|xss_clean');
 		$this->form_validation->set_rules('watersheds', 'Watersheds', 'required|xss_clean');
-		$this->form_validation->set_rules('planting_sites', 'Planting Sites', 'required|xss_clean');
+		// $this->form_validation->set_rules('planting_sites', 'Planting Sites', 'required|xss_clean');
 		
 		//if form has been submitted
 		if ($this->form_validation->run())
@@ -123,7 +142,7 @@ class Projects extends admin
 			{
 				$this->session->set_userdata('error_message', 'Could not update project. Please try again');
 			}
-			redirect('tree-planting/projects');
+			redirect('gbm-administration/projects');
 		}
 		
 		//open the add new project
@@ -463,7 +482,7 @@ class Projects extends admin
 		//delete project
 		$this->db->delete('projects', array('project_id' => $project_id));
 		$this->db->delete('project_item', array('project_item_id' => $project_id));
-		redirect('all-projects');
+		redirect('gbm-administration');
 	}
     
 	/*
@@ -495,7 +514,7 @@ class Projects extends admin
 		$this->db->where('project_id = '.$project_id);
 		$this->db->update('projects', $data);
 		
-		redirect('all-projects');
+		redirect('gbm-administration');
 	}
 	public function send_project_for_correction($project_id)
 	{
@@ -541,7 +560,7 @@ class Projects extends admin
 		$this->db->where('project_id = '.$project_id);
 		$this->db->update('projects', $data);
 		
-		redirect('all-projects');
+		redirect('gbm-administration');
 	}
     
 	/*
@@ -559,7 +578,7 @@ class Projects extends admin
 		$this->db->where('project_id = '.$project_id);
 		$this->db->update('projects', $data);
 		
-		redirect('all-projects');
+		redirect('gbm-administration');
 	}
 
 	public function upload_project_documents($project_id,$project_number)
@@ -723,9 +742,26 @@ class Projects extends admin
 		
 		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
 		
-		redirect ('tree-planting/projects');
+		redirect ('gbm-administration/projects');
 		//$data['content'] = $this->load->view('projects/all_projects', $v_data, true);
 		//$this->load->view('admin/templates/general_page', $data);
+	}
+	public function project_handover($project_id)
+	{
+		$site_order = 'project_id = '.$project_id;
+		$site_table = 'project_handover';
+		$site_where = 'handover_status = 1';
+
+		$handover_query = $this->projects_model->get_active_list($site_table, $site_where, $site_order);
+
+		
+		$v_data['title']= 'Project Handorver';
+		$data['title'] = $v_data['title'];
+		$v_data['project_id'] = $project_id;
+		$data['content'] = $this->load->view('projects/projects/project_handover', $v_data, true);
+		$this->load->view('admin/templates/general_page', $data);
+
+
 	}
 }
 ?>

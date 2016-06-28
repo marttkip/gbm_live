@@ -171,10 +171,8 @@
 											</div>
 										</div>
 										<div class="panel-footer panel-footer-btn-group" >
-											<a href="'.site_url().'tree-planting/project-edit/'.$project_id.'/'.$project_number.'" title="Edit '.$project_title.'"><i class="fa fa-pencil mr-xs"></i> Edit</a>
-											<a href="'.site_url().'tree-planting/project-detail/'.$project_id.'/'.$project_number.'" title="View '.$project_title.'"><i class="fa fa-folder-open mr-xs"></i> View</a>
-											'.$button.'
-											<a href="'.site_url().'tree-planting/delete-project-area/'.$project_id.'"  onclick="return confirm(\'Do you really want to delete '.$project_title.'?\');" title="Delete '.$project_title.'"><i class="fa fa-trash mr-xs"></i> </a>
+											<a href="'.site_url().'tree-planting/project-detail/'.$project_id.'/'.$project_number.'" title="View '.$project_title.'" style="text-align:center;"><i class="fa fa-folder-open mr-xs"></i> View</a>
+											
 
 										</div>
 									</section>
@@ -200,8 +198,8 @@
 		<h2 class="panel-title"><?php echo $title;?></h2>
        
 
-		<a href="<?php echo site_url();?>tree-planting/add-project" class="btn btn-success btn-sm pull-right" style="margin-top:-25px;">Add Project</a>
-		 <a data-toggle="modal" data-target="#upload_project" class="btn btn-warning btn-sm pull-right" style="margin-top:-25px; margin-right:5px;">Import Projects</a>
+		<!-- <a href="<?php echo site_url();?>tree-planting/add-project" class="btn btn-success btn-sm pull-right" style="margin-top:-25px;">Add Project</a>
+		 <a data-toggle="modal" data-target="#upload_project" class="btn btn-warning btn-sm pull-right" style="margin-top:-25px; margin-right:5px;">Import Projects</a> -->
 	</header>
 	<?php echo $this->load->view('projects/dashboard_header','',true)?>
 </section>

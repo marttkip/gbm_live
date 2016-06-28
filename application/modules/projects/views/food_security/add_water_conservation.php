@@ -7,40 +7,19 @@
 	<div class="panel-body">
 		<div class="row" style="margin-bottom:20px;">
 			<div class="col-lg-12 col-sm-12 col-md-12">
-				<div class="row">
+				<div class="padd">
 				<?php 
-				echo form_open("food-security/add-water-conservation", array("class" => "form-horizontal", "role" => "form"));
+				echo form_open("food-security/add-water-conservation/".$data_page_id, array("class" => "form-horizontal", "role" => "form"));
 					
 				?>
 					<div class="row">
 						<div class="col-sm-6">
 							<div class="form-group">
-								<label class="col-lg-4 control-label">Location</label>
+								<label class="col-lg-4 control-label">Project</label>
 								<div class="col-lg-8">
-									<select name="location_id" id="location_id" class="form-control">
+									<select name="project_id" id="project_id" class="form-control">
 										<?php
-										if($location_details->num_rows() > 0)
-										{
-											$status = $location_details->result();
-											
-											foreach($status as $res)
-											{
-												$location_id = $res->location_id;
-												$constituency = $res->constituency_name;
-												$catchment = $res->catchment;
-												$ward_name = $res->ward_name;
-												
-												if($res->location_id == $location_id)
-												{
-													echo '<option value="'.$location_id.'" selected>'.$constituency.'-'.$ward_name.'-' .$catchment.'</option>';
-												}
-												
-												else
-												{
-													echo '<option value="'.$personnel_type_id.'">'.$personnel_type_name.'</option>';
-												}
-											}
-										}
+										echo $project_list;
 										?>	
 									</select>
 								</div>
@@ -128,6 +107,37 @@
 						</div>
 						
 						<div class="col-sm-6">
+							<div class="form-group">
+								<label class="col-lg-4 control-label">Location</label>
+								<div class="col-lg-8">
+									<select name="location_id" id="location_id" class="form-control">
+										<?php
+										if($location_details->num_rows() > 0)
+										{
+											$status = $location_details->result();
+											
+											foreach($status as $res)
+											{
+												$location_id = $res->location_id;
+												$constituency = $res->constituency_name;
+												$catchment = $res->catchment;
+												$ward_name = $res->ward_name;
+												
+												if($res->location_id == $location_id)
+												{
+													echo '<option value="'.$location_id.'" selected>'.$constituency.'-'.$ward_name.'-' .$catchment.'</option>';
+												}
+												
+												else
+												{
+													echo '<option value="'.$personnel_type_id.'">'.$personnel_type_name.'</option>';
+												}
+											}
+										}
+										?>	
+									</select>
+								</div>
+							</div>
 							<div class="form-group">
 								<label class="col-lg-4 control-label">Coffee Qty</label>
 								<div class="col-lg-8">

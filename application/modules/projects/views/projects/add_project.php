@@ -9,7 +9,7 @@
     <header class="panel-heading">
          <h2 class="panel-title pull-left"><?php echo $title;?></h2>
          <div class="widget-icons pull-right">
-            	<a href="<?php echo base_url();?>tree-planting/projects" class="btn btn-success btn-sm">Back to projects</a>
+            	<a href="<?php echo base_url();?>gbm-administration/projects" class="btn btn-success btn-sm">Back to projects</a>
           </div>
           <div class="clearfix"></div>
     </header>

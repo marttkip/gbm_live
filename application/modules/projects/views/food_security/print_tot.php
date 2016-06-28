@@ -40,7 +40,6 @@ $result =
 			<tr>
 				<th>#</th>
 				<th>TOTs Name</th>
-				<th>Sublocation</th>
 				<th>Phone</th>
 				<th>GPS CODE</th>
 
@@ -70,9 +69,9 @@ $result =
 
 			</tr>
 				';
-				if($food_security_query->num_rows()>0)
+				if($tots_query->num_rows()>0)
 				{
-					$row = $food_security_query->result();
+					$row = $tots_query->result();
 					foreach($row as $key)
 					{
 

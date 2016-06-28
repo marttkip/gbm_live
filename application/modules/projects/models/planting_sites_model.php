@@ -176,13 +176,35 @@ class Planting_sites_model extends CI_Model
 			return FALSE;
 		}
 	}
-
+	public function add_followup($project_id,$site_id,$step_id)
+	{
+		$data = array(
+				'year'=>$this->input->post('year'),
+				'month'=>$this->input->post('month_id'),
+				'planted_trees'=>$this->input->post('total_planted'),
+				'surviving_trees'=>$this->input->post('surviving_trees'),
+				'step_id'=>$step_id,
+				'project_id'=>$project_id,
+				'planting_site_id'=>$site_id,
+				'created_by'=>$this->session->userdata('personnel_id'),
+				'created'=>date('Y-m-d'),
+			);
+			
+		if($this->db->insert('planting_followup', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
 	public function add_cpm_attendee($cp_id)
 	{
 			$data = array(
 				'cpm_name'=>$this->input->post('cpm_name'),
 				'cpm_national_id'=>$this->input->post('cpm_national_id'),
 				'cpm_phone'=>$this->input->post('cpm_phone'),
+				'cpm_amount'=>$this->input->post('cpm_amount'),
 				'cpm_status'=>1,
 				'cp_id'=>$cp_id,
 				'created_by'=>$this->session->userdata('personnel_id'),

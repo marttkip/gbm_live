@@ -283,7 +283,73 @@ class Planting_sites extends admin
 		
 		$this->load->view('admin/templates/general_page', $data);
 	}
-
+	public function follow_up($project_id,$site_id,$step_id = 0) 
+	{
+		// var_dump($step_id); die();
+		 $where = 'projects.project_id = planting_followup.project_id AND planting_site.site_id = planting_followup.planting_site_id AND planting_followup.planting_site_id  = '.$site_id.' AND planting_followup.project_id = '.$project_id.' AND planting_followup.step_id = '.$step_id;
+		$table = 'planting_followup,projects,planting_site';
+		//pagination
+		$segment = 6;
+		$this->load->library('pagination');
+		$config['base_url'] = site_url().'planting-site/follow-up/'.$project_id.'/'.$site_id.'/'.$step_id;
+		$config['total_rows'] = $this->users_model->count_items($table, $where);
+		$config['uri_segment'] = $segment;
+		$config['per_page'] = 20;
+		$config['num_links'] = 5;
+		
+		$config['full_tag_open'] = '<ul class="pagination pull-right">';
+		$config['full_tag_close'] = '</ul>';
+		
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		
+		$config['next_tag_open'] = '<li>';
+		$config['next_link'] = 'Next';
+		$config['next_tag_close'] = '</span>';
+		
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_link'] = 'Prev';
+		$config['prev_tag_close'] = '</li>';
+		
+		$config['cur_tag_open'] = '<li class="active"><a href="#">';
+		$config['cur_tag_close'] = '</a></li>';
+		
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$this->pagination->initialize($config);
+		
+		$page = ($this->uri->segment($segment)) ? $this->uri->segment($segment) : 0;
+        $v_data["links"] = $this->pagination->create_links();
+		$query = $this->planting_sites_model->get_all_site_activities($table, $where, $config["per_page"], $page, $order='followup_id', $order_method = 'DESC');
+		
+		//change of order method 
+		if($order_method == 'DESC')
+		{
+			$order_method = 'ASC';
+		}
+		
+		else
+		{
+			$order_method = 'DESC';
+		}
+		
+		$data['title'] = 'Follow up';
+		$v_data['title'] = $data['title'];
+		
+		$v_data['order'] = $order;
+		$v_data['project_id'] = $project_id;
+		$v_data['site_id'] = $site_id;
+		$v_data['step_id'] = $step_id;
+		$v_data['order_method'] = $order_method;
+		$v_data['query'] = $query;
+		$v_data['page'] = $page;
+		$data['content'] = $this->load->view('project_planting_sites/site_follow_up', $v_data, true);
+		
+		$this->load->view('admin/templates/general_page', $data);
+	}
 	public function add_activity($project_id,$site_id)
 	{
 
@@ -316,7 +382,37 @@ class Planting_sites extends admin
 		// var_dump($step_id);
 		redirect('planting-site/activities/'.$project_id.'/'.$site_id.'/'.$step_id);
 	}
+	public function add_followup($project_id,$site_id,$step_id)
+	{
+		//form validation rules
+		$this->form_validation->set_rules('month_id', 'Month', 'required|xss_clean');
+		$this->form_validation->set_rules('year', 'Year', 'required|xss_clean');
+		$this->form_validation->set_rules('total_planted', 'Total Planted', 'required|xss_clean');
+		$this->form_validation->set_rules('surviving_trees', 'surviving_trees', 'required|xss_clean');
+		
+		//if form has been submitted
+		if ($this->form_validation->run())
+		{
+			//update project_area
+			if($this->planting_sites_model->add_followup($project_id,$site_id,$step_id))
+			{
+				$this->session->set_userdata('success_message', 'Followup has been added successfully');
+				
+			}
+			
+			else
+			{
+				$this->session->set_userdata('error_message', 'Could not add the followup. Please try again');
+			}
 
+		}
+		else
+		{
+			$this->session->set_userdata('error_message', 'Please fill in all the fields');
+		}
+		// var_dump($step_id);
+		redirect('planting-site/follow-up/'.$project_id.'/'.$site_id.'/'.$step_id);
+	}
 	public function activity_participants($project_id,$cp_id)
 	{
 		$where = 'cp_id = '.$cp_id;
@@ -392,6 +488,7 @@ class Planting_sites extends admin
 		$this->form_validation->set_rules('cpm_name', 'Name', 'required|xss_clean');
 		$this->form_validation->set_rules('cpm_national_id', 'National ID', 'required|xss_clean');
 		$this->form_validation->set_rules('cpm_phone', 'Phone', 'required|xss_clean');
+		$this->form_validation->set_rules('cpm_amount', 'Amount', 'required|xss_clean');
 		
 		//if form has been submitted
 		if ($this->form_validation->run())
