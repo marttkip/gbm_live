@@ -143,7 +143,7 @@
             				echo form_open("planting-site/add-activity/".$project_id."/".$site_id."", array("class" => "form-horizontal", "role" => "form"));
             					
             				?>
-            						<input type="text" name="cp_step" value="<?php echo $step_id?>">
+            						<input type="hidden" name="cp_step" value="<?php echo $step_id?>">
                 				<div class="row">
 						        	<div class="col-sm-6">
 						                <!-- Company Name -->
