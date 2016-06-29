@@ -503,8 +503,20 @@ class Project_areas_model extends CI_Model
 				{
 						if($this->db->insert('project_areas', $items))
 						{
-							$comment .= '<br/>Watershed successfully added to the database';
-							$class = 'success';
+							$project_area_id = $this->db->insert_id();
+							$items2['project_area_id'] = $project_area_id;
+							$items2['project_id'] = $project_id;
+							$items2['created'] = date('Y-m-d');
+							if($this->db->insert('project_watershed', $items2))
+							{
+								$comment .= '<br/>Watershed successfully added to the database';
+								$class = 'success';
+							}
+							else
+							{
+								$comment .= '<br/>Watershed not added to this area';
+								$class = 'warning';
+							}
 						}
 						
 						else

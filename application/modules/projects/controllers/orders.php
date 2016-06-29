@@ -62,7 +62,7 @@ class Orders extends admin
 		$page = ($this->uri->segment($segment)) ? $this->uri->segment($segment) : 0;
         $v_data["links"] = $this->pagination->create_links();
 		$query = $this->orders_model->get_all_orders($table, $where, $config["per_page"], $page);
-		
+		//var_dump ($query);die();
 		$v_data['query'] = $query;
 		$v_data['page'] = $page;
 		$v_data['project_id'] = $project_id;
