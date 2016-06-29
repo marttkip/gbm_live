@@ -90,6 +90,28 @@ class Project_areas_model extends CI_Model
 			return FALSE;
 		}
 	}
+
+	public function add_project_areas()
+	{
+		
+
+		$data = array(
+				'project_area_name'=>$this->input->post('project_area_name'),
+				'project_area_status'=>$this->input->post('project_area_status'),
+				'created'=>date('Y-m-d H:i:s'),
+				'created_by'=>$this->session->userdata('personnel_id'),
+				'branch_code'=>$this->session->userdata('branch_code'),
+				'modified_by'=>$this->session->userdata('personnel_id')
+			);
+			
+		if($this->db->insert('project_areas', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
 	
 	/*
 	*	Update an existing project_area

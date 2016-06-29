@@ -255,15 +255,15 @@ $route['upload-project-documents-page/(:num)'] = 'projects/projects/upload_proje
 
 
 
-$route['tree-planting/project-areas'] = 'projects/project_areas/index';
-$route['tree-planting/project-areas/(:any)/(:any)/(:num)'] = 'projects/project_areas/index/$1/$2/$3';
-$route['tree-planting/project-areas/(:any)/(:any)'] = 'projects/project_areas/index/$1/$2';
-$route['tree-planting/add-project-area'] = 'projects/project_areas/add_project_area';
-$route['tree-planting/edit-project-area/(:num)'] = 'projects/project_areas/edit_project_area/$1';
-$route['tree-planting/delete-project-area/(:num)'] = 'projects/project_areas/delete_project_area/$1';
-$route['tree-planting/activate-project-area/(:num)'] = 'projects/project_areas/activate_project_area/$1';
-$route['tree-planting/deactivate-project-area/(:num)'] = 'projects/project_areas/deactivate_project_area/$1';
-$route['tree-planting/project-area-detail/(:num)'] = 'projects/project_areas/project_area_detail/$1';
+$route['gbm-administration/project-areas'] = 'projects/project_areas/index';
+$route['gbm-administration/project-areas/(:any)/(:any)/(:num)'] = 'projects/project_areas/index/$1/$2/$3';
+$route['gbm-administration/project-areas/(:any)/(:any)'] = 'projects/project_areas/index/$1/$2';
+$route['gbm-administration/add-project-area'] = 'projects/project_areas/add_project_area';
+$route['gbm-administration/edit-project-area/(:num)'] = 'projects/project_areas/edit_project_area/$1';
+$route['gbm-administration/delete-project-area/(:num)'] = 'projects/project_areas/delete_project_area/$1';
+$route['gbm-administration/activate-project-area/(:num)'] = 'projects/project_areas/activate_project_area/$1';
+$route['gbm-administration/deactivate-project-area/(:num)'] = 'projects/project_areas/deactivate_project_area/$1';
+$route['gbm-administration/project-area-detail/(:num)'] = 'projects/project_areas/project_area_detail/$1';
 $route['upload-area-documents/(:num)'] = 'projects/project_areas/upload_area_documents/$1';
 
 

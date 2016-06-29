@@ -31,12 +31,12 @@ class Project_areas extends admin
 	*/
 	public function index($order = 'project_area_id', $order_method = 'DESC') 
 	{
-		$where = 'project_areas.parent_project_area_id = 0 AND project_areas.branch_code = \''.$this->session->userdata('branch_code').'\'';
+		$where = 'project_areas.project_area_id > 0 ';
 		$table = 'project_areas';
 		//pagination
 		$segment = 5;
 		$this->load->library('pagination');
-		$config['base_url'] = site_url().'tree-planting/project-areas/'.$order.'/'.$order_method;
+		$config['base_url'] = site_url().'gbm-administration/project-areas/'.$order.'/'.$order_method;
 		$config['total_rows'] = $this->users_model->count_items($table, $where);
 		$config['uri_segment'] = $segment;
 		$config['per_page'] = 20;
@@ -90,9 +90,9 @@ class Project_areas extends admin
 		
 		$v_data['order'] = $order;
 		$v_data['order_method'] = $order_method;
-		$v_data['query'] = $query;
+		$v_data['project_areas'] = $query;
 		$v_data['page'] = $page;
-		$data['content'] = $this->load->view('project_areas/all_project_areas', $v_data, true);
+		$data['content'] = $this->load->view('project_areas/all_project_areas_list', $v_data, true);
 		
 		$this->load->view('admin/templates/general_page', $data);
 	}
@@ -107,20 +107,19 @@ class Project_areas extends admin
 		//form validation rules
 		$this->form_validation->set_rules('project_area_name', 'Area Name', 'required|xss_clean');
 		$this->form_validation->set_rules('project_area_status', 'Area Status', 'required|xss_clean');
-		$this->form_validation->set_rules('location', 'Longitude', 'required|xss_clean');
 		
 		//if form has been submitted
 		if ($this->form_validation->run())
 		{
-			if($this->project_areas_model->add_project_area())
+			if($this->project_areas_model->add_project_areas())
 			{
-				$this->session->set_userdata('success_message', 'project_area added successfully');
-				redirect('tree-planting/project-areas');
+				$this->session->set_userdata('success_message', 'Project area added successfully');
+				redirect('gbm-administration/project-areas');
 			}
 			
 			else
 			{
-				$this->session->set_userdata('error_message', 'Could not add project_area. Please try again');
+				$this->session->set_userdata('error_message', 'Could not add project area. Please try again');
 			}
 		}
 		
