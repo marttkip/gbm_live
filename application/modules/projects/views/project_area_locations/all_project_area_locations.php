@@ -16,9 +16,7 @@
 						<th><a href="'.site_url().'tree-planting/project_areas/project_area_name/'.$order_method.'/'.$page.'">Watershed Name</a></th>
 						
 						<th><a href="'.site_url().'tree-planting/project_areas/last_modified/'.$order_method.'/'.$page.'">Last modified</a></th>
-						<th><a href="'.site_url().'tree-planting/project_areas/modified_by/'.$order_method.'/'.$page.'">Modified by</a></th>
 						<th><a href="'.site_url().'tree-planting/project_areas/project_area_status/'.$order_method.'/'.$page.'">Status</a></th>
-						<th colspan="5">Actions</th>
 					</tr>
 				</thead>
 				
@@ -46,8 +44,8 @@
 				$project_area_longitude = $row->project_area_longitude;
 				$created_by = $row->created_by;
 				$modified_by = $row->modified_by;
-				$last_modified = date('jS M Y H:i a',strtotime($row->last_modified));
-				$created = date('jS M Y H:i a',strtotime($row->created));
+				$last_modified = date('jS M Y',strtotime($row->last_modified));
+				$created = date('jS M Y',strtotime($row->created));
 				
 				//create deactivated status display
 				if($project_area_status == 0)
@@ -91,11 +89,7 @@
 						<td>'.$count.'</td>
 						<td>'.$project_area_name.'</td>
 						<td>'.$last_modified.'</td>
-						<td>'.$modified_by.'</td>
 						<td>'.$status.'</td>
-						<td><a href="'.site_url().'tree-planting/edit-area/'.$project_area_id.'" class="btn btn-sm btn-success" title="Edit '.$project_area_name.'"><i class="fa fa-pencil"></i></a></td>
-						<td>'.$button.'</td>
-						<td><a href="'.site_url().'tree-planting/delete-area-location/'.$project_area_id.'" class="btn btn-sm btn-danger" onclick="return confirm(\'Do you really want to delete '.$project_area_name.'?\');" title="Delete '.$project_area_name.'"><i class="fa fa-trash"></i></a></td>
 					</tr> 
 				';
 			}

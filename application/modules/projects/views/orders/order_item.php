@@ -268,9 +268,7 @@ else if($order_approval_status == 2 || $order_approval_status == 3)
 <section class="panel">
     <header class="panel-heading">
         <h2 class="panel-title pull-left">Order Items</h2>
-         <div class="widget-icons pull-right">
-            	<a href="<?php echo base_url();?>inventory/orders" class="btn btn-primary btn-sm">Back to Orders</a>
-          </div>
+         
           <div class="clearfix"></div>
     </header>
     <div class="panel-body">

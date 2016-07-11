@@ -825,6 +825,7 @@ class Meeting_model extends CI_Model
 		$report[$row_count][3] = 'Attendee Email';
 		$report[$row_count][4] = 'Phone Number';
 		$report[$row_count][5] = 'Group Name';
+		$report[$row_count][6] = 'Gender (i.e Male 1, Female 2)';
 		
 		$row_count++;
 		
@@ -867,23 +868,11 @@ class Meeting_model extends CI_Model
 	{
 		//count total rows
 		$total_rows = count($array);
-		$total_columns = count($array[0]);//var_dump($array);die();
+		$total_columns = count($array[0]);
 		
 		//if products exist in array
-		if(($total_rows > 0) && ($total_columns == 6))
+		if(($total_rows > 0) && ($total_columns == 7))
 		{
-			$response = '
-				<table class="table table-hover table-bordered ">
-					  <thead>
-						<tr>
-						  <th>#</th>
-						  <th>Attendee Name</th>
-						  <th>Comment</th>
-						</tr>
-					  </thead>
-					  <tbody>
-			';
-			
 			//retrieve the data from array
 			for($r = 1; $r < $total_rows; $r++)
 			{
@@ -897,8 +886,9 @@ class Meeting_model extends CI_Model
 				$items['attendee_email'] = $array[$r][3];
 				$items['attendee_number'] = $array[$r][4];
 				$items['attendee_group_name'] = $array[$r][5];
+				$items['gender_id'] = $array[$r][6];
 				
-				$items2['project_id'] = $project_id;
+			
 				
 				$comment ='';
 				
@@ -911,34 +901,20 @@ class Meeting_model extends CI_Model
 								'attendee_id' => $insert_id,
 								'meeting_id' => $meeting_id
 							   );
+					// $array_two['project_id'] = $array_two;
+					$this->db->insert('meeting_attendees',$array_two);
 
-					if($this->db->insert('meeting_attendees',$array_two))
-					{
-						return TRUE;
-					}
-					else
-					{
-						return FALSE;
-					}
 				}
 				else
 				{
-					return FALSE;
+
 				}
 					
 			}
 				
-				$response .= '
-								<tr class="'.$class.'">
-									<td>'.$r.'</td>
-									<td'.$items['meeting_venue'].'</td>
-									<td'.$comment.'</td>
-								</tr> 
-						';
+				
 			
-			$response .= '</table>';
-			
-			$return['response'] = $response;
+			$return['response'] = 'success';
 			$return['check'] = TRUE;
 		}
 

@@ -111,7 +111,6 @@
 						<td>'.$created_by.'</td>
 						<td>'.$status_bar.'</td>
 						<td>'.$activity_button.'</td>
-						'.$changes.'
 						
 					</tr> 
 				';

@@ -51,10 +51,14 @@ class Community_groups_model extends CI_Model
 				'now_activities'=>$this->input->post('now_activities'),
 				'later_activities'=>$this->input->post('later_activities'),
 				'chief'=>$this->input->post('chief_name'),
-				'sub_chief'=>$this->input->post('sub_chief_name'),
+				'sub_chief'=>$this->input->post('sub_chief'),
 				'address'=>$this->input->post('address'),
 				'location'=>$this->input->post('location'),
 				'county'=>$this->input->post('county'),
+				'district'=>$this->input->post('district'),
+				'division'=>$this->input->post('division'),
+				'market'=>$this->input->post('market'),
+				'contact_person_position'=>$this->input->post('contact_person_position'),
 				'mp'=>$this->input->post('mp'),
 				'community_group_status'=>0,
 				'created'=>date('Y-m-d H:i:s'),
@@ -113,11 +117,21 @@ class Community_groups_model extends CI_Model
 				'community_group_name'=>$this->input->post('community_group_name'),
 				'community_group_contact_person_name'=>$this->input->post('community_group_contact_person_name'),
 				'community_group_contact_person_phone1'=>$this->input->post('community_group_contact_person_phone1'),
-				'community_group_contact_person_phone2'=>$this->input->post('community_group_contact_person_phone2'),
-				'community_group_contact_person_email1'=>$this->input->post('community_group_contact_person_email1'),
-				'community_group_contact_person_email2'=>$this->input->post('community_group_contact_person_email2'),
-				'community_group_description'=>$this->input->post('community_group_description'),
-				'community_group_status'=>$this->input->post('community_group_status'),
+				'bank_name'=>$this->input->post('bank_name'),
+				'account_name'=>$this->input->post('account_name'),
+				'account_number'=>$this->input->post('account_number'),
+				'now_activities'=>$this->input->post('now_activities'),
+				'later_activities'=>$this->input->post('later_activities'),
+				'chief'=>$this->input->post('chief_name'),
+				'sub_chief'=>$this->input->post('sub_chief_name'),
+				'address'=>$this->input->post('address'),
+				'location'=>$this->input->post('location'),
+				'county'=>$this->input->post('county'),
+				'district'=>$this->input->post('district'),
+				'division'=>$this->input->post('division'),
+				'market'=>$this->input->post('market'),
+				'mp'=>$this->input->post('mp'),
+				'community_group_status'=>1,
 				'modified_by'=>$this->session->userdata('personnel_id')
 			);
 			
@@ -230,6 +244,9 @@ class Community_groups_model extends CI_Model
 		$report[$row_count][11] = 'Location';
 		$report[$row_count][12] = 'County';
 		$report[$row_count][13] = 'MP';
+		$report[$row_count][14] = 'Division';
+		$report[$row_count][15] = 'District';
+		$report[$row_count][16] = 'Market (Closest Market)';
 
 		
 		$row_count++;
@@ -281,7 +298,7 @@ class Community_groups_model extends CI_Model
 		
 		//if products exist in array
 		// var_dump($total_columns); die();
-		if(($total_rows > 0) && ($total_columns == 14))
+		if(($total_rows > 0) && ($total_columns == 17))
 		{
 			$items['created_by'] = $this->session->userdata('personnel_id');
 			$response = '
@@ -319,6 +336,9 @@ class Community_groups_model extends CI_Model
 				$items['location'] = $array[$r][11];
 				$items['county'] = $array[$r][12];
 				$items['mp'] = $array[$r][13]; 
+				$items['division'] = $array[$r][14]; 
+				$items['district'] = $array[$r][15]; 
+				$items['market'] = $array[$r][16]; 
 				$items['community_group_status'] = 1;
 				$items['created'] = date('Y-m-d H:i:s');
 				$items['created_by'] = $this->session->userdata('personnel_id');
@@ -402,6 +422,7 @@ class Community_groups_model extends CI_Model
 		$report[$row_count][1] = 'National ID';
 		$report[$row_count][2] = 'Phone Number';
 		$report[$row_count][3] = 'Member Type ID (i.e Charman  1, Secretary 2 , Treasurer 3 and Member 4)';
+		$report[$row_count][4] = 'Gender (i.e Male  1, Female 2 )';
 
 		
 		$row_count++;
@@ -449,23 +470,15 @@ class Community_groups_model extends CI_Model
 	{
 		//count total rows
 		$total_rows = count($array);
-		$total_columns = count($array[0]);//var_dump($array);die();
+		$total_columns = count($array[0]);
+		var_dump($total_columns);die();
 		
 		//if products exist in array
 		// var_dump($total_columns); die();
-		if(($total_rows > 0) && ($total_columns == 4))
+		if(($total_rows > 0) && ($total_columns == 5))
 		{
 			$items['created_by'] = $this->session->userdata('personnel_id');
-			$response = '
-				<table class="table table-hover table-bordered ">
-					  <thead>
-						<tr>
-						  <th>#</th>
-						  <th>Name</th>
-						  <th>National ID</th>
-						</tr>
-					  </thead>
-					  <tbody>';
+		
 			
 			//retrieve the data from array
 			for($r = 1; $r < $total_rows; $r++)
@@ -476,6 +489,7 @@ class Community_groups_model extends CI_Model
 				$items['community_group_member_national_id'] = $array[$r][1];
 				$items['community_group_member_phone_number'] = $array[$r][2]; 
 				$items['member_type_id'] = $array[$r][3];
+				$items['gender_id'] = $array[$r][4];
 				$items['created'] = date('Y-m-d H:i:s');
 				$items['created_by'] = $this->session->userdata('personnel_id');
 				$items['community_group_id'] =  $community_group_id;
@@ -494,18 +508,7 @@ class Community_groups_model extends CI_Model
 				}
 				
 
-				
-				$response .= '
-								<tr class="'.$class.'">
-									<td>'.$r.'</td>
-									<td'.$items['community_group_member_name'].'</td>
-									<td'.$items['community_group_member_national_id'].'</td>
-									<td'.$comment.'</td>
-								</tr> 
-						';
 			}
-			
-			$response .= '</table>';
 			
 			$return['response'] = $response;
 			$return['check'] = TRUE;

@@ -94,13 +94,29 @@ if($branch_data->num_rows()>0)
                 	<th>Location:</th>
                     <td class="bottom-border"><?php echo $location;?></td>
                 </tr>
-            	<tr>
-                	<th>Sub-Chief Name:</th>
-                    <td class="bottom-border"><?php echo $sub_chief;?></td>
-                	<th>Chief Name:</th>
-                    <td class="bottom-border"><?php echo $chief;?></td>
+                <tr>
+                    <th>Division:</th>
+                    <td class="bottom-border"><?php echo $division;?></td>
+                    <th>District:</th>
+                    <td class="bottom-border"><?php echo $district;?></td>
+                </tr>
+            	
+                
+            </table>
+            <table class="table table-condensed">
+                <tr>
+                    <th>Market :</th>
+                    <td class="bottom-border"><?php echo $market;?></td>
                 </tr>
             </table>
+             <table class="table table-condensed">
+                <tr>
+                    <th>Sub-Chief Name:</th>
+                    <td class="bottom-border"><?php echo $sub_chief;?></td>
+                    <th>Chief Name:</th>
+                    <td class="bottom-border"><?php echo $chief;?></td>
+                </tr>
+             </table>
     		<table class="table table-condensed">
             	<tr>
                 	<th>Your MP is:</th>
@@ -123,7 +139,7 @@ if($branch_data->num_rows()>0)
                 	<th>Contact Pesron Name:</th>
                     <td class="bottom-border"><?php echo $community_group_contact_person_name;?></td>
                 	<th>Position:</th>
-                    <td class="bottom-border"></td>
+                    <td class="bottom-border"><?php echo $contact_person_position;?></td>
                 </tr>
             </table>
     		<table class="table table-condensed">

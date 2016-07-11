@@ -9,8 +9,10 @@
 
 		
 		//if community_group_members exist display them
+
 		if ($query->num_rows() > 0)
 		{
+
 			$count = $page;
 			
 			$result .= 
@@ -33,6 +35,7 @@
 			{
 				$cpm_id = $row->cpm_id;
 				$cpm_name = $row->cpm_name;
+
 				//create deactivated status display
 				if($row->cpm_status == 0)
 				{
@@ -108,7 +111,7 @@
 
                 				<div class="col-md-12">
                 					<div class="row">
-                    					<div class="col-md-3">
+                    					<div class="col-md-6">
                         					<div class="form-group">
 									            <label class="col-lg-4 control-label">Member Name: </label>
 									            
@@ -119,7 +122,7 @@
 									        
 									        
 									    </div>
-									    <div class="col-md-3">
+									    <div class="col-md-6">
 									    	<div class="form-group">
 									            <label class="col-lg-4 control-label">National id: </label>
 									            
@@ -129,7 +132,11 @@
 									        </div>
 									        
 									    </div>
-									    <div class="col-md-3">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="row">
+									    <div class="col-md-6">
 									    	<div class="form-group">
 									            <label class="col-lg-4 control-label">Phone number: </label>
 									            
@@ -139,7 +146,7 @@
 									        </div>
 									         
 									    </div>
-									    <div class="col-md-3">
+									    <div class="col-md-6">
 									    	<div class="form-group">
 									            <label class="col-lg-4 control-label">Amount: </label>
 									            
@@ -150,6 +157,24 @@
 									         
 									    </div>
 									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="row">
+										<div class="col-md-3">
+									    	<div class="form-group">
+									            <label class="col-lg-4 control-label">Gender: </label>
+									            
+									            <div class="col-lg-8">
+									            	<select class="form-control col-lg-8" name="cpm_gender">
+									            		<option value="1">Male</option>
+									            		<option value="2">Female</option>
+									            	</select>
+									            </div>
+									        </div>
+									         
+									    </div>
+									</div>
+								</div>
 								    <div class="row" style="margin-top:10px;">
 										<div class="col-md-12">
 									        <div class="form-actions center-align">
@@ -169,11 +194,6 @@
             			
             		</div>
 				</div>
-			</section>
-        </div>
-        <div class="col-md-12">
-			<div class="table-responsive">
-            	
 				<?php 
 				
 				$success = $this->session->userdata('success_message');
@@ -199,22 +219,9 @@
 				}
 
 				echo $result;
-				
 				?>
-		
-            </div>
-             <div class="widget-foot">
-        
-				<?php if(isset($links)){echo $links;}?>
-            
-                <div class="clearfix"></div> 
-            
-            </div>
-
-         </div>
-
-	</div>
-</section>
+			</section>
+        </div>
 <script type="text/javascript">
 	$(function() {
 	    $("#cpm_id").customselect();

@@ -25,8 +25,6 @@ if($ctn_query->num_rows() == 1)
 				<th>CTN Name</th>
 				<th>Latitude</th>
 				<th>Longitude</th>
-				<th>In Stock</th>
-				<th>Planted Seedlings</th>
 				<th>Modified by</th>
 			</tr>
 		</thead>
@@ -80,8 +78,6 @@ if($ctn_query->num_rows() == 1)
 				<td>'.$ctn_name.'</td>
 				<td>-</td>
 				<td>-</td>
-				<td>0</td>
-				<td>0</td>
 				<td>'.$modified_by.'</td>
 			</tr>
 		';
@@ -162,8 +158,18 @@ if($ctn_query->num_rows() == 1)
 													# code...
 													$nursery_name  = $order_values->community_group_name;
 													$nursery_id  = $order_values->community_group_id;
-													$total_ordered_seedlings  = 0;
-													$total_received_seedlings  = 0;
+													
+													$table = 'orders,order_item';
+													$where = 'orders.order_id = order_item.order_id AND orders.nursery_id = '.$nursery_id.'';
+													$select = 'SUM(order_item.order_item_quantity) AS quantity';
+													$total_ordered_seedlings = $this->seedling_production_model->get_counter_amount_ctn($table, $where, $select);
+													// var_dump($total_ordered_seedlings); die();
+													$table = 'order_receivables';
+													$where = 'order_receivables.nursery_id = '.$nursery_id.'';
+													$select = 'SUM(quantity_given) AS quantity';
+													$total_received_seedlings = $this->seedling_production_model->get_counter_amount_ctn($table, $where, $select);
+
+
 													$q++;
 													
 													$results .= 

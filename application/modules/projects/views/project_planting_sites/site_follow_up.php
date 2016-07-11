@@ -100,10 +100,12 @@
 <section class="panel">
 	<header class="panel-heading">
 		<h2 class="panel-title"><?php echo $title;?></h2>
+		<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id?>/<?php echo $step_id;?>" class="btn btn-sm btn-warning pull-right fa fa-arrow-left"  style="margin-top:-25px;margin-right: 15px;"> Back to activities</a>
+		
 		<a  class="btn btn-sm btn-success pull-right" id="open_new_community_group_member" onclick="get_new_community_group_member();" style="margin-top:-25px; margin-right: 15px;">Add follow up data</a>
 		<a  class="btn btn-sm btn-warning pull-right" id="close_new_community_group_member" style="display:none; margin-top:-25px;margin-right:5px;" onclick="close_new_community_group_member();">Close add follow up</a>
 
-		<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id?>/<?php echo $step_id;?>" class="btn btn-sm btn-warning pull-right fa fa-arrow-left"  style="margin-top:-25px;margin-right: 15px;"> Add follow up data</a>
+		
 		
 	</header>
 	<div class="panel-body">

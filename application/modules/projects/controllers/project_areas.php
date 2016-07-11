@@ -36,7 +36,7 @@ class Project_areas extends admin
 		//pagination
 		$segment = 5;
 		$this->load->library('pagination');
-		$config['base_url'] = site_url().'gbm-administration/project-areas/'.$order.'/'.$order_method;
+		$config['base_url'] = site_url().'gbm-administration/project-watersheds/'.$order.'/'.$order_method;
 		$config['total_rows'] = $this->users_model->count_items($table, $where);
 		$config['uri_segment'] = $segment;
 		$config['per_page'] = 20;
@@ -114,7 +114,7 @@ class Project_areas extends admin
 			if($this->project_areas_model->add_project_areas())
 			{
 				$this->session->set_userdata('success_message', 'Project area added successfully');
-				redirect('gbm-administration/project-areas');
+				redirect('gbm-administration/project-watersheds');
 			}
 			
 			else

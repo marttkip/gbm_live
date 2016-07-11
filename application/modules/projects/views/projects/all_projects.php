@@ -322,3 +322,72 @@
     </div>
 
 </div>
+
+	<div class="col-md-12">
+    	<section class="panel">
+			<div class="panel-body">
+				<?php
+					$community_groups = $this->projects_model->get_community_groups();
+					$parameters3 = '';
+					if($community_groups->num_rows() > 0)
+					{
+						
+						foreach ($community_groups->result() as $key_items) {
+							# code...
+							$community_group_id = $key_items->community_group_id;
+							$community_group_name = $key_items->community_group_name;
+
+							// get the seedling supplied
+
+							$community_group_where = 'gender_id = 1 AND community_group_id = '.$community_group_id;
+							$community_group_table = 'community_group_member';
+
+							// count target areas
+							$male_group_members = $this->users_model->count_items($community_group_table, $community_group_where);
+
+							$community_group_where = 'gender_id = 1 AND community_group_id = '.$community_group_id;
+							$community_group_table = 'community_group_member';
+
+							// count target areas
+							$female_group_members = $this->users_model->count_items($community_group_table, $community_group_where);
+
+							$Average = ($male_group_members + $female_group_members) / 2;
+
+							$parameters3 .= "['".$community_group_name."', $male_group_members, $female_group_members, $Average],";
+
+								
+							}
+						
+					}
+					// var_dump($parameters3); die();
+				?>
+				<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			    <script type="text/javascript">
+			      google.charts.load('current', {'packages':['bar']});
+			      google.charts.setOnLoadCallback(drawChart);
+			      function drawChart() {
+			        var data = google.visualization.arrayToDataTable([
+			          ['Community Groups', 'Male', 'Female', 'Average'],
+			          <?php echo $parameters3;?>
+			        ]);
+
+			        var options = {
+			          chart: {
+			            title: 'Community population ',
+			            subtitle: 'Gender population male / female',
+			          }
+			        };
+
+			        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+			        chart.draw(data, options);
+			      }
+			    </script>
+
+			    <div id="columnchart_material" style="width: 100%; height: 500px;"></div>
+
+	  
+	    	</div>
+	    </section>
+	</div>
+	

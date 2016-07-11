@@ -35,8 +35,16 @@ if($order_details->num_rows() > 0)
 	$created = $row->created;
 	$modified_by = $row->modified_by;
 	$last_modified = $row->last_modified;
+    $nursery_id = $row->nursery_id;
 	$created = $row->created;
 }
+
+$nursery_details = $this->seedling_production_model->get_nursery_involved($nursery_id);
+$rs_details = $nursery_details->result();
+$nursery_group = $rs_details[0]->community_group_name;
+$location = $rs_details[0]->location;
+$sub_location = $rs_details[0]->sub_location;
+
 
 $result ='';
 if($order_item_query->num_rows() > 0)
@@ -159,25 +167,27 @@ if($order_item_query->num_rows() > 0)
         </div>
         
     	<div class="col-md-12 receipt_bottom_border">
-    		<p class="center-align" style="font-weight:bold;">Order Details</p>
+    		<p class="center-align" style="font-weight:bold;">ORDER DETAILS</p>
     		<table class="table table-condensed">
             	<tr>
+                    <th>DATE:</th>
+                    <td class="bottom-border"><?php echo date('jS M Y',strtotime($created));?></td>
                 	<th>L.P.O. NUMBER:</th>
                     <td class="bottom-border"><?php echo $order_number;?></td>
-                	<th>DATE:</th>
-                    <td class="bottom-border"><?php echo date('jS M Y',strtotime($created));?></td>
                 </tr>
             	<tr>
                 	<th>CONSTITUENCY:</th>
-                    <td class="bottom-border"></td>
+                    <td class="bottom-border"><?php echo $location;?></td>
                 	<th>SUB-LOCATION:</th>
-                    <td class="bottom-border"></td>
+                    <td class="bottom-border"><?php echo $sub_location;?></td>
                 </tr>
             </table>
         </div>
-        
+        <div class="col-md-12 ">
+            <p class="pull-left" style="font-weight:bold;">BILL TO : <?php echo $nursery_group;?></p>
+        </div>
     	<div class="col-md-12 receipt_bottom_border">
-    		<p class="center-align" style="font-weight:bold;">Particulars</p>
+    		<p class="center-align" style="font-weight:bold;">PARTICULARS</p>
     		<?php echo $result;?>
         </div>
         

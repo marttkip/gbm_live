@@ -125,7 +125,16 @@ class Planting_sites_model extends CI_Model
 		
 		return $query;
 	}
-
+	public function get_project_details($project_id)
+	{
+		//retrieve all users
+		$this->db->from('projects');
+		$this->db->select('*');
+		$this->db->where('project_id = '.$project_id);
+		$query = $this->db->get();
+		
+		return $query;
+	}
 
 
 	/*
@@ -205,6 +214,7 @@ class Planting_sites_model extends CI_Model
 				'cpm_national_id'=>$this->input->post('cpm_national_id'),
 				'cpm_phone'=>$this->input->post('cpm_phone'),
 				'cpm_amount'=>$this->input->post('cpm_amount'),
+				'cpm_gender'=>$this->input->post('cpm_gender'),
 				'cpm_status'=>1,
 				'cp_id'=>$cp_id,
 				'created_by'=>$this->session->userdata('personnel_id'),

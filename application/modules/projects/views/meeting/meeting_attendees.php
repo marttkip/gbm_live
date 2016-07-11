@@ -40,13 +40,13 @@ if($meeting_details->num_rows() > 0)
     {
         $activity_title = 'CEE';
     }
-    else if($meeting_type_id = 2)
+    else if($meeting_type_id == 2)
     {
         $activity_title = 'Stakeholders';
     }
     else
     {
-        $activity_title = $row->activity_title; 
+        $activity_title = $row[0]->activity_title; 
     }
 }
 $count = 0;

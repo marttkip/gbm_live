@@ -417,10 +417,11 @@ class Planting_sites extends admin
 	{
 		$where = 'cp_id = '.$cp_id;
 		$table = 'casual_payment_members';
+
 		//pagination
-		$segment = 5;
+		$segment = 4;
 		$this->load->library('pagination');
-		$config['base_url'] = site_url().'tree-planting/activities/'.$project_id.'/'.$cp_id;
+		$config['base_url'] = site_url().'activity-participants/'.$project_id.'/'.$cp_id;
 		$config['total_rows'] = $this->users_model->count_items($table, $where);
 		$config['uri_segment'] = $segment;
 		$config['per_page'] = 20;
@@ -469,8 +470,8 @@ class Planting_sites extends admin
 
 	public function print_activity_participants($project_id,$cp_id)
 	{
-		$where = 'cp_id = '.$cp_id;
-		$table = 'casual_payment_members';
+		$where = 'casual_payment.cp_id = casual_payment_members.cp_id  AND projects.project_id = casual_payment.cp_project_id AND counties.county_id = projects.project_grant_county AND  casual_payment_members.cp_id = '.$cp_id;
+		$table = 'casual_payment_members,casual_payment,counties,projects';
 		$query = $this->planting_sites_model->get_all_site_activities($table, $where);
 		
 		//change of order method 

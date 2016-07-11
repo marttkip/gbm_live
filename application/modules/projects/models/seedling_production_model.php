@@ -120,6 +120,60 @@ class Seedling_production_model extends CI_Model
 		
 		return $query;
 	}
+	/*
+	*	Retrieve all community_group
+	*	@param string $table
+	* 	@param string $where
+	*
+	*/
+	public function get_counter_amount($table, $where, $select)
+	{
+		//retrieve all users
+		$this->db->from($table);
+		$this->db->select('*');
+		$this->db->where($where);
+		$query = $this->db->get('');
+		$quantity = 0;
+		foreach ($query->result() as $key) {
+			# code...
+			$quantity = $key->quantity;
+
+			if($quantity == NULL)
+			{
+				$quantity = 0;
+			}
+		}
+		return $quantity;
+	}
+
+	public function get_counter_amount_ctn($table, $where, $select)
+	{
+		//retrieve all users
+		$this->db->from($table);
+		$this->db->select($select);
+		$this->db->where($where);
+		$query = $this->db->get('');
+		$quantity = 0;
+		foreach ($query->result() as $key) {
+			# code...
+			$quantity = $key->quantity;
+
+			if($quantity == NULL)
+			{
+				$quantity = 0;
+			}
+		}
+		return $quantity;
+	}
+
+	public function get_nursery_involved($nursery_id)
+	{
+		$where = 'community_group_id  = '.$nursery_id;
+		$this->db->where($where);
+		$query = $this->db->get('community_group');
+
+		return $query;
+	}
 	public function add_seedling_production($project_area_id)
 	{
 		$arrayName = array(

@@ -29,6 +29,7 @@ if ($query->num_rows() > 0)
 			<tr>
 				<th>#</th>
 				<th>Name</th>
+                <th>Gender</th>
 				<th>National Id</th>
 				<th>Phone Number</th>
                 <th>Amount Paid</th>
@@ -40,7 +41,25 @@ if ($query->num_rows() > 0)
 	{
 		$cpm_id = $row->cpm_id;
 		$cpm_name = $row->cpm_name;
+        $project_id = $row->project_id;
+         $cp_activitytitle = $row->cp_activitytitle;
+         $county_name = $row->county_name;
+         $project_donor = $row->project_donor;
+         $payment_date = $row->cp_payment_date;
+         $project_description = $row->cp_reason;
+         $cpm_gender = $row->cpm_gender;
+         if($cpm_gender == 1)
+         {
+            $gender = 'Male';
+         }
+         else
+         {
+            $gender = 'Female';
+         }
 		//create deactivated status display
+        // $project_details = $this->planting_sites_model->get_project_details($project_id);
+        // $rs_project = $project_details->result();
+        // $project_donor = $rs_project[0]->project_donor;
 
 		$count++;
 		$result .= 
@@ -48,6 +67,7 @@ if ($query->num_rows() > 0)
 			<tr>
 				<td>'.$count.'</td>
 				<td>'.$row->cpm_name.' </td>
+                <td>'.$gender.'</td>
 				<td>'.$row->cpm_national_id.' </td>
 				<td>'.$row->cpm_phone.' </td>
                 <td>'.$row->cpm_amount.' </td>
@@ -122,21 +142,21 @@ else
             </table>
         </div>
         
-    	<!--<div class="col-md-12 receipt_bottom_border">
+    	<div class="col-md-12 receipt_bottom_border">
     		<table class="table table-condensed">
                 <tr>
                     <td class="align-left">
                         <strong>Grant Name: </strong> <?php echo $project_donor;?><br>
-                        <strong>Activity Title: </strong> <?php echo $activity_title;?><br>
+                        <strong>Activity Title: </strong> <?php echo $cp_activitytitle;?><br>
                         <strong>Grant County: </strong> <?php echo $county_name;?><br>
                     </td>
                     <td class="align-right">
-                        <strong>Meeting Start Date: </strong> <?php echo date('jS M Y',strtotime(date($meeting_start_date)));?><br>
-                        <strong>Meeting End Date: </strong> <?php echo date('jS M Y',strtotime(date($meeting_end_date)));?><br>
+                        <strong>Payment Date: </strong> <?php echo date('jS M Y',strtotime(date($payment_date)));?><br>
+                        <strong>Reason for paying: </strong> <?php echo $project_description;?><br>
 					</td>
                 </tr>
         	</table>
-        </div>-->
+        </div>
        	<div class="col-md-12 receipt_bottom_border">
 			<?php echo $result;?>
         </div>

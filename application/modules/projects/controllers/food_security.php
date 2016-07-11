@@ -359,7 +359,7 @@ class Food_security extends admin
 		
 		$this->load->view('admin/templates/general_page', $data);
 	}
-	public function add_water_conservation()
+	public function add_water_conservation($page)
 	{
 		//form validation rules
 
@@ -381,7 +381,6 @@ class Food_security extends admin
 		//insert items if validation runs
 		if ($this->form_validation->run())
 		{
-			// var_dump($_POST); die();
 			if($this->food_security_model->add_water_conservation())
 			{
 				$this->session->set_userdata('success_message', 'You have successfully added a soil and water conservation');
@@ -396,7 +395,7 @@ class Food_security extends admin
 		{
 			$this->session->set_userdata('success_message', 'Sorry, Please enter a number in the field');
 		}
-		// redirect('water-conservation');
+		redirect('soil-conservation/'.$page);
 	}
 }
 ?>

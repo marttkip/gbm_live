@@ -142,8 +142,12 @@ class Community_groups extends admin
 			$county = $row[0]->county;
 			$chief = $row[0]->chief;
 			$sub_chief = $row[0]->sub_chief;
+			$district = $row[0]->district;
+			$division = $row[0]->division;
+			$market = $row[0]->market;
 			$mp = $row[0]->mp;
 			$now_activities = $row[0]->now_activities;
+			$contact_person_position = $row[0]->contact_person_position;
 			$account_number = $row[0]->account_number;
 			$later_activities = $row[0]->later_activities;
 			$community_group_contact_person_phone1 = $row[0]->community_group_contact_person_phone1;
@@ -156,8 +160,12 @@ class Community_groups extends admin
 		$data['county'] = $county;
 		$data['chief'] = $chief;
 		$data['sub_chief'] = $sub_chief;
+		$data['district'] = $district;
+		$data['division'] = $division;
+		$data['market'] = $market;
 		$data['mp'] = $mp;
 		$data['now_activities'] = $now_activities;
+		$data['contact_person_position'] = $contact_person_position;
 		$data['account_number'] = $account_number;
 		$data['later_activities'] = $later_activities;
 		$data['community_group_contact_person_phone1'] = $community_group_contact_person_phone1;

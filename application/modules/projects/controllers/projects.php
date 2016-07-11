@@ -363,6 +363,60 @@ class Projects extends admin
 		}
 		redirect('tree-planting/add-project-item/'.$project_id.'/'.$project_number.'');
     }
+    public function handover($project_id)
+    {
+
+    	$this->form_validation->set_rules('kfs_representative', 'Quantity', 'required|xss_clean');
+    	$this->form_validation->set_rules('gbm_representative', 'Quantity', 'required|xss_clean');
+    	$this->form_validation->set_rules('handover_date', 'Quantity', 'required|xss_clean');
+    	$this->form_validation->set_rules('handover_summery', 'Quantity', 'required|xss_clean');
+    	$this->form_validation->set_rules('meeting_venue', 'Quantity', 'required|xss_clean');
+		
+		//if form has been submitted
+		if ($this->form_validation->run())
+		{
+			if($this->projects_model->add_project_handover($project_id))
+			{
+				$this->session->set_userdata('success_message', 'project Item updated successfully');
+			}
+			else
+			{
+				$this->session->set_userdata('success_message', 'project Item updated successfully');
+			}
+		}
+		else
+		{
+			$this->session->set_userdata('success_message', 'project Item updated successfully');
+		}
+		redirect('tree-planting/project-handover/'.$project_id.'');
+
+    }
+    public function add_handover($project_id)
+    {
+    	$this->form_validation->set_rules('handover_attendee_name', 'Quantity', 'required|xss_clean');
+    	$this->form_validation->set_rules('handover_attendee_national_id', 'Quantity', 'required|xss_clean');
+    	$this->form_validation->set_rules('handover_attendee_phone', 'Quantity', 'required|xss_clean');
+    	$this->form_validation->set_rules('handover_gender_id', 'Quantity', 'required|xss_clean');
+    	$this->form_validation->set_rules('handover_attendee_organization', 'Quantity', 'required|xss_clean');
+		
+		//if form has been submitted
+		if ($this->form_validation->run())
+		{
+			if($this->projects_model->add_project_handover_attendee($project_id))
+			{
+				$this->session->set_userdata('success_message', 'project Item updated successfully');
+			}
+			else
+			{
+				$this->session->set_userdata('success_message', 'project Item updated successfully');
+			}
+		}
+		else
+		{
+			$this->session->set_userdata('success_message', 'project Item updated successfully');
+		}
+		redirect('tree-planting/project-handover/'.$project_id.'');
+    }
 	/*
 	*
 	*	Edit an existing project
@@ -761,6 +815,76 @@ class Projects extends admin
 		$data['content'] = $this->load->view('projects/projects/project_handover', $v_data, true);
 		$this->load->view('admin/templates/general_page', $data);
 
+
+	}
+	public function project_reports()
+	{
+
+		$where = 'projects.project_status_id = project_status.project_status_id AND projects.project_grant_county = counties.county_id';
+		$table = 'projects, project_status,counties';
+		//pagination
+		
+		
+		$segment = 3;
+		$this->load->library('pagination');
+		$config['base_url'] = base_url().'reports/projects';
+		$config['total_rows'] = $this->users_model->count_items($table, $where);
+		$config['uri_segment'] = $segment;
+		$config['per_page'] = 20;
+		$config['num_links'] = 5;
+		
+		$config['full_tag_open'] = '<ul class="pagination pull-right">';
+		$config['full_tag_close'] = '</ul>';
+		
+		$config['first_tag_open'] = '<li>';
+		$config['first_tag_close'] = '</li>';
+		
+		$config['last_tag_open'] = '<li>';
+		$config['last_tag_close'] = '</li>';
+		
+		$config['next_tag_open'] = '<li>';
+		$config['next_link'] = 'Next';
+		$config['next_tag_close'] = '</span>';
+		
+		$config['prev_tag_open'] = '<li>';
+		$config['prev_link'] = 'Prev';
+		$config['prev_tag_close'] = '</li>';
+		
+		$config['cur_tag_open'] = '<li class="active">';
+		$config['cur_tag_close'] = '</li>';
+		
+		$config['num_tag_open'] = '<li>';
+		$config['num_tag_close'] = '</li>';
+		$this->pagination->initialize($config);
+		
+		$page = ($this->uri->segment($segment)) ? $this->uri->segment($segment) : 0;
+        $data["links"] = $this->pagination->create_links();
+		$query = $this->projects_model->get_all_projects($table, $where, $config["per_page"], $page);
+		
+		$v_data['query'] = $query;
+		$v_data['page'] = $page;
+		$contacts = $this->site_model->get_contacts();
+		$v_data['contacts'] = $contacts;
+		$v_data['project_status_query'] = $this->projects_model->get_project_status();
+		// $v_data['level_status'] = $this->projects_model->project_level_status();
+		$v_data['title'] = "Projects Reports";
+		
+		$data['content'] = $this->load->view('projects/reports/all_project_report', $v_data, true);
+		
+		$data['title'] = 'Projects Reports';
+		
+		$this->load->view('admin/templates/general_page', $data);
+	}
+	public function report($project_id)
+	{
+		$v_data['project_id'] = $project_id;
+		$v_data['title'] = "Project Report";
+		
+		$data['content'] = $this->load->view('projects/reports/project_report', $v_data, true);
+		
+		$data['title'] = 'Project Report';
+		
+		$this->load->view('admin/templates/general_page', $data);
 
 	}
 }

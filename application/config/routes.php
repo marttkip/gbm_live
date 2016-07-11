@@ -236,6 +236,9 @@ $route['gbm-administration/projects/(:num)'] = 'gbm-administration/projects/inde
 $route['gbm-administration/add-project'] = 'projects/add_project';
 $route['gbm-administration/project-edit/(:num)/(:any)'] = 'projects/edit_project/$1/$2';
 
+
+
+
 $route['upload-project-documents/(:num)'] = 'projects/projects/upload_project_documents/$1';
 $route['upload-project-documents-page/(:num)'] = 'projects/projects/upload_project_documents_page/$1';
 
@@ -255,9 +258,9 @@ $route['upload-project-documents-page/(:num)'] = 'projects/projects/upload_proje
 
 
 
-$route['gbm-administration/project-areas'] = 'projects/project_areas/index';
-$route['gbm-administration/project-areas/(:any)/(:any)/(:num)'] = 'projects/project_areas/index/$1/$2/$3';
-$route['gbm-administration/project-areas/(:any)/(:any)'] = 'projects/project_areas/index/$1/$2';
+$route['gbm-administration/project-watersheds'] = 'projects/project_areas/index';
+$route['gbm-administration/project-watersheds/(:any)/(:any)/(:num)'] = 'projects/project_areas/index/$1/$2/$3';
+$route['gbm-administration/project-watersheds/(:any)/(:any)'] = 'projects/project_areas/index/$1/$2';
 $route['gbm-administration/add-project-area'] = 'projects/project_areas/add_project_area';
 $route['gbm-administration/edit-project-area/(:num)'] = 'projects/project_areas/edit_project_area/$1';
 $route['gbm-administration/delete-project-area/(:num)'] = 'projects/project_areas/delete_project_area/$1';
@@ -417,6 +420,9 @@ $route['import/import-community-groups/(:num)'] = 'gbm_administration/community_
 $route['import/community-members-template'] = 'gbm_administration/community_groups/import_community_members_template';
 $route['import/import-community-group-members/(:num)/(:num)'] = 'gbm_administration/community_groups/do_community_members_import/$1/$2';
 
+$route['update-project-handover/(:num)'] = 'projects/handover/$1';
+$route['add-handover-attendee/(:num)'] = 'projects/add_handover/$1';
+
 
 $route['import/seedling-production-template'] = 'projects/seedling_production/import_seedling_production_template';
 $route['import/import-seedling-production/(:num)/(:num)'] = 'projects/seedling_production/do_seedling_production_import/$1/$2';
@@ -424,3 +430,13 @@ $route['import/import-seedling-production/(:num)/(:num)'] = 'projects/seedling_p
 
 $route['tree-planting/project-handover/(:num)'] = 'projects/project_handover/$1';
 
+
+
+
+// reports
+
+
+$route['reports/projects'] = 'projects/project_reports';
+$route['project-reports/(:num)'] = 'projects/report/$1';
+$route['reports/add-project'] = 'projects/add_project';
+$route['reports/project-edit/(:num)/(:any)'] = 'projects/edit_project/$1/$2';

@@ -84,6 +84,7 @@ class Group_members_model extends CI_Model
 				'member_type_id'=>$this->input->post('member_type_id'),
 				'community_group_member_national_id'=>$this->input->post('community_group_member_national_id'),
 				'community_group_member_phone_number'=>$this->input->post('community_group_member_phone_number'),
+				'gender_id'=>$this->input->post('gender_id'),
 				'created'=>date('Y-m-d H:i:s'),
 				'community_group_member_status'=>1,
 				'community_group_id'=>$community_group_id,

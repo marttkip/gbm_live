@@ -13,7 +13,7 @@
 						<h5 class="text-weight-semibold mt-sm text-center"><strong>STEP ONE :</strong> PROJECT WATERSHEDS</h5>
 					</header>
 					<div class="panel-body text-center">
-						<p>Target Areas (<?php echo $totol_areas;?>)</p>
+						<p> Watersheds (<?php echo $totol_areas;?>)</p>
 					
 					</div>
 					<div class="panel-footer panel-footer-btn-group text-center" >
@@ -89,49 +89,49 @@
 						
 					</div>
 					<div class="panel-footer panel-footer-btn-group text-center" >
-						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id;?>" ><i class="fa fa-folder-open mr-xs"></i>CTN DETAILS</a>
+						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id;?>" ><i class="fa fa-folder-open mr-xs"></i>SITE PREPARATION</a>
 					</div>
 				</section>
     		</div>
     		<div class="col-md-4">
     			<section class="panel">
 					<header class="panel-heading bg-info">
-						<h5 class="text-weight-semibold mt-sm text-center">STEP SEVEN :</strong> GBM CENTRAL TREE NURSERY</h5>
+						<h5 class="text-weight-semibold mt-sm text-center">STEP SEVEN :</strong> TREE PLANTING</h5>
 					</header>
 					<div class="panel-body text-center">
 						<p class="text-center">Total Community groups (<?php echo $totol_communities;?>)</p>
 						
 					</div>
 					<div class="panel-footer panel-footer-btn-group text-center" >
-						<a href="<?php echo site_url();?>tree-planting/ctn-detail/<?php echo $project_id;?>" ><i class="fa fa-folder-open mr-xs"></i>CTN DETAILS</a>
+						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id;?>/1" ><i class="fa fa-folder-open mr-xs"></i>TREE PLANTING</a>
 					</div>
 				</section>
     		</div>
     		<div class="col-md-4">
     			<section class="panel">
 					<header class="panel-heading bg-info">
-						<h5 class="text-weight-semibold mt-sm text-center">STEP EIGHT :</strong> GBM CENTRAL TREE NURSERY</h5>
+						<h5 class="text-weight-semibold mt-sm text-center">STEP EIGHT :</strong>FIRST FOLLOW UP</h5>
 					</header>
 					<div class="panel-body text-center">
 						<p class="text-center">Total Community groups (<?php echo $totol_communities;?>)</p>
 						
 					</div>
 					<div class="panel-footer panel-footer-btn-group text-center" >
-						<a href="<?php echo site_url();?>tree-planting/ctn-detail/<?php echo $project_id;?>" ><i class="fa fa-folder-open mr-xs"></i>CTN DETAILS</a>
+						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id;?>/2" ><i class="fa fa-folder-open mr-xs"></i>FIRST FOLLOW UP</a>
 					</div>
 				</section>
     		</div>
     		<div class="col-md-4">
     			<section class="panel">
 					<header class="panel-heading bg-info">
-						<h5 class="text-weight-semibold mt-sm text-center">STEP NINE :</strong> GBM CENTRAL TREE NURSERY</h5>
+						<h5 class="text-weight-semibold mt-sm text-center">STEP NINE :</strong> SECOND FOLLOW UP</h5>
 					</header>
 					<div class="panel-body text-center">
 						<p class="text-center">Total Community groups (<?php echo $totol_communities;?>)</p>
 						
 					</div>
 					<div class="panel-footer panel-footer-btn-group text-center" >
-						<a href="<?php echo site_url();?>tree-planting/ctn-detail/<?php echo $project_id;?>" ><i class="fa fa-folder-open mr-xs"></i>CTN DETAILS</a>
+						<a href="<?php echo site_url();?>tree-planting/planting-sites/<?php echo $project_id;?>/3" ><i class="fa fa-folder-open mr-xs"></i>SECOND FOLLOW UP</a>
 					</div>
 				</section>
     		</div>
@@ -270,68 +270,5 @@
 			     <div id="piechart_3d" style="width: 100%; height: 400px;"></div>
 			</div>
 		</section>
-	</div>
-	<div class="col-md-12">
-		<?php
-		//  get community shades and the items they have planted
-		// get the project areas under all the 
-		$project_areas_child = $this->project_areas_model->all_project_areas_children($project_id);
-		$parameters4 = '';
-		if($project_areas_child->num_rows() > 0)
-		{
-			foreach ($project_areas_child->result() as $key_children) {
-				# code...
-				$child_id = $key_children->project_id;
-				$child_name = $key_children->project_area_name;
-
-				// generate number 
-
-				// genetate another number
-
-				// generate a greater number
-				// $child_name = str_replace(' ', '', $child_name);
-
-				// shorten the name
-				// $shorten_name = $this->project_areas_model->get_random_string($child_name,3); 
-
-				// $population = $this->project_areas_model->generateRandomInteger(7); 
-
-				$seedlings = $this->project_areas_model->generateRandomInteger(4); 
-
-				$survival = $this->project_areas_model->generateRandomInteger(3); 
-
-				$population = $seedlings + $survival;
-				$rate = $population/2;
-
-				$parameters4 .= "['$child_name',$survival,$seedlings,$rate],";
-
-			}
-		}
-
-		?>
-		<script type="text/javascript">
-		      google.charts.setOnLoadCallback(drawVisualization);
-
-
-		      function drawVisualization() {
-		        // Some raw data (not necessarily accurate)
-		        var data = google.visualization.arrayToDataTable([
-		         ['Target Areas', 'Planted Trees', 'Surviving Trees', 'Survival Rate'],
-		         <?php echo $parameters4;?>
-		      ]);
-
-		    var options = {
-		      title : 'Target Areas Survival Rate',
-		      vAxis: {title: 'Survival Rate'},
-		      hAxis: {title: 'Target Areas'},
-		      seriesType: 'bars',
-		      series: {2: {type: 'line'}}
-		    };
-
-		    var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-		    chart.draw(data, options);
-		  }
-		    </script>
-		 <div id="chart_div" style="width: 100%; height: 400px;"></div>
 	</div>
 </div>

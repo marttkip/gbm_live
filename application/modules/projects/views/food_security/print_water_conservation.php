@@ -63,7 +63,7 @@ $result =
 					foreach($row as $key)
 					{
 
-						$name = $key->name;
+						$farmer_name = $key->name;
 						$phone = $key->phone;
 						$gps = $key->gps;
 						$eastings = $key->eastings;
@@ -109,7 +109,7 @@ $result =
 						$result .=
 								'<tr>
 									<td>'.$count.'</td>
-									<td>'.$name.'</td>
+									<td>'.$farmer_name.'</td>
 									<td>'.$phone.'</td>
 									<td>'.$gps.'</td>
 

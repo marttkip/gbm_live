@@ -76,7 +76,8 @@ class Project_areas_model extends CI_Model
 				'project_area_status'=>$this->input->post('project_area_status'),
 				'project_area_longitude'=>$project_area_longitude,
 				'project_area_latitude'=>$project_area_latitude,
-				'created'=>date('Y-m-d H:i:s'),
+				'created'=>date('Y-m-d'),
+				'last_modified'=>date('Y-m-d H:i:s'),
 				'created_by'=>$this->session->userdata('personnel_id'),
 				'branch_code'=>$this->session->userdata('branch_code'),
 				'modified_by'=>$this->session->userdata('personnel_id')
@@ -98,7 +99,8 @@ class Project_areas_model extends CI_Model
 		$data = array(
 				'project_area_name'=>$this->input->post('project_area_name'),
 				'project_area_status'=>$this->input->post('project_area_status'),
-				'created'=>date('Y-m-d H:i:s'),
+				'created'=>date('Y-m-d'),
+				'last_modified'=>date('Y-m-d H:i:s'),
 				'created_by'=>$this->session->userdata('personnel_id'),
 				'branch_code'=>$this->session->userdata('branch_code'),
 				'modified_by'=>$this->session->userdata('personnel_id')
@@ -127,7 +129,8 @@ class Project_areas_model extends CI_Model
 				'project_area_longitude'=>$this->input->post('project_area_longitude'),
 				'project_area_latitude'=>$this->input->post('project_area_latitude'),
 				'branch_code'=>$this->session->userdata('branch_code'),
-				'modified_by'=>$this->session->userdata('personnel_id')
+				'modified_by'=>$this->session->userdata('personnel_id'),
+				'last_modified'=>date('Y-m-d H:i:s'),
 			);
 			
 		$this->db->where('project_area_id', $project_area_id);
@@ -529,6 +532,8 @@ class Project_areas_model extends CI_Model
 							$items2['project_area_id'] = $project_area_id;
 							$items2['project_id'] = $project_id;
 							$items2['created'] = date('Y-m-d');
+							$items2['last_modified'] =date('Y-m-d H:i:s');
+							
 							if($this->db->insert('project_watershed', $items2))
 							{
 								$comment .= '<br/>Watershed successfully added to the database';

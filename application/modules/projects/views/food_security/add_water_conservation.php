@@ -24,7 +24,7 @@
 									</select>
 								</div>
 							</div>
-							<div class="form-group" id="activity_title_div" style="display:none">
+							<div class="form-group" >
 								<label class="col-lg-4 control-label">Farmer Name</label>
 								<div class="col-lg-8">
 									<input type="text" class="form-control" name="farmer_name" placeholder="Farmer Name" value="<?php echo set_value('name');?>">

@@ -14,13 +14,11 @@
 					<tr>
 						<th>#</th>
 						<th>Nursery</th>
-						<th>S.RP</th>
-						<th>S.NRP</th>
-						<th>S.IPB</th>
-						<th>Last modified</th>
-						<th>Modified by</th>
+						<th>Ready For Planting</th>
+						<th>Not For Planting</th>
+						<th>In Potting Bags</th>
 						<th>Status</th>
-						<th colspan="5">Actions</th>
+						<th colspan="2">Actions</th>
 					</tr>
 				</thead>
 				
@@ -84,17 +82,30 @@
 				else
 				{
 				}
+
+				$table = 'nursery_tally';
+				$where = 'seedling_status_id = 1 AND nursery_tally_status = 1';
+				$select = 'SUM(quantity)';
+				$in_potting_bags = $this->seedling_production_model->get_counter_amount($table, $where, $select);
+
+				$table = 'nursery_tally';
+				$where = 'seedling_status_id = 2 AND nursery_tally_status = 1';
+				$select = 'SUM(quantity) ';
+				$ready_for_planting = $this->seedling_production_model->get_counter_amount($table, $where, $select);
+
+				$table = 'nursery_tally';
+				$where = 'seedling_status_id = 3 AND nursery_tally_status = 1';
+				$select = 'SUM(quantity)';
+				$not_ready_for_planting = $this->seedling_production_model->get_counter_amount($table, $where, $select);
 				$count++;
 				$result .= 
 				'
 					<tr>
 						<td>'.$count.'</td>
 						<td>'.$community_group_name.'</td>
-						<td>0</td>
-						<td>0</td>
-						<td>0</td>
-						<td>'.$last_modified.'</td>
-						<td>'.$modified_by.'</td>
+						<td>'.$ready_for_planting.'</td>
+						<td>'.$not_ready_for_planting.'</td>
+						<td>'.$in_potting_bags.'</td>
 						<td>'.$status.'</td>
 						
 						<td><a href="'.site_url().'tree-planting/seedling-tally/'.$seedling_production_id.'/'.$project_id.'" class="btn btn-sm btn-warning" ><i class="fa fa-eye"></i></a></td>

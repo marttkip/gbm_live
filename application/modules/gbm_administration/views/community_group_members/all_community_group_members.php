@@ -24,7 +24,7 @@
 						<th><a >Name</a></th>
 						<th><a >National Id</a></th>
 						<th><a >Phone Number</a></th>
-						<th><a >Email Address</a></th>
+						<th><a >Gender</a></th>
 						<th><a >Profile Status</a></th>
 						'.$items.'
 						<th colspan="5">Actions</th>
@@ -36,6 +36,14 @@
 			{
 				$community_group_member_id = $row->community_group_member_id;
 				$community_group_member_name = $row->community_group_member_name;
+				$gender_id = $row->gender_id;
+				if($gender_id == 1)
+				{
+					$gender = 'Male';
+				}
+				else{
+					$gender = 'Female';
+				}
 				//create deactivated status display
 				if($row->community_group_member_status == 0)
 				{
@@ -58,7 +66,7 @@
 						<td>'.$row->community_group_member_name.' </td>
 						<td>'.$row->community_group_member_national_id.' </td>
 						<td>'.$row->community_group_member_phone_number.' </td>
-						<td>'.$row->community_group_member_email.' </td>
+						<td>'.$gender.' </td>
 						<td>'.$status.'</td>						
 						<td><a href="'.site_url().'tree-planting/edit-group-member/'.$community_group_member_id.'/'.$community_group_id.'/'.$project_area_id.'" class="btn btn-sm btn-success"title="Edit '.$community_group_member_name.'"><i class="fa fa-pencil"></i></a></td>
 						<td>'.$button.'</td>
@@ -183,6 +191,16 @@
 										            	<input type="text" class="form-control" name="community_group_member_national_id" placeholder="National ID" value="" required>
 										            </div>
 										        </div>
+										        <div class="form-group">
+									            <label class="col-lg-4 control-label">Gender: </label>
+									            
+									            <div class="col-lg-8">
+									            	<select class="form-control" name="gender_id">
+									            		<option value="1">Male</option>
+									            		<option value="2">Female</option>
+									            	</select>
+									            </div>
+									        </div>
 										    </div>
 										    <div class="col-md-6">
 										    	<div class="form-group">

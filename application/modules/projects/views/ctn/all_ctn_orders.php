@@ -44,9 +44,7 @@ $result = '';
 			$order_number  = $key->order_number;
 			$order_id  = $key->order_id;
 			$order_status_id  = $key->order_status_id;
-			$total_ordered_seedlings  = 0;
-			$total_received_seedlings  = 0;
-
+			
 			//creators & editors
 			if($admins != NULL)
 			{

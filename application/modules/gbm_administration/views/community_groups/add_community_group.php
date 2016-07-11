@@ -46,6 +46,12 @@
                                     <input type="text" class="form-control" name="community_group_contact_person_phone1" placeholder="Contact Person Phone 1" value="<?php echo set_value('community_group_contact_person_phone1');?>" required>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label">Contact Person Position</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control" name="contact_person_position" placeholder="Contact Person Position" value="<?php echo set_value('contact_person_position');?>" required>
+                                </div>
+                            </div>
                         </div>
                         
                     	<div class="col-sm-6">
@@ -94,8 +100,27 @@
                                         <input type="text" class="form-control" name="sub_location" placeholder="sub_location" value="<?php echo set_value('sub_location');?>" required>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label"> Sub Location</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" name="sub_location" placeholder="sub_location" value="<?php echo set_value('sub_location');?>" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label"> District</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" name="district" placeholder="district" value="<?php echo set_value('district');?>" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label"> Division</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" name="division" placeholder="division" value="<?php echo set_value('division');?>" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
+                                 
                                 <div class="form-group">
                                     <label class="col-lg-4 control-label"> County</label>
                                     <div class="col-lg-8">
@@ -111,7 +136,19 @@
                                  <div class="form-group">
                                     <label class="col-lg-4 control-label"> Sub Chief's Name</label>
                                     <div class="col-lg-8">
-                                        <input type="text" class="form-control" name="sub_chief" placeholder="Contact Person email 2" value="<?php echo set_value('sub_chief');?>" required>
+                                        <input type="text" class="form-control" name="sub_chief" placeholder="Sub Chief" value="<?php echo set_value('sub_chief');?>" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label"> Member of Parliament</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" name="mp" placeholder="MP" value="<?php echo set_value('mp');?>" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-4 control-label"> Market (Close to your area)</label>
+                                    <div class="col-lg-8">
+                                        <input type="text" class="form-control" name="market" placeholder="market" value="<?php echo set_value('market');?>" required>
                                     </div>
                                 </div>
                             </div>

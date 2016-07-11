@@ -153,7 +153,7 @@ if(!empty($validation_error))
 		                    <span id="work_email"><?php echo $project_end_date;?></span>
 		                </div>
 		                <div class="col-md-6">
-		                		<a href="<?php echo site_url();?>tree-planting/projects" class="btn btn-sm btn-info pull-right"><i class="fa fa-arrow-left"></i> Back to projects</a>
+		                		<a href="<?php echo site_url();?>tree-planting" class="btn btn-sm btn-info pull-right"><i class="fa fa-arrow-left"></i> Back to projects</a>
 		                </div>
 	                </div>
                 </header>

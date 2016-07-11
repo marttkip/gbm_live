@@ -19,6 +19,16 @@ class Projects_model extends CI_Model
 		
 		return $query;
 	}
+
+	public function get_project_content($table, $where,$select)
+	{
+		$this->db->from($table);
+		$this->db->select($select);
+		$this->db->where($where);
+		$query = $this->db->get('');
+		
+		return $query;
+	}
 	
 	/*
 	*	Retrieve all projects of a user
@@ -31,6 +41,21 @@ class Projects_model extends CI_Model
 		$query = $this->db->get('projects');
 		
 		return $query;
+	}
+	public function get_community_groups()
+	{
+		$this->db->where('community_group_id > 0 ');
+		$query = $this->db->get('community_group');
+		
+		return $query;
+	}
+	public function get_project_handover($project_id)
+	{
+		$this->db->where('project_id = '.$project_id);
+		$query = $this->db->get('project_handover');
+		
+		return $query;
+
 	}
 	public function get_project_suppliers($project_id)
 	{
@@ -104,6 +129,63 @@ class Projects_model extends CI_Model
 		$this->db->select('product.product_name, project_item.*');
 		$this->db->where('product.product_id = project_item.product_id AND project_item.project_id = '.$project_id);
 		$query = $this->db->get('project_item, product');
+		
+		return $query;
+	}
+
+	public function add_project_handover($project_id)
+	{
+		//retrieve all projects
+		$this->db->from('project_handover');
+		$this->db->select('*');
+		$this->db->where('project_id = '.$project_id);
+		$query = $this->db->get();
+
+		$data = array(
+						'kfs_representative'=>$this->input->post('kfs_representative'),
+						'gbm_representative'=>$this->input->post('gbm_representative'),
+						'handover_date'=>$this->input->post('handover_date'),
+						'handover_summery'=>$this->input->post('handover_summery'),
+						'meeting_venue'=>$this->input->post('meeting_venue'),
+					 );
+		if($query->num_rows() > 0)
+		{
+			// update
+			$this->db->where('project_id = '.$project_id);
+			$this->db->update('project_handover',$data);
+		}
+		else
+		{
+			$data['project_id'] = $project_id;
+			// insert 
+			$this->db->insert('project_handover',$data);
+
+		}
+	}
+	public function add_project_handover_attendee($project_id)
+	{
+		$data = array(
+						'handover_attendee_name'=>$this->input->post('handover_attendee_name'),
+						'handover_attendee_national_id'=>$this->input->post('handover_attendee_national_id'),
+						'handover_attendee_phone'=>$this->input->post('handover_attendee_phone'),
+						'handover_gender_id'=>$this->input->post('handover_gender_id'),
+						'handover_attendee_organization'=>$this->input->post('handover_attendee_organization'),
+					 );
+		$data['project_id'] = $project_id;
+		if($this->db->insert('handover_attendee',$data))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	public function get_project_handover_attendee($project_id)
+	{
+		$this->db->select('*');
+		$this->db->where('project_id = '.$project_id);
+		$query = $this->db->get('handover_attendee');
 		
 		return $query;
 	}
