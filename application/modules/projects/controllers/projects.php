@@ -32,7 +32,7 @@ class Projects extends admin
 	{
 		// get my approval roles
 
-		$where = 'projects.project_status_id = project_status.project_status_id AND projects.project_grant_county = counties.county_id';
+		$where = 'projects.project_status_id = project_status.project_status_id AND projects.project_grant_county = counties.county_id AND projects.project_delete = 0';
 		$table = 'projects, project_status,counties';
 		//pagination
 		
@@ -625,14 +625,18 @@ class Projects extends admin
 	*/
 	public function deactivate_project($project_id)
 	{
-		$data = array(
-					'project_status'=>1
-				);
-				
-		$this->db->where('project_id = '.$project_id);
-		$this->db->update('projects', $data);
-		
-		redirect('gbm-administration');
+		$this->projects_model->deactivate_project($project_id);
+		$this->session->set_userdata('success_message', 'project area deactivated successfully');
+
+		redirect('gbm-administration/projects');
+	}
+	
+	public function activate_project($project_id)
+	{
+		$this->projects_model->activate_project($project_id);
+		$this->session->set_userdata('success_message', 'project area deactivated successfully');
+
+		redirect('gbm-administration/projects');
 	}
 
 	public function upload_project_documents($project_id,$project_number)
@@ -886,6 +890,114 @@ class Projects extends admin
 		
 		$this->load->view('admin/templates/general_page', $data);
 
+	}
+	
+	public function project_edit($project_id)
+	{
+		//form validation rules
+		$this->form_validation->set_rules('project_instructions', 'project Instructions', 'required|xss_clean');
+		$this->form_validation->set_rules('project_start_date', 'Project Start Date', 'required|xss_clean');
+		$this->form_validation->set_rules('project_end_date', 'Project End Date', 'required|xss_clean');
+
+		$this->form_validation->set_rules('project_donor', 'Donor', 'required|xss_clean');
+		$this->form_validation->set_rules('project_title', 'Project Title', 'required|xss_clean');
+		$this->form_validation->set_rules('project_location', 'Project Location', 'required|xss_clean');
+
+		$this->form_validation->set_rules('project_grant_value', 'Project Grant Value', 'required|xss_clean');
+		$this->form_validation->set_rules('project_grant_county', 'Project grant county', 'required|xss_clean');
+		//$this->form_validation->set_rules('watersheds', 'Watersheds', 'required|xss_clean');
+		
+		//if form has been submitted
+		if ($this->form_validation->run())
+		{
+			if($this->projects_model->update_project($project_id))
+			{
+				$this->session->set_userdata('success_message', 'Project updated successfully');
+			}
+			else
+			{
+				$this->session->set_userdata('error_message', 'Could not update project. Please try again');
+			}
+			redirect('gbm-administration/projects');
+		}
+		
+		//open the add new project
+		$data['title'] = 'Edit project';
+		$v_data['title'] = 'Edit project';
+		$v_data['project_status_query'] = $this->projects_model->get_project_status();
+
+		$county_order = 'county_name';
+		$county_table = 'counties';
+		$county_where = 'county_status = 1';
+
+		$county_query = $this->projects_model->get_active_list($county_table, $county_where, $county_order);
+		$rs8 = $county_query->result();
+		$county_list = '';
+		foreach ($rs8 as $county_rs) :
+			$county_id = $county_rs->county_id;
+			$county_name = $county_rs->county_name;
+
+		    $county_list .="<option value='".$county_id."'>".$county_name."</option>";
+
+		endforeach;
+
+		$v_data['county_list'] = $county_list;
+
+
+		$project_area_order = 'project_areas.project_area_name';
+		$project_area_table = 'project_areas';
+		$project_area_where = 'project_area_status = 1';
+
+		$project_area_query = $this->projects_model->get_active_list($project_area_table, $project_area_where, $project_area_order);
+		$rs8 = $project_area_query->result();
+		$water_sheds = '';
+		foreach ($rs8 as $project_area_rs) :
+			$project_area_id = $project_area_rs->project_area_id;
+			$project_area_name = $project_area_rs->project_area_name;
+
+		    $water_sheds .="<option value='".$project_area_id."'>".$project_area_name."</option>";
+
+		endforeach;
+
+		$v_data['water_sheds'] = $water_sheds;
+
+
+		$site_order = 'planting_site.site_name';
+		$site_table = 'planting_site';
+		$site_where = 'status = 1';
+
+		$site_query = $this->projects_model->get_active_list($site_table, $site_where, $site_order);
+		$rs8 = $site_query->result();
+		$planting_sites = '';
+		foreach ($rs8 as $site_rs) :
+			$site_id = $site_rs->site_id;
+			$site_name = $site_rs->site_name;
+
+		    $planting_sites .="<option value='".$site_id."'>".$site_name."</option>";
+
+		endforeach;
+		$query = $this->projects_model->get_project($project_id);
+		$v_data['planting_sites'] = $planting_sites;
+		
+		$v_data['project'] = $query;
+
+		$data['content'] = $this->load->view('projects/projects/edit_project_details', $v_data, true);
+		
+		$this->load->view('admin/templates/general_page', $data);
+	}
+	public function admin_delete_project($project_id)
+	{
+		$this->projects_model->admin_delete_project($project_id);
+		$this->session->set_userdata('success_message', 'project deleted successfully');
+
+		redirect('gbm-administration/projects');
+	}
+	public function admin_delete_project_watersheds($project_id,$project_area_id)
+	{
+		$this->projects_model->admin_delete_project_watershed($project_id,$project_area_id);
+		$this->session->set_userdata('success_message', 'project deleted successfully');
+
+		redirect('tree-planting/area-locations/'.$project_id);
 	}
 }
 ?>

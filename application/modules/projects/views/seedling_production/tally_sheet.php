@@ -95,13 +95,13 @@
 				if($nursery_tally_status == 0)
 				{
 					$status = '<span class="label label-default">Deactivated</span>';
-					$button = '<a class="btn btn-info btn-sm" href="'.site_url().'gbm-administration/activate-county/'.$nursery_tally_id.'" onclick="return confirm(\'Do you want to activate '.$monthName.'?\');" title="Activate '.$monthName.'"><i class="fa fa-thumbs-up"></i></a>';
+					$button = '<a class="btn btn-info btn-sm" href="'.site_url().'gbm-administration/activate-tallysheet/'.$nursery_tally_id.'/'.$seedling_production_id.'" onclick="return confirm(\'Do you want to activate '.$monthName.'?\');" title="Activate '.$monthName.'"><i class="fa fa-thumbs-up"></i></a>';
 				}
 				//create activated status display
 				else if($nursery_tally_status == 1)
 				{
 					$status = '<span class="label label-success">Active</span>';
-					$button = '<a class="btn btn-default btn-sm" href="'.site_url().'gbm-administration/deactivate-county/'.$nursery_tally_id.'" onclick="return confirm(\'Do you want to deactivate '.$monthName.'?\');" title="Deactivate '.$monthName.'"><i class="fa fa-thumbs-down"></i></a>';
+					$button = '<a class="btn btn-default btn-sm" href="'.site_url().'gbm-administration/deactivate-tallysheet/'.$nursery_tally_id.'/'.$seedling_production_id.'" onclick="return confirm(\'Do you want to deactivate '.$monthName.'?\');" title="Deactivate '.$monthName.'"><i class="fa fa-thumbs-down"></i></a>';
 				}
 				
 				//creators & editors
@@ -141,7 +141,7 @@
 						<td>'.$button.'</td>
 						<td><a href="'.site_url().'gbm-administration/print-nursery/'.$seedling_production_id.'/'.$nursery_tally_id.'" class="btn btn-sm btn-warning" title="Print '.$monthName.'" target ="_blank"><i class="fa fa-print"></i></a></td>
 
-						<td><a href="'.site_url().'gbm-administration/delete-county/'.$nursery_tally_id.'" class="btn btn-sm btn-danger" onclick="return confirm(\'Do you really want to delete '.$monthName.'?\');" title="Delete '.$monthName.'"><i class="fa fa-trash"></i></a></td>
+						<td><a href="'.site_url().'gbm-administration/delete-tallysheet/'.$seedling_production_id.'/'.$nursery_tally_id.'" class="btn btn-sm btn-danger" onclick="return confirm(\'Do you really want to delete '.$monthName.'?\');" title="Delete '.$monthName.'"><i class="fa fa-trash"></i></a></td>
 						
 					</tr> 
 				';

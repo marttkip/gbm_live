@@ -86,7 +86,7 @@
 						$project_status = $row->project_status;
 						$project_donor = $row->project_donor;
 						$county_name = $row->county_name;
-						$project_status = $row->project_status_id;
+						$project_status = $row->project_status;
 						$project_instructions = $row->project_instructions;
 						$project_status_name = $row->project_status_name;
 						$created_by = $row->created_by;
@@ -103,13 +103,13 @@
 						if($project_status == 0)
 						{
 							$status = '<span class="label label-default">Deactivated</span>';
-							$button = '<a class="btn btn-sm btn-info" href="'.site_url().'gbm-administration/activate-project-area/'.$project_id.'" onclick="return confirm(\'Do you want to activate '.$project_title.'?\');" title="Activate '.$project_title.'"><i class="fa fa-thumbs-up mr-xs"></i></a>';
+							$button = '<a class="btn btn-sm btn-info" href="'.site_url().'gbm/projects/activate-project/'.$project_id.'" onclick="return confirm(\'Do you want to activate '.$project_title.'?\');" title="Activate '.$project_title.'"><i class="fa fa-thumbs-up mr-xs"></i></a>';
 						}
 						//create activated status display
 						else if($project_status == 1)
 						{
 							$status = '<span class="label label-success">Active</span>';
-							$button = '<a class="btn btn-sm btn-warning" href="'.site_url().'gbm-administration/deactivate-project-area/'.$project_id.'" onclick="return confirm(\'Do you want to deactivate '.$project_title.'?\');" title="Deactivate '.$project_title.'"><i class="fa fa-thumbs-down mr-xs"></i></a>';
+							$button = '<a class="btn btn-sm btn-warning" href="'.site_url().'gbm/projects/deactivate-project/'.$project_id.'" onclick="return confirm(\'Do you want to deactivate '.$project_title.'?\');" title="Deactivate '.$project_title.'"><i class="fa fa-thumbs-down mr-xs"></i></a>';
 						}
 				
 					
@@ -135,7 +135,7 @@
 									<td><a href="'.site_url().'gbm_administration/project-edit/'.$project_id.'" class="btn btn-sm btn-success" title="Edit '.$project_title.'"><i class="fa fa-pencil"></i></a></td>
 									<td>'.$button.'</td>
 									<td>
-									<a href="'.site_url().'gbm_administration/delete-project-area/'.$project_id.'" class="btn btn-sm btn-danger"  onclick="return confirm(\'Do you really want to delete '.$project_title.'?\');" title="Delete '.$project_title.'"><i class="fa fa-trash mr-xs"></i> </a>
+									<a href="'.site_url().'gbm_administration/delete-project/'.$project_id.'" class="btn btn-sm btn-danger"  onclick="return confirm(\'Do you really want to delete '.$project_title.'?\');" title="Delete '.$project_title.'"><i class="fa fa-trash mr-xs"></i> </a>
 
 									</td>
 									

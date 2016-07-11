@@ -51,7 +51,7 @@
 					  <th class="table-sortable:default table-sortable" title="Click to sort">End Date</th>
 					   <th class="table-sortable:default table-sortable" title="Click to sort">Date Created</th>
 					  <th class="table-sortable:default table-sortable" title="Click to sort">Status</th>
-					  <th colspan="3">Actions</th>
+					  <th colspan="4">Actions</th>
 					</tr>
 				  </thead>
 				  <tbody>
@@ -114,6 +114,7 @@
 								<td>'.date('jS M Y',strtotime($meeting_end_date)).'</td>
 								<td>'.date('jS M Y',strtotime($created)).'</td>
 								<td>'.$status.'</td>
+								<td><a href="'.site_url().'tree-planting/edit-training/'.$project_id.'/'.$meeting_id.'" class="btn btn-sm btn-success" title="Edit '.$activity_title.'"><i class="fa fa-pencil"></i> Edit</a></td>
 								<td><a href="'.site_url().'training-attendees/'.$project_id.'/'.$meeting_id.'" class="btn btn-info  btn-sm fa fa-users"> View Attendees</a></td>
 								<td><a href="'.site_url().'meeting/print-attendees/'.$project_id.'/'.$meeting_id.'" class="btn btn-sm btn-warning pull-right fa fa-print"  target="_blank" > Print Attendees</a></td>
 								<td>'.$button.'</td>

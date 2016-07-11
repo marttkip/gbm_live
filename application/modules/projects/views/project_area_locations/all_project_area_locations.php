@@ -16,7 +16,7 @@
 						<th><a href="'.site_url().'tree-planting/project_areas/project_area_name/'.$order_method.'/'.$page.'">Watershed Name</a></th>
 						
 						<th><a href="'.site_url().'tree-planting/project_areas/last_modified/'.$order_method.'/'.$page.'">Last modified</a></th>
-						<th><a href="'.site_url().'tree-planting/project_areas/project_area_status/'.$order_method.'/'.$page.'">Status</a></th>
+						<th colspan="3"><a href="'.site_url().'tree-planting/project_areas/project_area_status/'.$order_method.'/'.$page.'">Status</a></th>
 					</tr>
 				</thead>
 				
@@ -90,6 +90,8 @@
 						<td>'.$project_area_name.'</td>
 						<td>'.$last_modified.'</td>
 						<td>'.$status.'</td>
+						<td>'.$button.'</td>
+						<td><a href="'.site_url().'gbm_administration/admin-delete-project/'.$project_id.'/'.$project_area_id.'" class="btn btn-sm btn-danger"  onclick="return confirm(\'Do you really want to delete '.$project_area_name.'?\');" title="Delete '.$project_area_name.'"><i class="fa fa-trash mr-xs"></i> </a></td>
 					</tr> 
 				';
 			}

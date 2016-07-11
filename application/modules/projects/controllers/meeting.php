@@ -470,5 +470,53 @@ class Meeting extends admin
 		redirect ('training-attendees/'.$project_id.'/'.$meeting_id);
 	}
 	
+	public function edit_training($project_id,$meeting_id)
+	{
+		
+		//form validation rules
+		$this->form_validation->set_rules('meeting_type_id', 'Meeting Type', 'required|xss_clean');
+		$this->form_validation->set_rules('meeting_venue', 'Venue', 'required|xss_clean');
+		
+		//if form has been submitted
+		if ($this->form_validation->run())
+		{
+			//update meeting
+			if($this->meeting_model->update_meeting($meeting_id))
+			{
+				$this->session->set_userdata('success_message', 'meeting updated successfully');
+			}
+			
+			else
+			{
+				$this->session->set_userdata('error_message', 'Could not update meeting. Please try again');
+			}
+			redirect('tree-planting/trainings/'.$project_id);
+		}
+		
+		//open the add new meeting
+		$data['title'] = 'Edit meeting';
+		
+		//select the meeting from the database
+		$query = $this->meeting_model->get_meeting($meeting_id);
+		
+		if ($query->num_rows() > 0)
+		{
+			$v_data['meeting'] = $query->row();
+			$v_data['meeting_id'] = $meeting_id;
+			$v_data['project_id'] = $project_id;
+			//$query = $this->products_model->all_products();
+			$v_data['meeting_details'] = $query;
+			$v_data['payment_methods'] = $this->meeting_model->get_payment_methods();
+			
+			$data['content'] = $this->load->view('meeting/edit_meeting', $v_data, true);
+		}
+		
+		else
+		{
+			$data['content'] = 'meeting does not exist';
+		}
+		
+		$this->load->view('admin/templates/general_page', $data);
+	}
 }
 ?>

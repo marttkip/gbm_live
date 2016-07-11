@@ -714,5 +714,28 @@ class Orders extends admin
 		
 		$this->load->view('projects/orders/print_receivable', $v_data);
 	}
+	
+	public function edit_recievable($receivable_id)
+	{
+		$data['title'] = 'Edit recievable';
+		//select the order from the database
+		$query = $this->orders_model->get_recievable($receivable_id);
+		
+		if ($query->num_rows() > 0)
+		{
+			$v_data['order'] = $query->row();
+			$v_data['products'] = $query->result();#
+			$v_data['payment_methods'] = $this->orders_model->get_payment_methods();
+			
+			$data['content'] = $this->load->view('orders/edit_recievable', $v_data, true);
+		}
+		
+		else
+		{
+			$data['content'] = 'Order does not exist';
+		}
+		
+		$this->load->view('admin/templates/general_page', $data);
+	}
 }
 ?>

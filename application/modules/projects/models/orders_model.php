@@ -140,9 +140,9 @@ class Orders_model extends CI_Model
 	*/
 	public function get_order_items($order_id)
 	{
-		$this->db->select('species.species_name,seedling_type.seedling_type_name, order_item.*');
-		$this->db->where('seedling_type.seedling_type_id = order_item.seedling_type_id AND species.species_id = order_item.species_id AND order_item.order_id = '.$order_id);
-		$query = $this->db->get('order_item, seedling_type,species');
+		$this->db->select('species.species_name,seedling_type.seedling_type_name, order_item.*, orders.order_number');
+		$this->db->where('seedling_type.seedling_type_id = order_item.seedling_type_id AND species.species_id = order_item.species_id AND orders.order_id = order_item.order_id AND  order_item.order_id = '.$order_id);
+		$query = $this->db->get('orders,order_item, seedling_type,species');
 		
 		return $query;
 	}
@@ -683,6 +683,15 @@ class Orders_model extends CI_Model
 	{
 		$this->db->where('community_group_id = '.$community_group_id);
 		$query = $this->db->get('community_group_member');
+		
+		return $query;
+	}
+	
+	public function get_recievable($receivable_id)
+	{
+		
+		$this->db->where('receivable_id = '.$receivable_id);
+		$query = $this->db->get('order_receivables');
 		
 		return $query;
 	}

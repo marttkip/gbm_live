@@ -72,7 +72,7 @@
 						$project_status = $row->project_status;
 						$project_donor = $row->project_donor;
 						$county_name = $row->county_name;
-						$project_status = $row->project_status_id;
+						$project_status = $row->project_status;
 						$project_instructions = $row->project_instructions;
 						$project_status_name = $row->project_status_name;
 						$created_by = $row->created_by;
@@ -89,13 +89,13 @@
 						if($project_status == 0)
 						{
 							$status = '<span class="label label-default">Deactivated</span>';
-							$button = '<a  href="'.site_url().'tree-planting/activate-project-area/'.$project_id.'" onclick="return confirm(\'Do you want to activate '.$project_title.'?\');" title="Activate '.$project_title.'"><i class="fa fa-thumbs-up mr-xs"></i> Activate</a>';
+							$button = '<a  href="'.site_url().'gbm/projects/activate-project/'.$project_id.'" onclick="return confirm(\'Do you want to activate '.$project_title.'?\');" title="Activate '.$project_title.'"><i class="fa fa-thumbs-up mr-xs"></i> Activate</a>';
 						}
 						//create activated status display
 						else if($project_status == 1)
 						{
 							$status = '<span class="label label-success">Active</span>';
-							$button = '<a  href="'.site_url().'tree-planting/deactivate-project-area/'.$project_id.'" onclick="return confirm(\'Do you want to deactivate '.$project_title.'?\');" title="Deactivate '.$project_title.'"><i class="fa fa-thumbs-down mr-xs"></i> Deactivate</a>';
+							$button = '<a  href="'.site_url().'gbm/projects/deactivate-project/'.$project_id.'" onclick="return confirm(\'Do you want to deactivate '.$project_title.'?\');" title="Deactivate '.$project_title.'"><i class="fa fa-thumbs-down mr-xs"></i> Deactivate</a>';
 						}
 				
 					
