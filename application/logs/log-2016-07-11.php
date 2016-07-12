@@ -3335,3 +3335,17 @@ DEBUG - 2016-07-11 10:14:39 --> File loaded: application/modules/admin/views/inc
 DEBUG - 2016-07-11 10:14:39 --> File loaded: application/modules/admin/views/templates/general_page.php
 DEBUG - 2016-07-11 10:14:39 --> Final output sent to browser
 DEBUG - 2016-07-11 10:14:39 --> Total execution time: 0.1087
+DEBUG - 2016-07-11 10:33:29 --> Config Class Initialized
+DEBUG - 2016-07-11 10:33:29 --> Hooks Class Initialized
+DEBUG - 2016-07-11 10:33:29 --> Utf8 Class Initialized
+DEBUG - 2016-07-11 10:33:29 --> UTF-8 Support Enabled
+DEBUG - 2016-07-11 10:33:29 --> URI Class Initialized
+DEBUG - 2016-07-11 10:33:29 --> Router Class Initialized
+ERROR - 2016-07-11 10:33:29 --> 404 Page Not Found --> 
+DEBUG - 2016-07-11 10:33:29 --> Config Class Initialized
+DEBUG - 2016-07-11 10:33:29 --> Hooks Class Initialized
+DEBUG - 2016-07-11 10:33:29 --> Utf8 Class Initialized
+DEBUG - 2016-07-11 10:33:29 --> UTF-8 Support Enabled
+DEBUG - 2016-07-11 10:33:29 --> URI Class Initialized
+DEBUG - 2016-07-11 10:33:29 --> Router Class Initialized
+ERROR - 2016-07-11 10:33:29 --> 404 Page Not Found --> 
