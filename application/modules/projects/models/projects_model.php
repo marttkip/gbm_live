@@ -884,4 +884,68 @@ class Projects_model extends CI_Model
 			return FALSE;
 		}
 	}
+	
+	public function deactivate_project($project_id)
+	{
+		$data = array(
+				'project_status'=>0
+			);
+		$this->db->where('project_id', $project_id);
+		
+		if($this->db->update('projects', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+	
+	public function activate_project($project_id)
+	{
+		$data = array(
+				'project_status'=>1
+			);
+		$this->db->where('project_id', $project_id);
+		
+		if($this->db->update('projects', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+	
+	public function admin_delete_project($project_id)
+	{
+			$data = array(
+				'project_delete'=>1
+			);
+		$this->db->where('project_id', $project_id);
+		
+		if($this->db->update('projects', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+	
+	public function admin_delete_project_watershed($project_id,$project_area_id)
+	{
+		$data = array(
+				'project_watershed_delete'=>1
+			);
+		$this->db->where('project_area_id', $project_area_id);
+		
+		if($this->db->update('project_watershed', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
 }

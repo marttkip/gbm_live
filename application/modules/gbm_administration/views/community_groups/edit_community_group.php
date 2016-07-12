@@ -15,15 +15,15 @@
 
     if(!empty($validation_errors))
     {
-        $community_group_id = set_value('$row->community_group_id');
-        $community_group_name = set_value('$row->community_group_name');
-        $community_group_contact_person_name = set_value('$row->community_group_contact_person_name');
-        $community_group_contact_person_phone1 = set_value('$row->community_group_contact_person_phone1');
-        $community_group_contact_person_phone2 = set_value('$row->community_group_contact_person_phone2');
-        $community_group_contact_person_email1 = set_value('$row->community_group_contact_person_email1');
-        $community_group_contact_person_email2 = set_value('$row->community_group_contact_person_email2');
-        $community_group_description = set_value('$row->community_group_description');
-        $community_group_status = set_value('$row->community_group_status');
+        $community_group_id = set_value('community_group_id');
+        $community_group_name = set_value('community_group_name');
+        $community_group_contact_person_name = set_value('community_group_contact_person_name');
+        $community_group_contact_person_phone1 = set_value('community_group_contact_person_phone1');
+        $community_group_contact_person_phone2 = set_value('community_group_contact_person_phone2');
+        $community_group_contact_person_email1 = set_value('community_group_contact_person_email1');
+        $community_group_contact_person_email2 = set_value('community_group_contact_person_email2');
+        $community_group_description = set_value('community_group_description');
+        $community_group_status = set_value('community_group_status');
         
         echo '<div class="alert alert-danger"> Oh snap! '.$validation_errors.' </div>';
     }

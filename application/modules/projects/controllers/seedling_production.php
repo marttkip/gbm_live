@@ -161,7 +161,7 @@ class Seedling_production extends admin {
 
 	public function tally_sheet($seedling_production_id , $project_id)
 	{
-		$where = 'seedling_production_id = '.$seedling_production_id;
+		$where = 'nursery_tally_delete = 0 AND seedling_production_id = '.$seedling_production_id;
 		$table = 'nursery_tally';
 	
 		$segment = 5;
@@ -358,6 +358,45 @@ class Seedling_production extends admin {
 		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
 		
 		redirect ('tree-planting/seedling-tally/'.$seedling_production_id.'/'.$project_id);
+	}
+	
+	public function delete_tally_sheet($seedling_production_id,$nursery_tally_id)
+	{
+		$data = array(
+					'nursery_tally_delete'=>1
+				);
+				
+		$this->db->where('nursery_tally_id = '.$nursery_tally_id);
+		$this->db->update('nursery_tally', $data);
+		$this->session->set_userdata('success_message', 'Successfully deleted tally');
+		
+		redirect('tree-planting/seedling-tally/'.$seedling_production_id.'/'.$nursery_tally_id);
+	}
+	
+	public function activate_tally_sheet($nursery_tally_id,$seedling_production_id)
+	{
+		$data = array(
+					'nursery_tally_status'=>1
+				);
+				
+		$this->db->where('nursery_tally_id = '.$nursery_tally_id);
+		$this->db->update('nursery_tally', $data);
+		$this->session->set_userdata('success_message', 'Successfully activated tally');
+		
+		redirect('tree-planting/seedling-tally/'.$seedling_production_id.'/'.$nursery_tally_id);
+	}
+	
+	public function deactivate_tally_sheet($nursery_tally_id,$seedling_production_id)
+	{
+		$data = array(
+					'nursery_tally_status'=>0
+				);
+				
+		$this->db->where('nursery_tally_id = '.$nursery_tally_id);
+		$this->db->update('nursery_tally', $data);
+		$this->session->set_userdata('success_message', 'Successfully deactivated tally');
+		
+		redirect('tree-planting/seedling-tally/'.$seedling_production_id.'/'.$nursery_tally_id);
 	}
 
 }

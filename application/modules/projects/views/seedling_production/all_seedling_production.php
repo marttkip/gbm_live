@@ -17,7 +17,6 @@
 						<th>Ready For Planting</th>
 						<th>Not For Planting</th>
 						<th>In Potting Bags</th>
-						<th>Status</th>
 						<th colspan="2">Actions</th>
 					</tr>
 				</thead>
@@ -57,7 +56,7 @@
 				else if($seedling_production_status == 1)
 				{
 					$status = '<span class="label label-success">Active</span>';
-					$button = '<a class="btn btn-default btn-sm" href="'.site_url().'gbm-administration/deactivate-county/'.$seedling_production_id.'" onclick="return confirm(\'Do you want to deactivate '.$community_group_name.'?\');" title="Deactivate '.$community_group_name.'"><i class="fa fa-thumbs-down"></i></a>';
+					$button = '<a class="btn btn-default btn-sm" href="'.site_url().'gbm-administration/deactivate-seed/'.$seedling_production_id.'" onclick="return confirm(\'Do you want to deactivate '.$community_group_name.'?\');" title="Deactivate '.$community_group_name.'"><i class="fa fa-thumbs-down"></i></a>';
 				}
 				
 				//creators & editors
@@ -106,12 +105,9 @@
 						<td>'.$ready_for_planting.'</td>
 						<td>'.$not_ready_for_planting.'</td>
 						<td>'.$in_potting_bags.'</td>
-						<td>'.$status.'</td>
 						
-						<td><a href="'.site_url().'tree-planting/seedling-tally/'.$seedling_production_id.'/'.$project_id.'" class="btn btn-sm btn-warning" ><i class="fa fa-eye"></i></a></td>
-						<td>'.$button.'</td>
-
-						<td><a href="'.site_url().'gbm-administration/delete-county/'.$seedling_production_id.'" class="btn btn-sm btn-danger" onclick="return confirm(\'Do you really want to delete '.$community_group_name.'?\');" title="Delete '.$community_group_name.'"><i class="fa fa-trash"></i></a></td>
+						<td><a href="'.site_url().'tree-planting/seedling-tally/'.$seedling_production_id.'/'.$project_id.'" class="btn btn-sm btn-warning" ><i class="fa fa-eye"></i>Tally Sheet</a></td>
+						
 					</tr> 
 				';
 				$v_data['seedling_production_id'] = $seedling_production_id;

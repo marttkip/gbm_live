@@ -234,6 +234,11 @@ $route['tree-planting/deactivate-group-member/(:num)/(:num)/(:num)'] = 'gbm_admi
 $route['gbm-administration/projects'] = 'projects/index/list';
 $route['gbm-administration/projects/(:num)'] = 'gbm-administration/projects/index/$1';
 $route['gbm-administration/add-project'] = 'projects/add_project';
+$route['gbm_administration/project-edit/(:num)'] = 'projects/project_edit/$1';
+$route['gbm/projects/activate-project/(:num)'] = 'projects/activate_project/$1';
+$route['gbm_administration/delete-project/(:num)'] = 'projects/admin_delete_project/$1';
+$route['gbm_administration/admin-delete-project/(:num)/(:num)'] = 'projects/admin_delete_project_watersheds/$1/$2';
+$route['gbm/projects/deactivate-project/(:num)'] = 'projects/deactivate_project/$1';
 $route['gbm-administration/project-edit/(:num)/(:any)'] = 'projects/edit_project/$1/$2';
 
 
@@ -259,6 +264,10 @@ $route['upload-project-documents-page/(:num)'] = 'projects/projects/upload_proje
 
 
 $route['gbm-administration/project-watersheds'] = 'projects/project_areas/index';
+$route['tree-planting/edit-area/(:num)']= 'projects/project_areas/edit_tree_project_area/$1';
+$route['tree-planting/deactivate-area-location/(:num)'] = 'projects/project_areas/deactivate_tree_project_area/$1';
+$route['tree-planting/activate-area-location/(:num)'] = 'projects/project_areas/activate_tree_project_area/$1';
+$route['tree-planting/delete-area-location/(:num)'] = 'projects/project_areas/delete_tree_project_area/$1';
 $route['gbm-administration/project-watersheds/(:any)/(:any)/(:num)'] = 'projects/project_areas/index/$1/$2/$3';
 $route['gbm-administration/project-watersheds/(:any)/(:any)'] = 'projects/project_areas/index/$1/$2';
 $route['gbm-administration/add-project-area'] = 'projects/project_areas/add_project_area';
@@ -305,6 +314,9 @@ $route['gbm-administration/print-nursery/(:num)/(:num)'] = 'projects/seedling_pr
 
 
 $route['tree-planting/seedling-tally/(:num)/(:num)'] = 'projects/seedling_production/tally_sheet/$1/$2';
+$route['gbm-administration/delete-tallysheet/(:num)/(:num)'] = 'projects/seedling_production/delete_tally_sheet/$1/$2';
+$route['gbm-administration/activate-tallysheet/(:num)/(:num)'] = 'projects/seedling_production/activate_tally_sheet/$1/$2';
+$route['gbm-administration/deactivate-tallysheet/(:num)/(:num)'] = 'projects/seedling_production/deactivate_tally_sheet/$1/$2';
 $route['tree-planting/seedling-production/(:num)/(:any)/(:any)/(:num)'] = 'projects/seedling_production/index/$1/$2/$3/$3';
 $route['tree-planting/add-tally-numbers/(:num)/(:num)'] = 'projects/seedling_production/add_seedling_production_tally/$1/$2';
 $route['tree-planting/print-ctn-recievable/(:num)']='projects/ctn/print_ctn_recievable/$1';
@@ -361,7 +373,8 @@ $route['tree-planting/deactivate-order/(:num)/(:num)'] = 'projects/orders/deacti
 
 $route['tree-planting/order-items/(:num)/(:num)/(:num)/(:num)'] = 'projects/orders/add_order_item/$1/$2/$3/$4';
 $route['tree-planting/print-order-items/(:num)/(:num)/(:num)/(:num)'] = 'projects/orders/print_order_item/$1/$2/$3/$4';
-$route['inventory/update-order-item/(:num)/(:any)/(:num)'] = 'inventory/orders/update_order_item/$1/$2/$3';
+$route['inventory/update-order-item/(:num)/(:any)/(:num)'] = 'projects/orders/update_order_item/$1/$2/$3';
+$route['inventory/delete-order-item/(:num)'] = 'projects/orders/delete_order_item/$1';
 $route['inventory/update-supplier-prices/(:num)/(:any)/(:num)'] = 'inventory/orders/update_supplier_prices/$1/$2/$3';
 $route['inventory/send-for-correction/(:num)'] = 'inventory/orders/send_order_for_correction/$1';
 $route['inventory/send-for-approval/(:num)'] = 'inventory/orders/send_order_for_approval/$1';
@@ -369,6 +382,7 @@ $route['inventory/send-for-approval/(:num)/(:num)'] = 'inventory/orders/send_ord
 $route['inventory/generate-lpo/(:num)'] = 'inventory/orders/print_lpo_new/$1';
 
 $route['tree-planting/receivables/(:num)/(:num)/(:num)'] = 'projects/orders/receivables/$1/$2/$3';
+$route['tree-planting/edit-receivable/(:num)'] = 'projects/orders/edit_recievable/$1';
 $route['tree-planting/generate-form9/(:num)/(:num)/(:num)'] = 'projects/orders/generate_form9/$1/$2/$3';
 $route['tree-planting/print-receivable/(:num)'] = 'projects/orders/print_receivable/$1';
 $route['tree-planting/add-receivable/(:num)/(:num)/(:num)'] = 'projects/orders/add_receivables/$1/$2/$3';

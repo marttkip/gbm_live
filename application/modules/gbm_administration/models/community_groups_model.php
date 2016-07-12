@@ -116,23 +116,29 @@ class Community_groups_model extends CI_Model
 		$data = array(
 				'community_group_name'=>$this->input->post('community_group_name'),
 				'community_group_contact_person_name'=>$this->input->post('community_group_contact_person_name'),
+				'community_group_contact_person_email1'=>$this->input->post('community_group_contact_person_email1'),
+				'community_group_contact_person_email2'=>$this->input->post('community_group_contact_person_email2'),
 				'community_group_contact_person_phone1'=>$this->input->post('community_group_contact_person_phone1'),
+				'community_group_contact_person_phone2'=>$this->input->post('community_group_contact_person_phone2'),
+				'community_group_description' =>$this->input->post('community_group_description'),
 				'bank_name'=>$this->input->post('bank_name'),
 				'account_name'=>$this->input->post('account_name'),
 				'account_number'=>$this->input->post('account_number'),
 				'now_activities'=>$this->input->post('now_activities'),
 				'later_activities'=>$this->input->post('later_activities'),
 				'chief'=>$this->input->post('chief_name'),
-				'sub_chief'=>$this->input->post('sub_chief_name'),
+				'sub_chief'=>$this->input->post('sub_chief'),
 				'address'=>$this->input->post('address'),
 				'location'=>$this->input->post('location'),
+				'sub_location'=>$this->input->post('sub_location'),
 				'county'=>$this->input->post('county'),
 				'district'=>$this->input->post('district'),
 				'division'=>$this->input->post('division'),
 				'market'=>$this->input->post('market'),
 				'mp'=>$this->input->post('mp'),
 				'community_group_status'=>1,
-				'modified_by'=>$this->session->userdata('personnel_id')
+				'modified_by'=>$this->session->userdata('personnel_id'),
+				'last_modified' => date('Y-m-d H-i-s')
 			);
 			
 		$this->db->where('community_group_id', $company_id);
@@ -169,11 +175,17 @@ class Community_groups_model extends CI_Model
 	*/
 	public function delete_community_group($company_id)
 	{
-		if($this->db->delete('community_group', array('community_group_id' => $company_id)))
+		$data = array(
+					'community_group_deleted'=>1
+				);
+				
+		$this->db->where('community_group_id = '.$company_id);
+		if($this->db->update('community_group', $data))
 		{
 			return TRUE;
 		}
-		else{
+		else
+		{
 			return FALSE;
 		}
 	}

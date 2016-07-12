@@ -23,7 +23,7 @@ class Community_groups extends admin
 	*/
 	public function index($project_id, $order = 'community_group_name', $order_method = 'ASC') 
 	{
-		$where = 'community_group_id > 0 AND is_ctn = 0 AND  project_id ='.$project_id;
+		$where = 'community_group_id > 0 AND community_group_deleted = 0 AND is_ctn = 0 AND  project_id ='.$project_id;
 		$table = 'community_group';
 		//pagination
 		$segment = 6;

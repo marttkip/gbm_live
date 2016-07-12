@@ -31,7 +31,7 @@ class Project_areas extends admin
 	*/
 	public function index($order = 'project_area_id', $order_method = 'DESC') 
 	{
-		$where = 'project_areas.project_area_id > 0 ';
+		$where = 'project_areas.project_area_id > 0 AND project_area_delete = 0';
 		$table = 'project_areas';
 		//pagination
 		$segment = 5;
@@ -264,7 +264,7 @@ class Project_areas extends admin
 	*/
 	public function area_locations($project_id,$order = 'project_area_name', $order_method = 'ASC') 
 	{
-		 $where = 'project_areas.project_area_id = project_watershed.project_area_id AND project_watershed.project_id  = '.$project_id;
+		 $where = 'project_areas.project_area_id = project_watershed.project_area_id AND project_watershed.project_watershed_delete = 0 AND  project_watershed.project_id  = '.$project_id;
 		$table = 'project_areas,project_watershed';
 		//pagination
 		$segment = 6;
@@ -547,6 +547,69 @@ class Project_areas extends admin
 		$v_data['title'] = $data['title'] = $this->site_model->display_page_title();
 		
 		redirect ('tree-planting/area-locations/'.$project_id);
+	}
+	
+	//edit tree planting project ares
+	public function edit_tree_project_area($project_area_id)
+	{
+		
+		//form validation rules
+		$this->form_validation->set_rules('project_area_name', 'Area Name', 'required|xss_clean');
+		$this->form_validation->set_rules('project_area_status', 'Area Status', 'required|xss_clean');
+		
+		//if form has been submitted
+		if ($this->form_validation->run())
+		{
+			//update project_area
+			if($this->project_areas_model->update_tree_project_area($project_area_id))
+			{
+				$this->session->set_userdata('success_message', 'project_area watershed updated successfully');
+				redirect('gbm-administration/project-watersheds');
+			}
+			
+			else
+			{
+				$this->session->set_userdata('error_message', 'Could not update projectarea. Please try again');
+			}
+		}
+		
+		//open the edit new project_area
+		$data['title'] = 'Edit project watershed';
+		$v_data['title'] = $data['title'];
+		$v_data['project_area_id'] = $project_area_id;
+		
+		//select the project_area from the database
+		$query = $this->project_areas_model->get_project_area_location($project_area_id);
+		
+		$v_data['project_area'] = $query->result();
+		
+		$data['content'] = $this->load->view('project_area_locations/edit_tree_watershed', $v_data, true);
+		
+		$this->load->view('admin/templates/general_page', $data);
+	}
+	
+	public function deactivate_tree_project_area($project_area_id)
+	{
+		$this->project_areas_model->deactivate_tree_project_area($project_area_id);
+		$this->session->set_userdata('success_message', 'project area watershed deactivated successfully');
+	 
+		redirect('gbm-administration/project-watersheds');
+	}
+	
+	public function activate_tree_project_area($project_area_id)
+	{
+		$this->project_areas_model->activate_tree_project_area($project_area_id);
+		$this->session->set_userdata('success_message', 'project area watershed activated successfully');
+		
+		redirect('gbm-administration/project-watersheds');
+	}
+	public function delete_tree_project_area($project_area_id)
+	{
+		
+		$this->project_areas_model->delete_tree_project_area($project_area_id);
+		$this->session->set_userdata('success_message', 'project area watershed deleted successfully');
+		
+		redirect('gbm-administration/project-watersheds');
 	}
 }
 ?>

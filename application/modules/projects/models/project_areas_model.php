@@ -110,7 +110,8 @@ class Project_areas_model extends CI_Model
 		{
 			return TRUE;
 		}
-		else{
+		else
+		{
 			return FALSE;
 		}
 	}
@@ -143,6 +144,27 @@ class Project_areas_model extends CI_Model
 		}
 	}
 	
+	public function update_tree_project_area($project_area_id)
+	{
+		
+		$data = array(
+				'project_area_name'=>$this->input->post('project_area_name'),
+				'project_area_status'=>$this->input->post('project_area_status'),
+				'branch_code'=>$this->session->userdata('branch_code'),
+				'modified_by'=>$this->session->userdata('personnel_id'),
+				'last_modified'=>date('Y-m-d H:i:s'),
+			);
+			
+		$this->db->where('project_area_id', $project_area_id);
+		if($this->db->update('project_areas', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+	
 	/*
 	*	get a single project_area's details
 	*	@param int $project_area_id
@@ -159,6 +181,15 @@ class Project_areas_model extends CI_Model
 		return $query;
 	}
 	
+	public function get_project_area_location($project_area_id)
+	{
+		$this->db->from('project_areas');
+		$this->db->select('*');
+		$this->db->where('project_area_id = '.$project_area_id);
+		$query = $this->db->get();
+		
+		return $query;
+	}
 	/*
 	*	Delete an existing project_area
 	*	@param int $project_area_id
@@ -609,6 +640,56 @@ class Project_areas_model extends CI_Model
 		$query = $this->db->get('project_areas,project_watershed');
 		
 		return $query;
+	}
+	
+	public function activate_tree_project_area($project_area_id)
+	{
+		
+		$data = array(
+				'project_area_status' => 1
+			);
+		$this->db->where('project_area_id', $project_area_id);
+		
+		if($this->db->update('project_areas', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+	
+	public function deactivate_tree_project_area($project_area_id)
+	{
+		
+		$data = array(
+				'project_area_status' => 0
+			);
+		$this->db->where('project_area_id', $project_area_id);
+		
+		if($this->db->update('project_areas', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
+	}
+	
+	public function delete_tree_project_area($project_area_id)
+	{
+		$data = array(
+				'project_area_delete' => 1
+			);
+		$this->db->where('project_area_id', $project_area_id);
+		
+		if($this->db->update('project_areas', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
 	}
 }
 ?>

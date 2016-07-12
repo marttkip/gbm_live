@@ -406,6 +406,7 @@ else if($order_approval_status == 2 || $order_approval_status == 3)
 						foreach($order_item_query->result() as $res)
 						{
 							$order_id = $res->order_id;
+							$order_number = $res->order_number;
 							$seedling_type_name = $res->seedling_type_name;
 							$species_name = $res->species_name;
 							$order_item_quantity = $res->order_item_quantity;
@@ -425,7 +426,7 @@ else if($order_approval_status == 2 || $order_approval_status == 3)
 								if($order_approval_status == 0)
 								{
 									$total_price = $order_item_price * $order_item_quantity;
-				                    $result .= ' '.form_open('inventory/update-order-item/'.$order_id.'/'.$order_item_id).'
+				                    $result .= ' '.form_open('inventory/update-order-item/'.$order_id.'/'.$order_number.'/'.$order_item_id).'
 												<tr>
 													<td>'.$count.'</td>
 													<td>'.$seedling_type_name.'</td>
@@ -434,9 +435,9 @@ else if($order_approval_status == 2 || $order_approval_status == 3)
 													<td><input type="text" class="form-control" name="unit_price" value="'.$order_item_price.'"></td>
 													<td>'.number_format($total_price,2).'</td>
 													<td><button class="btn btn-success btn-sm" type="submit"><i class="fa fa-pencil"></i> Edit Order</button></td>
+													'.form_close().'
 													<td><a href="'.site_url("inventory/delete-order-item/".$order_item_id).'" onclick="return confirm("Do you want to delete '.$seedling_type_name.'?")" title="Delete '.$seedling_type_name.' class="btn btn-danger btn-sm">Delete</a></td>
 												</tr>
-												'.form_close().'
 												';
 								}
 								else if($order_approval_status == 4)

@@ -84,7 +84,8 @@ $result = '<div class="padd">';
 								<td>'.$fruit_trees.'</td>
 								<td>'.$indegenous_trees.'</td>
 								<td>'.$exotic_trees.'</td>
-								<td>'.date('jS M Y',strtotime($created)).'</td>								
+								<td>'.date('jS M Y',strtotime($created)).'</td>	
+								<td><a href="'.site_url().'tree-planting/edit-receivable/'.$receivable_id.'" class="btn btn-warning  btn-sm fa fa-pencil"></a></td>							
 								<td><a href="'.site_url().'tree-planting/print-receivable/'.$receivable_id.'" class="btn btn-warning  btn-sm fa fa-print" target="_blank"></a></td>
 								<td><a href="#" class="btn btn-danger  btn-sm fa fa-trash"></a></td>
 								

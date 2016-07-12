@@ -95,8 +95,8 @@ class Meeting_model extends CI_Model
 	public function get_meeting($meeting_id)
 	{
 		$this->db->select('*');
-		$this->db->where('meeting.meeting_status = meeting_status.meeting_status_id AND users.user_id = meeting.user_id AND meeting.meeting_id = '.$meeting_id);
-		$query = $this->db->get('meeting, meeting_status, users');
+		$this->db->where('meeting.meeting_delete = 0 AND attendees.attendee_id = meeting_attendees.attendee_id AND meeting.meeting_id = meeting_attendees.meeting_id AND meeting.meeting_id = '.$meeting_id);
+		$query = $this->db->get('meeting, attendees, meeting_attendees');
 		
 		return $query;
 	}
@@ -926,5 +926,30 @@ class Meeting_model extends CI_Model
 		}
 		
 		return $return;
+	}
+	
+	public function update_meeting($meeting_id)
+	{
+		
+		
+		$data = array(
+				'meeting_status'=>1,
+				'meeting_description'=>$this->input->post('meeting_description'),
+				'meeting_type_id'=>$this->input->post('meeting_type_id'),
+				'activity_title'=>$this->input->post('activity_title'),
+				'meeting_start_date'=>$this->input->post('meeting_start_date'),
+				'meeting_start_date'=>$this->input->post('meeting_start_date'),
+				'meeting_venue' =>$this->input->post('meeting_venue'),
+				'modified_by'=>$this->session->userdata('personnel_id')
+			);
+		
+		$this->db->where('meeting_id', $meeting_id);
+		if($this->db->update('meeting', $data))
+		{
+			return TRUE;
+		}
+		else{
+			return FALSE;
+		}
 	}
 }
